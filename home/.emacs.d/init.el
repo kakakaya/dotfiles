@@ -180,13 +180,13 @@
 (auto-install-compatibility-setup)             ; 互換性確保
 ;;auto-complete
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/home/kakakaya/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 ;;helm
-(add-to-list 'load-path "/home/kakakaya/.emacs.d/helm")
+(add-to-list 'load-path "~/.emacs.d/helm")
 (require 'helm-config)
 ;zenburn-emacs
-(add-to-list 'custom-theme-load-path  "/home/kakakaya/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
 
 (custom-set-variables

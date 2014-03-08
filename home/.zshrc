@@ -26,6 +26,7 @@ setopt list_packed
 setopt no_beep
 setopt nolistbeep
 setopt rm_star_wait
+setopt EXTENDED_GLOB
 #zsh内蔵エディタを使う
 autoload -U zcalc
 autoload zed
