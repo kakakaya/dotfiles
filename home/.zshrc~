@@ -70,6 +70,7 @@ alias cdiff='colordiff -c'
 alias ttyclock='tty-clock -stc'
 alias boundclock='tty-clock -str'
 alias uecchrome='chromium --proxy-server=proxy-east.uec.ac.jp:8080 1>/dev/null &'
+alias zshupdate='cp $HOME/.zshrc $HOME/.zshrc_log/.`strdate`.zshrc;scp moon:.zshrc $HOME/.'
 alias cati='catimg.sh'
 alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
@@ -84,7 +85,6 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g LE='|& less'
-alias -g LER='|& less -R'
 alias -g HE='|& head'
 alias -g TE='|& tail'
 alias -g GE='|& grep'
@@ -146,6 +146,8 @@ case ${HOST} in
 	;;
     Azurite)
 #ThinkpadX200 setting
+	#alias
+	alias yumUpdate='sudo yum update;clear'
 	#export
 	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
 	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
