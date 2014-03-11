@@ -1,6 +1,9 @@
 ;;; ロードパスの追加
 (setq load-path (append
                  '("~/.emacs.d")
+;;                 '("~/.emacs.d/auto-install")
+                 '("~/.emacs.d/el-get")
+                 '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/elisp")
                  load-path))
 ;; Localeに合わせた環境の設定
@@ -218,13 +221,17 @@
 (require 'f)
 (require 'hlinum)
 (custom-set-variables
- '(global-linum-mode t))
-(require 'highlight-symbol)
-(setq highlight-symbol-colors '("DarkOrange" "DodgerBlue1" "DeepPink1")) ;; 使いたい色を設定、repeatしてくれる
+'(global-linum-mode t))
 
-;; 適宜keybindの設定
-(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
-(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+;; http://tkr.hatenablog.com/entry/2013/07/20/142425
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode t)
 
+;; d.hatena.ne.jp/uk/ar/20120401/1333282805
+(require 'flex-autopair)
+(flex-autopair-mode 1)
 
-
+;; elpy
+(package-initialize)
+(elpy-enable)
+(elpy-use-ipython)
