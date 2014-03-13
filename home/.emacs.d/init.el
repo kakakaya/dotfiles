@@ -176,6 +176,8 @@
             (set-face-foreground 'diff-added-face "white")
             (set-face-background 'diff-added-face "SaddleBrown")
             (set-face-foreground 'diff-changed-face "DeepSkyBlue1")))
+
+(require 'python)
 ;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
@@ -183,8 +185,8 @@
 (auto-install-compatibility-setup)             ; 互換性確保
 ;;auto-complete
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 ;;helm
 (add-to-list 'load-path "~/.emacs.d/helm")
 (require 'helm-config)
@@ -235,3 +237,7 @@
 (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
+
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
