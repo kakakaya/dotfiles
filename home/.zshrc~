@@ -1,3 +1,4 @@
+# -*- Mode: shell-script;coding:utf-8 -*- #
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=500000
@@ -14,7 +15,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-#setopt?
+# ---------------- setopt/autoload/zstyle ---------------- #
 setopt prompt_subst
 setopt auto_pushd
 setopt auto_menu
@@ -34,11 +35,12 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 #入力途中の履歴補完
 #bindkey "^P" history-beginning-search-backward-end
 #bindkey "^N" history-beginning-search-forward-end
-
 setopt notify            # バックグラウンドジョブの状態変化を即時報告
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 LISTMAX=1000 #補完リストが多いときに尋ねない
-#Alias
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+
+# ---------------- alias ---------------- #
 alias ch=cd
 alias md=mkdir
 alias ls='ls -h --show-control-char --color=always'
@@ -49,10 +51,10 @@ alias lla='ll -a'
 alias lli='ll -i'
 alias l.='ls -d .[a-zA-Z]* --color=always'
 alias ll.='l. -lt'
-alias less='less -MN'
+alias less='less -MN -gj10'
 alias em='emacs -nw'
 alias strdate='date +%Y-%m-%d_%H-%M-%S'
-alias Screenshot='import ~/Pictures/`strdate`.png'
+alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
 alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
 alias gpp='g++'
 alias sudo='sudo ' #makes alias-sudo able
@@ -67,15 +69,32 @@ alias asdf='setxkbmap dvorak'
 alias fdsa='setxkbmap dvorak'
 alias lxmodmap='xmodmap ~/.Xmodmap'
 alias cdiff='colordiff -c'
-alias ttyclock='tty-clock -stc'
-alias boundclock='tty-clock -str'
-alias uecchrome='chromium --proxy-server=proxy-east.uec.ac.jp:8080 1>/dev/null &'
-alias zshupdate='cp $HOME/.zshrc $HOME/.zshrc_log/.`strdate`.zshrc;scp moon:.zshrc $HOME/.'
+alias ttyclock='tty-clock -stc' # Nomal
+alias boundclock='tty-clock -str' # It moves!
+alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null &'
 alias cati='catimg.sh'
 alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
 alias streaming='tw -st'
+
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+function runcpp () { g++ -O2 $1; ./a.out }
+if [ `uname` = "Darwin" ]; then
+    alias google-chrome='open -a Google\ Chrome'
+else
+    alias google-chrome='chromium'
+fi
+alias chrome='google-chrome'
+alias -s html=chrome
+alias -s {c,cpp}=runcpp
+if [ `uname` = "Darwin" ]; then
+    alias eog='open -a Preview'
+fi
+alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+alias -s mp3=mplayer
+alias -s py=python
+
 #pipe
 alias -g L='| lv'
 alias -g H='| head'
@@ -85,6 +104,7 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g LE='|& less'
+alias -g LER='|& less -R'
 alias -g HE='|& head'
 alias -g TE='|& tail'
 alias -g GE='|& grep'
@@ -92,26 +112,7 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-function runcpp () { g++ -O2 $1; ./a.out }
-if [ `uname` = "Darwin" ]; then
-  alias google-chrome='open -a Google\ Chrome'
-fi
-alias chrome='google-chrome'
-alias -s html=chrome
-alias -s {c,cpp}=runcpp
-if [ `uname` = "Darwin" ]; then
-  alias eog='open -a Preview'
-fi
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
-alias -s mp3=mplayer
-alias -s py=python
 
-
-#EXPORT/EVAL
-export EDITOR='emacs -nw'
-export LANG=ja_JP.UTF8
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 eval "$(hub alias -s)"
 #PROMPT
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:fg=yellow, isearch:bold,fg=red)
@@ -146,8 +147,6 @@ case ${HOST} in
 	;;
     Azurite)
 #ThinkpadX200 setting
-	#alias
-	alias yumUpdate='sudo yum update;clear'
 	#export
 	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
 	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2

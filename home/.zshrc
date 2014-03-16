@@ -60,7 +60,6 @@ alias gpp='g++'
 alias sudo='sudo ' #makes alias-sudo able
 #alias unzip='gunzip -S zip'
 #alias untargz='tar -zxvf'
-alias rmd='rm -r'
 alias rmi='rm -i'
 #Keyboard
 alias aoeu='setxkbmap us'
