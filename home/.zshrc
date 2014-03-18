@@ -118,7 +118,7 @@ eval "$(hub alias -s)"
 PROMPT="
 [%n@%m]:%F{green}%~%f
 %#"
-RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"
+((RPROMPT= $COLORTERM==1 ? "%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*" : "%(?.%F{green}OK%f.%F{red}NG[%?]%f)%*"))
 PROMPT2="%_%%>"
 SPROMPT="%R? maybe %r.[nyae]"
 
@@ -126,7 +126,6 @@ SPROMPT="%R? maybe %r.[nyae]"
 case ${HOST} in
     sun)
 	alias ls='ls'
-	RPROMPT="%(?.%F{green}OK%f.%F{red}Error!%B[%?]%b%f) %*"
 	;;
     nest*|fg8*|rise*)
 	#alias
@@ -136,8 +135,6 @@ case ${HOST} in
 		alias kagitail='tail -1 /var/log/kagisys.log'
 		;;
 	esac
-	#prompt
-	RPROMPT="%(?.%F{green}OK%f.%F{red}Error!%B[%?]%b%f) %*"
 	#export
 	export http_proxy='http://proxy.uec.ac.jp:8080'
 	export ftp_proxy='http://proxy.uec.ac.jp:8080'
