@@ -76,6 +76,7 @@ alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
 alias streaming='tw -st'
+alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 function runcpp () { g++ -O2 $1; ./a.out }
