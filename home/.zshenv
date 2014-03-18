@@ -41,8 +41,7 @@ case "$TERM" in
     #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 esac
 export EDITOR='emacs -nw'
-export LANG=ja_JP.UTF8
-[ $COLORTERM == 0 ] && export LANG=C
+if [ $COLORTERM -eq 1 ]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 userpath=( \			# 配列に候補を入れる
     $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
     $HOME/bin \

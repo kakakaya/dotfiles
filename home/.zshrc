@@ -118,7 +118,7 @@ eval "$(hub alias -s)"
 PROMPT="
 [%n@%m]:%F{green}%~%f
 %#"
-((RPROMPT= $COLORTERM==1 ? "%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*" : "%(?.%F{green}OK%f.%F{red}NG[%?]%f)%*"))
+if [ $COLORTERM -eq 1 ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
 PROMPT2="%_%%>"
 SPROMPT="%R? maybe %r.[nyae]"
 
