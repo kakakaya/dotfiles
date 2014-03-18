@@ -42,6 +42,7 @@ case "$TERM" in
 esac
 export EDITOR='emacs -nw'
 export LANG=ja_JP.UTF8
+[ $COLORTERM == 0 ] && export LANG=C
 userpath=( \			# 配列に候補を入れる
     $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
     $HOME/bin \
