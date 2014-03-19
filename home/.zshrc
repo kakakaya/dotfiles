@@ -41,7 +41,6 @@ LISTMAX=1000 #補完リストが多いときに尋ねない
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # ---------------- alias ---------------- #
-alias ch=cd
 alias md=mkdir
 alias ls='ls -h --show-control-char --color=always'
 alias lh=ls
@@ -117,7 +116,7 @@ eval "$(hub alias -s)"
 #PROMPT
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:fg=yellow, isearch:bold,fg=red)
 PROMPT="
-[%n@%m]:%F{green}%~%f
+[%n@%m]<($LINENO)>:%F){green}%~%f
 %#"
 if [ $COLORTERM -eq 1 ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
 PROMPT2="%_%%>"
@@ -187,12 +186,5 @@ function extract() {
   esac
 }
 
-#EXEC(LAST)
-w
-echo
-case ${HOST} in
-    nest*)
-	#catimg.sh printIt/Done/maked_MMA.jpg
-	echo ''
-	;;
-esac
+#EXEC
+if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
