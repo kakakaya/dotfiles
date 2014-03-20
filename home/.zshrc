@@ -88,9 +88,9 @@ alias chrome='google-chrome'
 alias -s html=chrome
 alias -s {c,cpp}=runcpp
 if [ `uname` = "Darwin" ]; then
-    alias eog='open -a Preview'
+    alias IMGVIEWER='open -a Preview'
 fi
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=eog
+alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s mp3=mplayer
 alias -s py=python
 
@@ -111,16 +111,16 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 
-
 eval "$(hub alias -s)"
+
 #PROMPT
-[ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:fg=yellow, isearch:bold,fg=red)
 PROMPT="
-[%n@%m]<($LINENO)>:%F){green}%~%f
+[%n@%m]:%F{green}%~%f
 %#"
 if [ $COLORTERM -eq 1 ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
 PROMPT2="%_%%>"
-SPROMPT="%R? maybe %r.[nyae]"
+#SPROMPT="%R? maybe %r.[nyae]"
+[ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
 #aclsh
 case ${HOST} in
