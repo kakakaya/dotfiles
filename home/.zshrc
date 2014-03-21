@@ -70,7 +70,6 @@ alias cdiff='colordiff -c'
 alias ttyclock='tty-clock -stc' # Nomal
 alias boundclock='tty-clock -str' # It moves!
 alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null &'
-alias cati='catimg.sh'
 alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
