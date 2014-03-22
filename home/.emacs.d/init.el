@@ -1,3 +1,4 @@
+
 ;;; ロードパスの追加
 (setq load-path (append
                  '("~/.emacs.d")
@@ -20,6 +21,7 @@
 (define-key global-map (kbd "M-C-g") 'grep)               ; grep
 (define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
 (define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
+
 ;; ウィンドウ移動
 ;; 2011-02-17
 ;; 次のウィンドウへ移動
@@ -93,10 +95,8 @@
 ;; 2011-03-09
 (setq-default flyspell-mode t)
 (setq ispell-dictionary "american")
-
 ;; インストールされていたら有効にする。
 (require 'migemo nil t)
-
 ;;http://d.hatena.ne.jp/beiz23/20090603/1244034052
 ;;(defface my-face-r-1 '((t (:background "gray15"))) nil)
 (defface my-face-b-1 '((t (:background "gray"))) nil :group 'ShowSpace)
@@ -107,16 +107,20 @@
 (defvar my-face-b-2 'my-face-b-2)
 (defvar my-face-u-1 'my-face-u-1)
 
-(defadvice font-lock-mode (before my-font-lock-mode ())
-  (font-lock-add-keywords
-   major-mode
-   '(("\t" 0 my-face-b-2 append)
-     ("　" 0 my-face-b-1 append)
-     ("[ \t]+$" 0 my-face-u-1 append)
-     ;;("[\r]*\n" 0 my-face-r-1 append)
-     )))
-(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-(ad-activate 'font-lock-mode)
+
+
+;; (defadvice font-lock-mode (before my-font-lock-mode ()) ;uncomment after check
+;;   (font-lock-add-keywords
+;;    major-mode
+;;    '(("\t" 0 my-face-b-2 append)
+;;      ("　" 0 my-face-b-1 append)
+;;      ("[ \t]+$" 0 my-face-u-1 append)
+;;      ;;("[\r]*\n" 0 my-face-r-1 append)
+;;      )))
+;; (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+;; (ad-activate 'font-lock-mode)
+
+
 
 ;;show EOF
 (defun set-buffer-end-mark()
@@ -203,6 +207,7 @@
  '(current-language-environment "Japanese")
  '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
  '(show-paren-mode t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -244,3 +249,11 @@
 
 ;; auto-follow version controlled symlink
 (setq vc-follow-symlinks t)
+;; suggest keybinding
+(setq suggest-key-bindings t)
+;; y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;spalsh
+(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
+
