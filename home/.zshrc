@@ -36,8 +36,8 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 #bindkey "^P" history-beginning-search-backward-end
 #bindkey "^N" history-beginning-search-forward-end
 setopt notify            # バックグラウンドジョブの状態変化を即時報告
-HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
-LISTMAX=1000 #補完リストが多いときに尋ねない
+export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
+export LISTMAX=1000 #補完リストが多いときに尋ねない
 
 # ---------------- alias ---------------- #
 alias md=mkdir
@@ -75,6 +75,7 @@ alias postbox='tw -pipe'
 alias streaming='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
+alias history='history -iD'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 function runcpp () { g++ -O2 $1; ./a.out }
@@ -112,7 +113,10 @@ alias -g AE='|& awk'
 
 eval "$(hub alias -s)"
 
-#PROMPT
+#---------------- alias end ----------------#
+
+
+#---------------- PROMPT ---------------- #
 PROMPT="
 [%n@%m]<`echo $\"LINENO\"`>:%F{green}%~%f
 %#"
@@ -121,6 +125,7 @@ PROMPT2="%_%%>"
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
+#---------------- PROMPT end ----------------#
 #aclsh
 case ${HOST} in
     nest*|fg8*|rise*)
