@@ -111,7 +111,7 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 
-eval "$(hub alias -s)"
+if [ hash hub 2>/dev/null ]; then eval "$(hub alias -s)" ; fi
 
 #---------------- alias end ----------------#
 
@@ -120,7 +120,7 @@ eval "$(hub alias -s)"
 PROMPT="
 [%n@%m]<`echo $\"LINENO\"`>:%F{green}%~%f
 %#"
-if [ $COLORTERM -eq 1 ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
+if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
 PROMPT2="%_%%>"
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
