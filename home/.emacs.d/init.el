@@ -259,3 +259,9 @@
 ;;spalsh
 (setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
 
+;; maximize screen
+;;(set-frame-parameter nil 'fullscreen 'maximized)
+
+;; 80x47 screen (good for azurite)
+(setq initial-frame-alist
+      '((top . 1) (left . 1) (width . 80) (height . 47)))
