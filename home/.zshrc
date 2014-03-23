@@ -38,7 +38,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31
 setopt notify            # バックグラウンドジョブの状態変化を即時報告
 HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 LISTMAX=1000 #補完リストが多いときに尋ねない
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # ---------------- alias ---------------- #
 alias md=mkdir
@@ -74,6 +73,7 @@ alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
 alias streaming='tw -st'
+alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
@@ -114,7 +114,7 @@ eval "$(hub alias -s)"
 
 #PROMPT
 PROMPT="
-[%n@%m]:%F{green}%~%f
+[%n@%m]<`echo $\"LINENO\"`>:%F{green}%~%f
 %#"
 if [ $COLORTERM -eq 1 ]; then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*"; else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"; fi
 PROMPT2="%_%%>"
@@ -123,9 +123,6 @@ PROMPT2="%_%%>"
 
 #aclsh
 case ${HOST} in
-    sun)
-	alias ls='ls'
-	;;
     nest*|fg8*|rise*)
 	#alias
 	alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
@@ -139,21 +136,6 @@ case ${HOST} in
 	export ftp_proxy='http://proxy.uec.ac.jp:8080'
 	export https_proxy='http://proxy.uec.ac.jp:8080'
 
-	;;
-    Azurite)
-#ThinkpadX200 setting
-	#export
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
-	;;
-    akari)
-	synclient TapButton1=1
-	synclient TapButton2=2
-	synclient TapButton3=3
-	synclient CircularScrolling=1
-	synclient CircScrollTrigger=0
 	;;
     purple*)
 	#JED

@@ -208,14 +208,6 @@
  '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
  '(show-paren-mode t))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Ricty" :foundry "unknown" :slant normal :weight normal :height 98 :width normal)))))
-
-
 ;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.
@@ -254,6 +246,16 @@
 ;; y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;;font
+(set-face-attribute 'default nil
+		    :family "Inconsolata"
+		    :height 100)
+(set-fontset-font
+ nil 'japanese-jisx0208
+ (font-spec :family "Ricty"))
+(setq face-font-rescale-alist
+      '((".*Ricty.*" . 1.2)))
+ 
 ;;spalsh
 (setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
 

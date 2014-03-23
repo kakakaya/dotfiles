@@ -47,7 +47,7 @@ if [ -x /usr/local/bin/viewnior ]; then export IMGVIEWER='viewnior' ; else expor
 if [ $COLORTERM -eq 1 ]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 userpath=( \			# 配列に候補を入れる
     $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
-    $HOME/bin \
+    $HOME/bin $HOME/.local/bin \
 	)
 addpath=()			# 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
@@ -67,6 +67,21 @@ done
 path=( $path $addpath )
 unset userpath addpath i chksame # 後始末
 
-
+case ${HOST} in
+    Azurite)
+	#ThinkpadX200 setting
+	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+	;;
+    akari)
+	synclient TapButton1=1
+	synclient TapButton2=2
+	synclient TapButton3=3
+	synclient CircularScrolling=1
+	synclient CircScrollTrigger=0
+	;;
+esac
 
 
