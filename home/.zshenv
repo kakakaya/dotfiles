@@ -1,6 +1,29 @@
 # -*- Mode: shell-script;coding:utf-8 -*- #
 # almost from https://github.com/shin3900/dotfiles/blob/master/.zshenv
 
+
+userpath=( \			# 配列に候補を入れる
+    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
+    $HOME/bin $HOME/.local/bin \
+	)
+addpath=()			# 確定した候補を入れていく受け皿
+for i in "${userpath[@]}"; do	# 受け皿に追加していく
+    chksame=0
+    if [ -d $i ]; then		# システムにディレクトリが存在しなければ飛ばす
+	for j in "${path[@]}"; do
+	    if [ $i = $j ]; then # 重複しているなら重複フラグを立てておく
+		chksame=1
+		break
+	    fi
+	done
+	if [ $chksame = 0 ] ; then # 重複フラグが立ってなければ受け皿に追加
+	    addpath=( $addpath $i )
+	fi
+    fi
+done
+path=( $path $addpath )
+unset userpath addpath i chksame # 後始末
+
 if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
     case "`uname -sr`" in
         FreeBSD*); export ARCHI="freebsd" ;;
@@ -45,27 +68,6 @@ esac
 export EDITOR='emacs -nw'
 if [ -x /usr/local/bin/viewnior ]; then export IMGVIEWER='viewnior' ; else export IMGVIEWER='eog'; fi
 if [ $COLORTERM -eq 1 ]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
-userpath=( \			# 配列に候補を入れる
-    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
-    $HOME/bin $HOME/.local/bin \
-	)
-addpath=()			# 確定した候補を入れていく受け皿
-for i in "${userpath[@]}"; do	# 受け皿に追加していく
-    chksame=0
-    if [ -d $i ]; then		# システムにディレクトリが存在しなければ飛ばす
-	for j in "${path[@]}"; do
-	    if [ $i = $j ]; then # 重複しているなら重複フラグを立てておく
-		chksame=1
-		break
-	    fi
-	done
-	if [ $chksame = 0 ] ; then # 重複フラグが立ってなければ受け皿に追加
-	    addpath=( $addpath $i )
-	fi
-    fi
-done
-path=( $path $addpath )
-unset userpath addpath i chksame # 後始末
 
 case ${HOST} in
     Azurite)
