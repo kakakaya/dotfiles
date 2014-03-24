@@ -42,6 +42,8 @@ home/.navi2ch/init.el~
 home/.navi2ch/toro.2ch.net/
 home/.emacs.d/init.elc
 home/.emacs.d/image-dired/
+home/Pictures/*
+!home/Pictures/SmallTsunErio
 
 
 

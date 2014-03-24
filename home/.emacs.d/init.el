@@ -264,4 +264,4 @@
 
 ;; 80x47 screen (good for azurite)
 (setq initial-frame-alist
-      '((top . 1) (left . 1) (width . 80) (height . 47)))
+      '((top . 0) (left . 0) (width . 80) (height . 47)))

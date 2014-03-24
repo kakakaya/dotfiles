@@ -28,13 +28,16 @@ setopt no_beep
 setopt nolistbeep
 setopt rm_star_wait
 setopt EXTENDED_GLOB
+setopt EXTENDED_HISTORY
+setopt hist_expand
+setopt hist_reduce_blanks
 #zsh内蔵エディタを使う
 autoload -U zcalc
 autoload zed
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
 #入力途中の履歴補完
-#bindkey "^P" history-beginning-search-backward-end
-#bindkey "^N" history-beginning-search-forward-end
+bindkey "^P" history-beginning-search-backward #-end
+bindkey "^N" history-beginning-search-forward #-end
 setopt notify            # バックグラウンドジョブの状態変化を即時報告
 export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 export LISTMAX=1000 #補完リストが多いときに尋ねない
