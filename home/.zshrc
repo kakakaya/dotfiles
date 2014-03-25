@@ -121,7 +121,7 @@ if [ hash hub 2>/dev/null ]; then eval "$(hub alias -s)" ; fi
 
 #---------------- PROMPT ---------------- #
 PROMPT="
-[%n@%m]<`echo $\"LINENO\"`>:%F{green}%~%f
+[%n@%m]<`echo $\"LINENO\"`>:%F{cyan}%~%f
 %#"
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
