@@ -81,7 +81,6 @@ alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias history='history -iD'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-function runcpp () { g++ -O2 $1; ./a.out }
 if [ `uname` = "Darwin" ]; then
     alias google-chrome='open -a Google\ Chrome'
 else
@@ -114,7 +113,8 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 
-if [ hash hub 2>/dev/null ]; then eval "$(hub alias -s)" ; fi
+if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
+if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 
 #---------------- alias end ----------------#
 
@@ -161,7 +161,7 @@ case ${HOST} in
 	ibus-daemon &
 
 esac
-#alias suffix
+#---------------- function ----------------
 function extract() {
   case $1 in
     *.tar.gz|*.tgz) tar xzvf $1;;
@@ -176,6 +176,17 @@ function extract() {
     *.tar) tar xvf $1;;
     *.arj) unarj $1;;
   esac
+}
+
+function runcpp () { g++ -O2 $1; ./a.out }
+
+function exist () {
+    if type $1 >/dev/null 2>&1;
+    then
+	return 0
+    else
+	return 1
+    fi
 }
 
 #EXEC
