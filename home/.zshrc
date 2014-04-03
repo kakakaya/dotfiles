@@ -62,6 +62,7 @@ alias sudo='sudo ' #makes alias-sudo able
 #alias unzip='gunzip -S zip'
 #alias untargz='tar -zxvf'
 alias rmi='rm -i'
+alias rmd='rm -r'
 #Keyboard
 alias aoeu='setxkbmap us'
 alias ueoa='setxkbmap us'
@@ -121,7 +122,7 @@ if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 
 #---------------- PROMPT ---------------- #
 PROMPT="
-[%n@%m]<`echo $\"LINENO\"`>:%F{cyan}%~%f
+[%n@%m]<`echo $\"LINENO\"`/%!>:%F{cyan}%~%f
 %#"
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
