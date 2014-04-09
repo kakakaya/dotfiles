@@ -62,6 +62,7 @@ alias sudo='sudo ' #makes alias-sudo able
 #alias unzip='gunzip -S zip'
 #alias untargz='tar -zxvf'
 alias rmi='rm -i'
+alias rmd='rm -r'
 #Keyboard
 alias aoeu='setxkbmap us'
 alias ueoa='setxkbmap us'
@@ -71,7 +72,7 @@ alias lxmodmap='xmodmap ~/.Xmodmap'
 alias cdiff='colordiff -c'
 alias ttyclock='tty-clock -stc' # Nomal
 alias boundclock='tty-clock -str' # It moves!
-alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null &'
+alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
@@ -96,6 +97,7 @@ alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s mp3=mplayer
 alias -s py=python
 
+
 #pipe
 alias -g L='| lv'
 alias -g H='| head'
@@ -106,6 +108,7 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g LE='|& less'
 alias -g LER='|& less -R'
+alias -g DCLER='| colordiff -c |& less -R'
 alias -g HE='|& head'
 alias -g TE='|& tail'
 alias -g GE='|& grep'
@@ -121,7 +124,7 @@ if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 
 #---------------- PROMPT ---------------- #
 PROMPT="
-[%n@%m]<`echo $\"LINENO\"`>:%F{cyan}%~%f
+[%n@%m]<`echo $\"LINENO\"`/%!>:%F{cyan}%~%f
 %#"
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
