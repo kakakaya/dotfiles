@@ -72,7 +72,7 @@ alias lxmodmap='xmodmap ~/.Xmodmap'
 alias cdiff='colordiff -c'
 alias ttyclock='tty-clock -stc' # Nomal
 alias boundclock='tty-clock -str' # It moves!
-alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null &'
+alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
@@ -97,6 +97,7 @@ alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s mp3=mplayer
 alias -s py=python
 
+
 #pipe
 alias -g L='| lv'
 alias -g H='| head'
@@ -107,6 +108,7 @@ alias -g S='| sed'
 alias -g A='| awk'
 alias -g LE='|& less'
 alias -g LER='|& less -R'
+alias -g DCLER='| colordiff -c |& less -R'
 alias -g HE='|& head'
 alias -g TE='|& tail'
 alias -g GE='|& grep'
