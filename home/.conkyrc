@@ -83,10 +83,10 @@ ${battery_bar}
 ${color grey}Temperature:$color${acpitemp}C
 $hr
 #----------------------------------------------------------------------------
-${alignc}Networking
-${color grey}  Up:$color ${alignr}${upspeed wlan0}${upspeedgraph wlan0 10,150}
-${color grey}Down:$color ${alignr}${downspeed wlan0}${downspeedgraph wlan0 10,150}
-${color grey}Global IP:$color${texeci 3600 curl -s ifconfig.me}${alignr}${color grey}ESSID:$color${wireless_essid wlan0}
+${alignc}Network
+${color grey}  Up:$color ${alignr}${upspeed wlan0}${upspeedgraph wlan0 10,170}
+${color grey}Down:$color ${alignr}${downspeed wlan0}${downspeedgraph wlan0 10,170}
+${color grey}IPaddr:$color${texeci 3600 curl -s ifconfig.me}${alignr}${color grey}ESSID:$color${wireless_essid wlan0}
 ${wireless_link_bar wlan0}
 $hr
 #----------------------------------------------------------------------------
