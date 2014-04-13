@@ -69,21 +69,23 @@ export EDITOR='emacs -nw'
 if [ -x /usr/local/bin/viewnior ]; then export IMGVIEWER='viewnior' ; else export IMGVIEWER='eog'; fi
 if [ $COLORTERM -eq 1 ]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 
-case ${HOST} in
-    Azurite)
-	#ThinkpadX200 setting
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
-	;;
-    akari)
-	synclient TapButton1=1
-	synclient TapButton2=2
-	synclient TapButton3=3
-	synclient CircularScrolling=1
-	synclient CircScrollTrigger=0
-	;;
-esac
-
+if [ `tty | cut -d / -f 3` = pts ]
+then
+    case ${HOST} in
+	Azurite)
+	    #ThinkpadX200 setting
+	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+	    ;;
+	akari)
+	    synclient TapButton1=1
+	    synclient TapButton2=2
+	    synclient TapButton3=3
+	    synclient CircularScrolling=1
+	    synclient CircScrollTrigger=0
+	    ;;
+    esac
+fi    
 

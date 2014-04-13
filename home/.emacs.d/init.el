@@ -6,6 +6,7 @@
                  '("~/.emacs.d/el-get")
                  '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/elisp")
+		 '("~/.emacs.d/helm")
                  load-path))
 ;; Localeに合わせた環境の設定
 (set-locale-environment nil)
@@ -190,12 +191,11 @@
 ;;auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
-(add-to-list 'load-path "~/.emacs.d/helm")
 (require 'helm-config)
 ;zenburn-emacs
-(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
+p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
 
 (custom-set-variables
@@ -265,3 +265,9 @@
 ;; 80x47 screen (good for azurite)
 (setq initial-frame-alist
       '((top . 0) (left . 0) (width . 80) (height . 47)))
+
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+
+(require 'emmet-mode)
+

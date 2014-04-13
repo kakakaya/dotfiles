@@ -80,6 +80,7 @@ alias streaming='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias history='history -iD'
+alias psauxG='ps aux | grep'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 if [ `uname` = "Darwin" ]; then
