@@ -1,0 +1,5 @@
+[user]
+        name = kakakaya
+        email = kakakaya+git@gmail.com
+[push]
+        default = simple
