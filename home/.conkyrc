@@ -66,13 +66,13 @@ ${alignr}${time %Y/%m/%d %A %p%l:%M:%S}
 $hr
 #----------------------------------------------------------------------------
 ${color grey}Uptime:$color $uptime
-${color grey}Frequency (in MHz):$color $freq
-${color grey}Frequency (in GHz):$color $freq_g
-${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
-${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
+${color grey}Processes:$color $processes  ${color grey}Running:$color $running_processes
+${color grey}Frequency (in MHz):$alignr$color $freq${color grey}MHz/$color $freq_g${color grey}GHz$color
 ${color grey}CPU Usage:$color $cpu% ${cpubar 4}
 ${cpugraph 20}
-${color grey}Processes:$color $processes  ${color grey}Running:$color $running_processes
+${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 4}
+${memgraph 10}
+${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
 $hr
 #----------------------------------------------------------------------------
 ${alignc}File systems
