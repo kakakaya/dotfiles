@@ -31,9 +31,11 @@ setopt EXTENDED_GLOB
 setopt EXTENDED_HISTORY
 setopt hist_expand
 setopt hist_reduce_blanks
+setopt re_match_pcre
 #zsh内蔵エディタを使う
 autoload -U zcalc
 autoload -U zed
+autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
 #入力途中の履歴補完
 bindkey "^P" history-beginning-search-backward #-end
@@ -42,8 +44,59 @@ setopt notify            # バックグラウンドジョブの状態変化を�
 export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 export LISTMAX=1000 #補完リストが多いときに尋ねない
 
-if [ -e /usr/share/autojump/autojump.zsh ];then source /usr/share/autojump/autojump.zsh;fi
+if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
 
+#---------------- function ----------------
+function extract() {
+  case $1 in
+    *.tar.gz|*.tgz) tar xzvf $1;;
+    *.tar.xz) tar Jxvf $1;;
+    *.zip) unzip $1;;
+    *.lzh) lha e $1;;
+    *.tar.bz2|*.tbz) tar xjvf $1;;
+    *.tar.Z) tar zxvf $1;;
+    *.gz) gzip -dc $1;;
+    *.bz2) bzip2 -dc $1;;
+    *.Z) uncompress $1;;
+    *.tar) tar xvf $1;;
+    *.arj) unarj $1;;
+  esac
+}
+
+function runcpp () { g++ -O2 $1; ./a.out }
+
+# function exist () {
+#     if type $1 >/dev/null 2>&1;
+#     then
+# 	return 0
+#     else
+# 	return 1
+#     fi
+# }
+
+function git-current-branch {
+    local name st color gitdir action
+    if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
+    name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
+    if [[ -z $name ]]; then return;fi
+    
+    gitdir=`git rev-parse --git-dir 2> /dev/null`
+    action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
+    
+    st=`git status 2> /dev/null`
+    if [[ "$st" =~ "(?m)^nothing to" ]]; then
+        color=%F{green}
+    elif [[ "$st" =~ "(?m)^nothing added" ]]; then
+        color=%F{yellow}
+    elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
+        color=%B%F{red}
+    else
+        color=%F{red}
+    fi    
+    echo "($color$name$action%f%b) "
+}
+
+#---------------- function end ----------------
 # ---------------- alias ---------------- #
 # -------- must-alias -------- #
 alias md=mkdir
@@ -86,7 +139,7 @@ alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s mp3=mplayer
 alias -s py=python
-if [ `uname` = "Darwin" ]; then
+if [[ `uname` = "Darwin" ]]; then
     alias google-chrome='open -a Google\ Chrome'
 else
     alias google-chrome='chromium'
@@ -94,7 +147,7 @@ fi
 alias chrome='google-chrome'
 alias -s html=chrome
 alias -s {c,cpp}=runcpp
-if [ `uname` = "Darwin" ]; then
+if [[ `uname` = "Darwin" ]]; then
     alias IMGVIEWER='open -a Preview'
 fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
@@ -127,9 +180,9 @@ alias killmebaby='pkill -9 sshd'
 
 
 #---------------- PROMPT ---------------- #
-PROMPT="
-[%n@%m]<`echo $\"LINENO\"`/%!>:%F{cyan}%~%f
-%#"
+PROMPT='
+[%n@%m]<${LINENO}/%!>:`git-current-branch`%F{cyan}%~%f
+%#'
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
 else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
@@ -168,33 +221,6 @@ case ${HOST} in
 	ibus-daemon &
 
 esac
-#---------------- function ----------------
-function extract() {
-  case $1 in
-    *.tar.gz|*.tgz) tar xzvf $1;;
-    *.tar.xz) tar Jxvf $1;;
-    *.zip) unzip $1;;
-    *.lzh) lha e $1;;
-    *.tar.bz2|*.tbz) tar xjvf $1;;
-    *.tar.Z) tar zxvf $1;;
-    *.gz) gzip -dc $1;;
-    *.bz2) bzip2 -dc $1;;
-    *.Z) uncompress $1;;
-    *.tar) tar xvf $1;;
-    *.arj) unarj $1;;
-  esac
-}
-
-function runcpp () { g++ -O2 $1; ./a.out }
-
-# function exist () {
-#     if type $1 >/dev/null 2>&1;
-#     then
-# 	return 0
-#     else
-# 	return 1
-#     fi
-# }
 
 #EXEC
 if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
