@@ -109,6 +109,9 @@
 (defvar my-face-u-1 'my-face-u-1)
 
 
+;zenburn-emacs
+(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
+(load-theme 'zenburn t)
 
 ;; (defadvice font-lock-mode (before my-font-lock-mode ()) ;uncomment after check
 ;;   (font-lock-add-keywords
@@ -188,15 +191,13 @@
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
-;;auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+;; ;;auto-complete
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+
 ;;helm
 (require 'helm-config)
-;zenburn-emacs
-p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
-(load-theme 'zenburn t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -227,8 +228,8 @@ p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (global-auto-highlight-symbol-mode t)
 
 ;; d.hatena.ne.jp/uk/ar/20120401/1333282805
-(require 'flex-autopair)
-(flex-autopair-mode 1)
+;;(require 'flex-autopair)
+;;(flex-autopair-mode 1)
 
 ;; elpy
 (package-initialize)
@@ -236,8 +237,8 @@ p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (elpy-use-ipython)
 
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+;(add-to-list 'package-archives
+;             '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 ;; auto-follow version controlled symlink
 (setq vc-follow-symlinks t)
@@ -269,5 +270,5 @@ p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 
-(require 'emmet-mode)
+;(require 'emmet-mode)
 
