@@ -33,7 +33,7 @@ setopt hist_expand
 setopt hist_reduce_blanks
 #zsh内蔵エディタを使う
 autoload -U zcalc
-autoload zed
+autoload -U zed
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
 #入力途中の履歴補完
 bindkey "^P" history-beginning-search-backward #-end
@@ -42,7 +42,10 @@ setopt notify            # バックグラウンドジョブの状態変化を�
 export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 export LISTMAX=1000 #補完リストが多いときに尋ねない
 
+if [ -e /usr/share/autojump/autojump.zsh ];then source /usr/share/autojump/autojump.zsh;fi
+
 # ---------------- alias ---------------- #
+# -------- must-alias -------- #
 alias md=mkdir
 alias ls='ls -h --show-control-char --color=always'
 alias lh=ls
@@ -55,14 +58,16 @@ alias ll.='l. -lt'
 alias less='less -MN -gj10'
 alias em='emacs -nw'
 alias strdate='date +%Y-%m-%d_%H-%M-%S'
-alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
-alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
 alias gpp='g++'
 alias sudo='sudo ' #makes alias-sudo able
-#alias unzip='gunzip -S zip'
-#alias untargz='tar -zxvf'
 alias rmi='rm -i'
 alias rmd='rm -r'
+alias history='history -iD'
+alias g='git'
+# -------- must-alias end -------- #
+# -------- may-alias -------- #
+alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
+alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
 #Keyboard
 alias aoeu='setxkbmap us'
 alias ueoa='setxkbmap us'
@@ -70,19 +75,17 @@ alias asdf='setxkbmap dvorak'
 alias fdsa='setxkbmap dvorak'
 alias lxmodmap='xmodmap ~/.Xmodmap'
 alias cdiff='colordiff -c'
-alias ttyclock='tty-clock -stc' # Nomal
-alias boundclock='tty-clock -str' # It moves!
-alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
-alias killmebaby='pkill -9 sshd'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
 alias streaming='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
-alias history='history -iD'
 alias psauxG='ps aux | grep'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
+alias -s mp3=mplayer
+alias -s py=python
 if [ `uname` = "Darwin" ]; then
     alias google-chrome='open -a Google\ Chrome'
 else
@@ -94,11 +97,8 @@ alias -s {c,cpp}=runcpp
 if [ `uname` = "Darwin" ]; then
     alias IMGVIEWER='open -a Preview'
 fi
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
-alias -s mp3=mplayer
-alias -s py=python
-
-
+if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
+if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 #pipe
 alias -g L='| lv'
 alias -g H='| head'
@@ -116,10 +116,13 @@ alias -g GE='|& grep'
 alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
-
-if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
-if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
-
+# -------- may-alias end -------- #
+# -------- maybe-alias -------- #
+alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
+alias ttyclock='tty-clock -stc' # Nomal
+alias boundclock='tty-clock -str' # It moves!
+alias killmebaby='pkill -9 sshd'
+# -------- maybe-alias end -------- #
 #---------------- alias end ----------------#
 
 
@@ -184,14 +187,14 @@ function extract() {
 
 function runcpp () { g++ -O2 $1; ./a.out }
 
-function exist () {
-    if type $1 >/dev/null 2>&1;
-    then
-	return 0
-    else
-	return 1
-    fi
-}
+# function exist () {
+#     if type $1 >/dev/null 2>&1;
+#     then
+# 	return 0
+#     else
+# 	return 1
+#     fi
+# }
 
 #EXEC
 if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
