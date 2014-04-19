@@ -164,6 +164,7 @@
 (add-hook 'python-mode-hook
           '(lambda ()
       (hs-minor-mode 1)))
+
 ;; http://d.hatena.ne.jp/kitokitoki/20100516/p1
 (add-hook 'diff-mode-hook
           (lambda ()
@@ -184,19 +185,22 @@
             (set-face-foreground 'diff-changed-face "DeepSkyBlue1")))
 
 (require 'python)
+
 ;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
+
 ;;auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
 (require 'helm-config)
+
 ;zenburn-emacs
-p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
 
 (custom-set-variables
@@ -271,4 +275,5 @@ p(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (set-default-coding-systems 'utf-8)
 
 (require 'emmet-mode)
+(require 'magit)
 
