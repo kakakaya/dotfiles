@@ -20,4 +20,5 @@
 
 	st = status
 	s = status -sb	
+	sb = show-branch
 	df = diff		
