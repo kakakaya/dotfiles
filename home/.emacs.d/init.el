@@ -22,6 +22,7 @@
 (define-key global-map (kbd "M-C-g") 'grep)               ; grep
 (define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
 (define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
+(global-set-key [f5] 'revert-buffer)
 
 ;; ウィンドウ移動
 ;; 2011-02-17
@@ -109,9 +110,6 @@
 (defvar my-face-u-1 'my-face-u-1)
 
 
-;zenburn-emacs
-(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
-(load-theme 'zenburn t)
 
 ;; (defadvice font-lock-mode (before my-font-lock-mode ()) ;uncomment after check
 ;;   (font-lock-add-keywords
@@ -166,6 +164,7 @@
 (add-hook 'python-mode-hook
           '(lambda ()
       (hs-minor-mode 1)))
+
 ;; http://d.hatena.ne.jp/kitokitoki/20100516/p1
 (add-hook 'diff-mode-hook
           (lambda ()
@@ -186,18 +185,23 @@
             (set-face-foreground 'diff-changed-face "DeepSkyBlue1")))
 
 (require 'python)
+
 ;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
-;; ;;auto-complete
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 
+;;auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
 (require 'helm-config)
+
+;zenburn-emacs
+(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
+(load-theme 'zenburn t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -228,8 +232,8 @@
 (global-auto-highlight-symbol-mode t)
 
 ;; d.hatena.ne.jp/uk/ar/20120401/1333282805
-;;(require 'flex-autopair)
-;;(flex-autopair-mode 1)
+(require 'flex-autopair)
+(flex-autopair-mode 1)
 
 ;; elpy
 (package-initialize)
@@ -237,8 +241,8 @@
 (elpy-use-ipython)
 
 (require 'package)
-;(add-to-list 'package-archives
-;             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 ;; auto-follow version controlled symlink
 (setq vc-follow-symlinks t)
@@ -270,5 +274,6 @@
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 
-;(require 'emmet-mode)
+(require 'emmet-mode)
+(require 'magit)
 
