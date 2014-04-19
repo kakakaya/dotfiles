@@ -1,0 +1,7 @@
+a.out
+.elc
+.DS_Store
+*.swp
+vendor
+.ruby-version
+*~

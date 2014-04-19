@@ -1,5 +1,23 @@
+[core]
+	excludesfile = ~/.gitignore
 [user]
         name = kakakaya
         email = kakakaya+git@gmail.com
+[color]
+	ui = auto	
 [push]
         default = simple
+[alias]
+	cm = commit -v
+	cma = commit -v -a
+	cmm = commit -v -m
+	cmam = commit -v -a -m
+	cmma = commit -v -a -m
+
+	co = checkout
+	com = checkout master
+	cod = checkout develop
+
+	st = status
+	s = status -sb	
+	df = diff		
