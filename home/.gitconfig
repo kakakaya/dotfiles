@@ -1,6 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
-	editor = emacs
+	editor = nano
 [user]
         name = kakakaya
         email = kakakaya+git@gmail.com
