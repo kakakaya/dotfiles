@@ -22,6 +22,7 @@
 (define-key global-map (kbd "M-C-g") 'grep)               ; grep
 (define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
 (define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
+(global-set-key [f5] 'revert-buffer)
 
 ;; ウィンドウ移動
 ;; 2011-02-17
