@@ -3,6 +3,7 @@
 (setq load-path (append
                  '("~/.emacs.d")
 ;;                 '("~/.emacs.d/auto-install")
+		 '("/usr/share/emacs/site-lisp")
                  '("~/.emacs.d/el-get")
                  '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/elisp")
