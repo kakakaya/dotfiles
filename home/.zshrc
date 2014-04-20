@@ -181,7 +181,7 @@ alias killmebaby='pkill -9 sshd'
 
 #---------------- PROMPT ---------------- #
 PROMPT='
-[%n@%m]<${LINENO}/%!>:`git-current-branch`%F{cyan}%~%f
+[%n@%m]<${LINENO}/%!>`git-current-branch`:%F{cyan}%~%f
 %#'
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
