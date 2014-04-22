@@ -225,3 +225,4 @@ esac
 
 #EXEC
 if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
+if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then zcompile ~/.zshrc; fi
