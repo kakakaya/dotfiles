@@ -48,9 +48,9 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 
 if which lv >& /dev/null ; then
-  export PAGER="lv"
+    export PAGER="lv"
 else
-  export PAGER="less -RM --quiet -x2"
+    export PAGER="less -RM --quiet -x2"
 fi
 export COLORTERM=0
 case "$TERM" in 
