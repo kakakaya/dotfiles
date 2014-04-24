@@ -190,7 +190,7 @@
 ;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
-(auto-install-update-emacswiki-package-name t)
+;(auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
 
 ;;auto-complete
@@ -274,7 +274,7 @@
 
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
-(set-default-file-name-coding-system 'utf-8)
+;(set-default-file-name-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 (require 'emmet-mode)
