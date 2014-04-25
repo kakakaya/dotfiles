@@ -12,6 +12,7 @@ home/.emacs.d/image-dired/
 home/.emacs.d/session*
 home/.navi2ch/*
 home/Pictures/*
+*.rcp
 
 !home/Pictures/SmallTsunErio
 !home/.emacs.d/init.el
