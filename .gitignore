@@ -1,14 +1,6 @@
-ac-dict
-themes
-helm
-el-get
-url
-snippets
-auto-install
-elisp
-elpa
-history
-auto-save-list
+*.el
+*.elc
+
 home/.emacs.d/ac-comphist.dat
 home/.emacs.d/auto-install/auto-complete.elc
 home/.emacs.d/el-get/ctable
@@ -19,7 +11,7 @@ home/.emacs.d/el-get/popup
 home/.emacs.d/elisp/auto-complete-config.el
 home/.emacs.d/elisp/auto-complete.el
 home/.emacs.d/elisp/auto-complete.elc
-home/.emacs.d/elpa/package.el
+home/.emacs.d/elpa/*
 home/.emacs.d/history
 home/.emacs.d/url/cookies
 home/.emacs.d/url/cookies~
