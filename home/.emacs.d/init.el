@@ -263,7 +263,7 @@
       '((".*Ricty.*" . 1.2)))
  
 ;;spalsh
-(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/TsunErio.png")
+(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
 
 ;; maximize screen
 ;;(set-frame-parameter nil 'fullscreen 'maximized)
