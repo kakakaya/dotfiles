@@ -274,6 +274,8 @@
 
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
+;(set-default-file-name-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 (require 'emmet-mode)
 (require 'magit)
@@ -384,3 +386,4 @@
 (add-hook 'kill-emacs-query-functions
           (lambda () (y-or-n-p "Do you really want to exit Emacs? "))
           'append)
+;(load-library '2048) bad works

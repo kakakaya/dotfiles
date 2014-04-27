@@ -9,14 +9,14 @@ userpath=( \			# 配列に候補を入れる
 addpath=()			# 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
     chksame=0
-    if [ -d $i ]; then		# システムにディレクトリが存在しなければ飛ばす
+    if [[ -d $i ]]; then		# システムにディレクトリが存在しなければ飛ばす
 	for j in "${path[@]}"; do
-	    if [ $i = $j ]; then # 重複しているなら重複フラグを立てておく
+	    if [[ $i = $j ]]; then # 重複しているなら重複フラグを立てておく
 		chksame=1
 		break
 	    fi
 	done
-	if [ $chksame = 0 ] ; then # 重複フラグが立ってなければ受け皿に追加
+	if [[ $chksame = 0 ]] ; then # 重複フラグが立ってなければ受け皿に追加
 	    addpath=( $addpath $i )
 	fi
     fi
@@ -24,7 +24,7 @@ done
 path=( $path $addpath )
 unset userpath addpath i chksame # 後始末
 
-if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
+if [[ -x /usr/bin/uname ]] || [[ -x /bin/uname ]]; then
     case "`uname -sr`" in
         FreeBSD*); export ARCHI="freebsd" ;;
         Linux*);   export ARCHI="linux"   ;;
@@ -34,7 +34,7 @@ if [ -x /usr/bin/uname ] || [ -x /bin/uname ]; then
 else
     export ARCHI="dummy"
 fi
-if [ -x /bin/hostname ]; then
+if [[ -x /bin/hostname ]]; then
     export HOST=`hostname`
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
@@ -48,9 +48,9 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 
 if which lv >& /dev/null ; then
-  export PAGER="lv"
+    export PAGER="lv"
 else
-  export PAGER="less -RM --quiet -x2"
+    export PAGER="less -RM --quiet -x2"
 fi
 export COLORTERM=0
 case "$TERM" in 
@@ -66,10 +66,10 @@ case "$TERM" in
     #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 esac
 export EDITOR='emacs -nw'
-if [ -x /usr/local/bin/viewnior ]; then export IMGVIEWER='viewnior' ; else export IMGVIEWER='eog'; fi
-if [ $COLORTERM -eq 1 ]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
+if [[ -x /usr/local/bin/viewnior ]]; then export IMGVIEWER='viewnior' ; else export IMGVIEWER='eog'; fi
+if [[ $COLORTERM -eq 1 ]]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 
-if [ `tty | cut -d / -f 3` = pts ]
+if [[ `tty | cut -d / -f 3` = pts ]]
 then
     case ${HOST} in
 	Azurite)
