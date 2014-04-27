@@ -224,17 +224,20 @@
 ;     (expand-file-name "~/.emacs.d/elpa/package.el"))
 ;  (package-initialize))
 (require 'f)
+
 (require 'hlinum)
+;; 前景色を黒，背景色を赤にする．
+(hlinum-activate)
+(custom-set-faces
+ '(linum-highlight-face ((t (:foreground "white"
+                             :background "blue"
+			     )))))
 (custom-set-variables
  '(global-linum-mode t))
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
-
-;; d.hatena.ne.jp/uk-ar/20120401/1333282805
-(require 'flex-autopair)
-(flex-autopair-mode 1)
 
 ;; elpy
 (package-initialize)
@@ -243,7 +246,9 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+
 
 ;; auto-follow version controlled symlink
 (setq vc-follow-symlinks t)
@@ -387,3 +392,69 @@
           (lambda () (y-or-n-p "Do you really want to exit Emacs? "))
           'append)
 ;(load-library '2048) bad works
+
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+
+
+;; d.hatena.ne.jp/uk-ar/20120401/1333282805
+(require 'flex-autopair)
+(flex-autopair-mode 1)
+
+;; (require 'rainbow-delimiters)
+;; (global-rainbow-delimiters-mode t)
+;; (custom-set-faces '(rainbow-delimiters-depth-1-face ((t (:foreground "#7f8c8d")))));文字列の色と被るため,変更
+
+;;; smooth-scroll
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+
+;; mainline (powerline not found)
+(require 'main-line)
+(setq main-line-separator-style 'arrow14)
+
+;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+(global-anzu-mode +1)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000)
+ '(anzu-use-migemo t))
+
+
+
+;;http://d.hatena.ne.jp/syohex/20130131/1359646452
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Ys")
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . " Ut")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")
+    ;(fundamental-mode . "Fd")
+    ))
+
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+

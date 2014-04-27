@@ -13,6 +13,7 @@ home/.emacs.d/init.elc
 home/.emacs.d/history
 home/.emacs.d/image-dired/
 home/.emacs.d/session*
+home/.emacs.d/tramp
 home/.navi2ch
 home/Pictures
 *.rcp
