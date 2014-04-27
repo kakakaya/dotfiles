@@ -1,6 +1,5 @@
 *.el
 *.elc
-
 home/.emacs.d/ac-comphist.dat
 home/.emacs.d/auto-install/auto-complete.elc
 home/.emacs.d/el-get/ctable
@@ -12,15 +11,16 @@ home/.emacs.d/elisp/auto-complete-config.el
 home/.emacs.d/elisp/auto-complete.el
 home/.emacs.d/elisp/auto-complete.elc
 home/.emacs.d/elpa/*
+home/.emacs.d/elisp/*
 home/.emacs.d/history
 home/.emacs.d/url/cookies
 home/.emacs.d/url/cookies~
 home/.emacs.d/ac-comphist.dat
 home/.navi2ch/*
 home/.emacs.d/init.elc
+home/.emacs.d/history
 home/.emacs.d/image-dired/
 home/.emacs.d/session*
 home/Pictures/*
 !home/Pictures/SmallTsunErio
 !home/.emacs.d/init.el
-

@@ -2,7 +2,7 @@
 ;;; ロードパスの追加
 (setq load-path (append
                  '("~/.emacs.d")
-;;                 '("~/.emacs.d/auto-install")
+                 '("~/.emacs.d/auto-install")
 		 '("/usr/share/emacs/site-lisp")
                  '("~/.emacs.d/el-get")
                  '("~/.emacs.d/elpa")
@@ -50,8 +50,8 @@
 (setq grep-command (cons (concat grep-command-before-query " .")
                          (+ (length grep-command-before-query) 1)))
 (auto-image-file-mode t)           ; 画像ファイルを表示
-;(menu-bar-mode -1)                ; メニューバーを消す
-;(tool-bar-mode -1)                ; ツールバーを消す
+(menu-bar-mode -1)                ; メニューバーを消す
+(tool-bar-mode -1)                ; ツールバーを消す
 (blink-cursor-mode 1)              ; カーソルの点滅をする
 (setq eval-expression-print-length nil) ; evalした結果を全部表示
 (show-paren-mode 1)                ; 対応する括弧を光らせる。
@@ -189,7 +189,7 @@
 
 ;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
 (require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/auto-install/")
+(setq auto-install-directory "~/.emacs.d/elisp/")
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
 
@@ -226,13 +226,13 @@
 (require 'f)
 (require 'hlinum)
 (custom-set-variables
-'(global-linum-mode t))
+ '(global-linum-mode t))
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
 
-;; d.hatena.ne.jp/uk/ar/20120401/1333282805
+;; d.hatena.ne.jp/uk-ar/20120401/1333282805
 (require 'flex-autopair)
 (flex-autopair-mode 1)
 
