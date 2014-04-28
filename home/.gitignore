@@ -6,3 +6,4 @@ vendor
 .ruby-version
 *~
 \#*
+wget-log

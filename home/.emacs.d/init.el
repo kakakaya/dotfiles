@@ -394,9 +394,12 @@
 (add-hook 'kill-emacs-query-functions
           (lambda () (y-or-n-p "Do you really want to exit Emacs? "))
           'append)
-(setq url-proxy-services
-	'(("http" . "proxy.uec.ac.jp:8080")
-	  ("https" . "proxy.uec.ac.jp:8080")))
+
+;; (setq url-proxy-services
+;;       '(("http" . "proxy.uec.ac.jp:8080")
+;;	("https" . "proxy.uec.ac.jp:8080"))
+;;       )
+
 ;(load-library '2048) bad works
 
 (require 'undo-tree)
@@ -410,7 +413,9 @@
 
 ;; (require 'rainbow-delimiters)
 ;; (global-rainbow-delimiters-mode t)
-;; (custom-set-faces '(rainbow-delimiters-depth-1-face ((t (:foreground "#7f8c8d")))));文字列の色と被るため,変更
+;; (custom-set-faces
+;;  '(rainbow-delimiters-depth-1-face ((t (:foreground "#7f8c8d")))
+;;				   ));文字列の色と被るため,変更
 
 ;;; smooth-scroll
 (require 'smooth-scroll)
@@ -463,5 +468,3 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
->>>>>>> bf8005081e846fa3dc55128b6643e4adb3db7cbf
