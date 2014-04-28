@@ -193,10 +193,10 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
 
-;;auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+;; ;;auto-complete
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
 (require 'helm-config)
 
@@ -384,3 +384,6 @@
 (add-hook 'kill-emacs-query-functions
           (lambda () (y-or-n-p "Do you really want to exit Emacs? "))
           'append)
+(setq url-proxy-services
+	'(("http" . "proxy.uec.ac.jp:8080")
+	  ("https" . "proxy.uec.ac.jp:8080")))
