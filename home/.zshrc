@@ -160,6 +160,7 @@ alias -g G='| grep'
 alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
+alias -g P='| $PAGER'
 alias -g LE='|& less'
 alias -g LER='|& less -R'
 alias -g DCLER='| colordiff -c |& less -R'
@@ -224,3 +225,4 @@ esac
 
 #EXEC
 if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
+if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then zcompile ~/.zshrc; fi
