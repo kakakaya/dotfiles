@@ -56,6 +56,7 @@
 (setq eval-expression-print-length nil) ; evalした結果を全部表示
 (show-paren-mode 1)                ; 対応する括弧を光らせる。
 (setq show-paren-style 'mixed)     ; ウィンドウ内に収まらないときだけ括弧内も光らせる。
+
 ;; 空白や長すぎる行を視覚化する。
 (require 'whitespace)
 (setq whitespace-line-column 80)           ; 1行が80桁を超えたら長すぎると判断する。
@@ -66,10 +67,12 @@
                                            ; 対象とする。
                          space-before-tab  ; タブの前にあるスペースを対象とする。
                          space-after-tab)) ; タブの後にあるスペースを対象とする。
-(global-whitespace-mode 0)          ; デフォルトで視覚化を有効にする。
+(global-whitespace-mode 1)          ; デフォルトで視覚化を有効にする。
+
 (global-hl-line-mode)               ; 現在行を目立たせる
 (column-number-mode t)              ; カーソルの位置が何文字目かを表示する
 (line-number-mode t)                ; カーソルの位置が何行目かを表示する
+
 (require 'saveplace)                ; カーソルの場所を保存する
 (setq-default save-place t)
 (setq kill-whole-line t)            ; 行の先頭でC-kを一回押すだけで行全体を消去する
