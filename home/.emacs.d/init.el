@@ -193,12 +193,12 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
 
-;;auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+;; ;;auto-complete
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
-(require 'helm-config)
+;(require 'helm-config)
 
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
