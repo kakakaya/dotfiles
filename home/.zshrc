@@ -1,106 +1,113 @@
-# -*- Mode: shell-script;coding:utf-8 -*- #
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=500000
-SAVEHIST=500000
-setopt autocd
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/kakakaya/.zshrc'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**' #'m:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
-zstyle ':completion:*:processes' menu yes select=2
+ # -*- Mode: shell-script;coding:utf-8 -*- #
+ # Lines configured by zsh-newuser-install
+ HISTFILE=~/.histfile
+ HISTSIZE=500000
+ SAVEHIST=500000
+ setopt autocd
+ bindkey -e
+ # End of lines configured by zsh-newuser-install
+ # The following lines were added by compinstall
+ zstyle :compinstall filename '/home/kakakaya/.zshrc'
+ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**' #'m:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
+ zstyle ':completion:*:processes' menu yes select=2
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+ autoload -Uz compinit
+ compinit
+ # End of lines added by compinstall
 
-# ---------------- setopt/autoload/zstyle ---------------- #
-setopt prompt_subst
-setopt auto_pushd
-setopt auto_menu
-zstyle ':completion:*:default' menu select=1
-setopt correct
-setopt hist_ignore_dups
-setopt share_history
-setopt list_packed
-setopt no_beep
-setopt nolistbeep
-setopt rm_star_wait
-setopt EXTENDED_GLOB
-setopt EXTENDED_HISTORY
-setopt hist_expand
-setopt hist_reduce_blanks
-setopt re_match_pcre
-#zsh内蔵エディタを使う
-autoload -U zcalc
-autoload -U zed
-autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
-#入力途中の履歴補完
-bindkey "^P" history-beginning-search-backward #-end
-bindkey "^N" history-beginning-search-forward #-end
-setopt notify            # バックグラウンドジョブの状態変化を即時報告
-export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
-export LISTMAX=1000 #補完リストが多いときに尋ねない
+ # ---------------- setopt/autoload/zstyle ---------------- #
+ setopt prompt_subst
+ setopt auto_pushd
+ setopt auto_menu
+ zstyle ':completion:*:default' menu select=1
+ setopt correct
+ setopt hist_ignore_dups
+ setopt share_history
+ setopt list_packed
+ setopt no_beep
+ setopt nolistbeep
+ setopt rm_star_wait
+ setopt EXTENDED_GLOB
+ setopt EXTENDED_HISTORY
+ setopt hist_expand
+ setopt hist_reduce_blanks
+ setopt re_match_pcre
+ #zsh内蔵エディタを使う
+ autoload -U zcalc
+ autoload -U zed
+ autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
+ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
+ #入力途中の履歴補完
+ bindkey "^P" history-beginning-search-backward #-end
+ bindkey "^N" history-beginning-search-forward #-end
+ setopt notify            # バックグラウンドジョブの状態変化を即時報告
+ export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
+ export LISTMAX=1000 #補完リストが多いときに尋ねない
 
-if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
+ if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
 
-#---------------- function ----------------
-function extract() {
-  case $1 in
-    *.tar.gz|*.tgz) tar xzvf $1;;
-    *.tar.xz) tar Jxvf $1;;
-    *.zip) unzip $1;;
-    *.lzh) lha e $1;;
-    *.tar.bz2|*.tbz) tar xjvf $1;;
-    *.tar.Z) tar zxvf $1;;
-    *.gz) gzip -dc $1;;
-    *.bz2) bzip2 -dc $1;;
-    *.Z) uncompress $1;;
-    *.tar) tar xvf $1;;
-    *.arj) unarj $1;;
-  esac
-}
+ #---------------- function ----------------
+ function extract() {
+   case $1 in
+     *.tar.gz|*.tgz) tar xzvf $1;;
+     *.tar.xz) tar Jxvf $1;;
+     *.zip) unzip $1;;
+     *.lzh) lha e $1;;
+     *.tar.bz2|*.tbz) tar xjvf $1;;
+     *.tar.Z) tar zxvf $1;;
+     *.gz) gzip -dc $1;;
+     *.bz2) bzip2 -dc $1;;
+     *.Z) uncompress $1;;
+     *.tar) tar xvf $1;;
+     *.arj) unarj $1;;
+   esac
+ }
 
-function runcpp () { g++ -O2 $1; ./a.out }
+ function runcpp () { g++ -O2 $1; ./a.out }
 
-# function exist () {
-#     if type $1 >/dev/null 2>&1;
-#     then
-# 	return 0
-#     else
-# 	return 1
-#     fi
-# }
+ # function exist () {
+ #     if type $1 >/dev/null 2>&1;
+ #     then
+ # 	return 0
+ #     else
+ # 	return 1
+ #     fi
+ # }
 
-function git-current-branch {
-    local name st color gitdir action
-    if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
-    name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
-    if [[ -z $name ]]; then return;fi
-    
-    gitdir=`git rev-parse --git-dir 2> /dev/null`
-    action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
-    
-    st=`git status 2> /dev/null`
-    if [[ "$st" =~ "(?m)^nothing to" ]]; then
-        color=%F{green}
-    elif [[ "$st" =~ "(?m)^nothing added" ]]; then
-        color=%F{yellow}
-    elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
-        color=%B%F{red}
-    else
-        color=%F{red}
-    fi    
-    echo "($color$name$action%f%b) "
-}
+ function git-current-branch {
+     local name st color gitdir action
+     if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
+     name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
+     if [[ -z $name ]]; then return;fi
 
-#---------------- function end ----------------
-# ---------------- alias ---------------- #
-# -------- must-alias -------- #
-alias md=mkdir
-alias ls='ls -h --show-control-char --color=always'
+     gitdir=`git rev-parse --git-dir 2> /dev/null`
+     action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
+
+     st=`git status 2> /dev/null`
+     if [[ "$st" =~ "(?m)^nothing to" ]]; then
+	 color=%F{green}
+     elif [[ "$st" =~ "(?m)^nothing added" ]]; then
+	 color=%F{yellow}
+     elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
+	 color=%B%F{red}
+     else
+	 color=%F{red}
+     fi    
+     echo "($color$name$action%f%b) "
+ }
+
+ #---------------- function end ----------------
+ # ---------------- alias ---------------- #
+ # -------- must-alias -------- #
+ alias md=mkdir
+case ${OSTYPE} in
+    darwin*)
+	 alias ls='ls -h -G'
+	 ;;
+    linux*)
+	 alias ls='ls -h --show-control-char --color=always'
+	 ;;
+esac
 alias lh=ls
 alias la='ls -aF'
 alias ll='ls -ltr'
