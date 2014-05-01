@@ -58,6 +58,11 @@ if which mupdf >& /dev/null ; then
 else
     export PDFVIEWER="evince"
 fi
+if which viewnior >& /dev/null; then
+    export IMGVIEWER="viewnior"
+else
+    export IMGVIEWER="eog"
+fi
 
 export COLORTERM=0
 case "$TERM" in
@@ -73,7 +78,6 @@ case "$TERM" in
     #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 esac
 export EDITOR='emacs -nw'
-if [[ -x /usr/local/bin/viewnior ]]; then export IMGVIEWER='viewnior' ; else export IMGVIEWER='eog'; fi
 if [[ $COLORTERM -eq 1 ]]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]
@@ -94,5 +98,5 @@ then
 	    synclient CircScrollTrigger=0
 	    ;;
     esac
-fi    
+fi
 
