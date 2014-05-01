@@ -79,10 +79,10 @@ function git-current-branch {
     if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
     name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
     if [[ -z $name ]]; then return;fi
-    
+
     gitdir=`git rev-parse --git-dir 2> /dev/null`
     action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
-    
+
     st=`git status 2> /dev/null`
     if [[ "$st" =~ "(?m)^nothing to" ]]; then
         color=%F{green}
@@ -92,7 +92,7 @@ function git-current-branch {
         color=%B%F{red}
     else
         color=%F{red}
-    fi    
+    fi
     echo "($color$name$action%f%b) "
 }
 
@@ -130,7 +130,7 @@ alias lxmodmap='xmodmap ~/.Xmodmap'
 alias cdiff='colordiff -c'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
-alias streaming='tw -st'
+alias tlstream='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
@@ -171,6 +171,7 @@ alias -g GE='|& grep'
 alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
+alias -g PE='|& $PAGER'
 # -------- may-alias end -------- #
 # -------- maybe-alias -------- #
 alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
