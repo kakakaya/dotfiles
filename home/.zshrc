@@ -100,7 +100,14 @@ function git-current-branch {
 # ---------------- alias ---------------- #
 # -------- must-alias -------- #
 alias md=mkdir
-alias ls='ls -h --show-control-char --color=always'
+case ${OSTYPE} in
+    darwin*)
+	 alias ls='ls -h -G'
+	 ;;
+    linux*)
+	 alias ls='ls -h --show-control-char --color=always'
+	 ;;
+esac
 alias lh=ls
 alias la='ls -aF'
 alias ll='ls -ltr'

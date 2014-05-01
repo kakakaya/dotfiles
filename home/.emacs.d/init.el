@@ -201,7 +201,7 @@
 ;; (ac-config-default)
 ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
-(require 'helm-config)
+;(require 'helm-config)
 
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
