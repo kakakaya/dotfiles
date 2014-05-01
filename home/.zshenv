@@ -52,8 +52,15 @@ if which lv >& /dev/null ; then
 else
     export PAGER="less -RM --quiet -x2"
 fi
+
+if which mupdf >& /dev/null ; then
+    export PDFVIEWER="mupdf"
+else
+    export PDFVIEWER="evince"
+fi
+
 export COLORTERM=0
-case "$TERM" in 
+case "$TERM" in
     xterm*);	COLORTERM=1 ;;  # putty
     mlterm*);	COLORTERM=1 ; TERM='kterm-color';;
     screen*);	COLORTERM=1 ;;

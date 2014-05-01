@@ -137,6 +137,7 @@ alias psauxG='ps aux | grep'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
+alias -s pdf=$PDFVIEWER
 alias -s mp3=mplayer
 alias -s py=python
 if [[ `uname` = "Darwin" ]]; then
