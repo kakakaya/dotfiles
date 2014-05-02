@@ -238,6 +238,12 @@
 (custom-set-variables
  '(global-linum-mode t))
 
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+
+
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
 (require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode t)
@@ -246,12 +252,6 @@
 (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
-
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-
 
 ;; auto-follow version controlled symlink
 (setq vc-follow-symlinks t)
