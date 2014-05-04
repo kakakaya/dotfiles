@@ -24,16 +24,12 @@
 (define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
 (define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
 (define-key global-map (kbd "C-M-y") 'helm-show-kill-ring)  ;
-(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "C-x f") 'helm-find-files)
 (define-key global-map (kbd "M-x") 'helm-M-x)
 (global-set-key [f5] 'revert-buffer)
 
-;; ウィンドウ移動
-;; 2011-02-17
-;; 次のウィンドウへ移動
-(define-key global-map (kbd "C-M-n") 'next-multiframe-window)
-;; 前のウィンドウへ移動
-(define-key global-map (kbd "C-M-p") 'previous-multiframe-window)
+(define-key global-map (kbd "C-M-n") 'next-multiframe-window) ;; 次のウィンドウ
+(define-key global-map (kbd "C-M-p") 'previous-multiframe-window) ;; 前のウィンドウ
 ;; 再帰的にgrep
 ;; 2011-02-18
 (require 'grep)
@@ -395,7 +391,7 @@
 
 ;; Ask for confirmation before quitting Emacs
 (add-hook 'kill-emacs-query-functions
-          (lambda () (y-or-n-p "Do you really want to exit Emacs? "))
+          (lambda () (y-or-n-p "Emacs:Are you killing me? Really"))
           'append)
 
 ;; (setq url-proxy-services
