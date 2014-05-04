@@ -20,3 +20,4 @@ home/Pictures
 
 !home/Pictures/SmallTsunErio
 !home/.emacs.d/init.el
+home/.emacs.d/elpa/*

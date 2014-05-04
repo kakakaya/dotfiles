@@ -14,7 +14,7 @@
 ;; C-hでバックスペース
 ;; 2012-03-18
 (keyboard-translate ?\C-h ?\C-?)
-;; 基本
+;; define-key
 (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
 (define-key global-map (kbd "C-z") 'undo)                 ; undo
 (define-key global-map (kbd "C-c i") 'indent-region)      ; インデント
@@ -23,6 +23,9 @@
 (define-key global-map (kbd "M-C-g") 'grep)               ; grep
 (define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
 (define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
+(define-key global-map (kbd "C-M-y") 'helm-show-kill-ring)  ;
+(define-key global-map (kbd "C-x C-f") 'helm-find-files)
+(define-key global-map (kbd "M-x") 'helm-M-x)
 (global-set-key [f5] 'revert-buffer)
 
 ;; ウィンドウ移動
@@ -196,12 +199,12 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)             ; 互換性確保
 
-;; ;;auto-complete
-;; (require 'auto-complete-config)
-;; (ac-config-default)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+;;auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
-;(require 'helm-config)
+(require 'helm-config)
 
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
@@ -269,7 +272,7 @@
  (font-spec :family "Ricty"))
 (setq face-font-rescale-alist
       '((".*Ricty.*" . 1.2)))
- 
+
 ;;spalsh
 (setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
 
@@ -468,4 +471,4 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
+(require 'twittering-mode)
