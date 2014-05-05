@@ -130,7 +130,7 @@
 ;;show EOF
 (defun set-buffer-end-mark()
   (let ((overlay (make-overlay (point-max) (point-max))))
-    (overlay-put overlay 'before-string #("<EOF>" 0 5 (face highlight)))
+    (overlay-put overlay 'before-string #("[EOF]" 0 5 (face highlight)))
     (overlay-put overlay 'insert-behind-hooks
                  '((lambda (overlay after beg end &optional len)
                      (when after

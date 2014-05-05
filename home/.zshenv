@@ -85,12 +85,13 @@ then
     case ${HOST} in
 	Azurite)
 	    #ThinkpadX200 setting
+	    xset m 4 2
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 	    ;;
-	akari)
+	akari)p
 	    synclient TapButton1=1
 	    synclient TapButton2=2
 	    synclient TapButton3=3
