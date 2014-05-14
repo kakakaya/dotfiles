@@ -424,6 +424,8 @@
 ;; mainline (powerline not found)
 (require 'main-line)
 (setq main-line-separator-style 'arrow14)
+(defmain-line row "%p %4l")
+
 
 ;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 (global-anzu-mode +1)
