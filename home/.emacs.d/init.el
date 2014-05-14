@@ -26,10 +26,11 @@
 (define-key global-map (kbd "C-M-y") 'helm-show-kill-ring)  ;
 (define-key global-map (kbd "C-x f") 'helm-find-files)
 (define-key global-map (kbd "M-x") 'helm-M-x)
+(define-key global-map (kbd "C-c C-f") 'helm-for-files)
 (global-set-key [f5] 'revert-buffer)
 
-(define-key global-map (kbd "C-M-n") 'next-multiframe-window) ;; 次のウィンドウ
-(define-key global-map (kbd "C-M-p") 'previous-multiframe-window) ;; 前のウィンドウ
+(define-key global-map (kbd "C-s-n") 'next-multiframe-window) ;; 次のウィンドウ
+(define-key global-map (kbd "C-s-p") 'previous-multiframe-window) ;; 前のウィンドウ
 ;; 再帰的にgrep
 ;; 2011-02-18
 (require 'grep)
@@ -130,7 +131,7 @@
 ;;show EOF
 (defun set-buffer-end-mark()
   (let ((overlay (make-overlay (point-max) (point-max))))
-    (overlay-put overlay 'before-string #("<EOF>" 0 5 (face highlight)))
+    (overlay-put overlay 'before-string #("[EOF]" 0 5 (face highlight)))
     (overlay-put overlay 'insert-behind-hooks
                  '((lambda (overlay after beg end &optional len)
                      (when after
@@ -201,7 +202,7 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
 ;;helm
 (require 'helm-config)
-
+(setq recentf-max-saved-items nil)
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
@@ -467,4 +468,9 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-(require 'twittering-mode)
+;(require 'twittering-mode)
+(require 'markdown-mode)
+(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+
