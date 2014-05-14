@@ -91,7 +91,7 @@ then
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
 	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
 	    ;;
-	akari)p
+	akari)
 	    synclient TapButton1=1
 	    synclient TapButton2=2
 	    synclient TapButton3=3
