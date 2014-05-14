@@ -30,3 +30,5 @@
 
 	ps = push
 	pl = pull
+[merge]
+	ff = false
