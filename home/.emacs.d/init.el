@@ -392,7 +392,7 @@
 
 ;; Ask for confirmation before quitting Emacs
 (add-hook 'kill-emacs-query-functions
-          (lambda () (y-or-n-p "Emacs:Are you killing me? Really"))
+          (lambda () (y-or-n-p "Emacs:Are you killing me? Really?"))
           'append)
 
 ;; (setq url-proxy-services
