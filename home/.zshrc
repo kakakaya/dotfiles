@@ -151,7 +151,8 @@ alias -s py=python
 if [[ `uname` = "Darwin" ]]; then
     alias google-chrome='open -a Google\ Chrome'
 else
-    alias google-chrome='chromium'
+    #alias google-chrome='chromium' because chromium dead
+    alias google-chrome='google-chrome'
 fi
 alias chrome='google-chrome'
 alias -s html=chrome
