@@ -77,7 +77,11 @@ case "$TERM" in
     #vim は TERM='kterm' ではカラー化しない
     #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 esac
-export EDITOR='emacs -nw'
+if which jed >& /dev/null; then
+    export EDITOR='jed'
+else
+    export EDITOR='nano'
+fi
 if [[ $COLORTERM -eq 1 ]]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]

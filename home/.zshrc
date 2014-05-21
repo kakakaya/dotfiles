@@ -141,6 +141,7 @@ alias tlstream='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
+alias apti-search='aptitude search'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
@@ -150,7 +151,8 @@ alias -s py=python
 if [[ `uname` = "Darwin" ]]; then
     alias google-chrome='open -a Google\ Chrome'
 else
-    alias google-chrome='chromium'
+    #alias google-chrome='chromium' because chromium dead
+    alias google-chrome='google-chrome'
 fi
 alias chrome='google-chrome'
 alias -s html=chrome
