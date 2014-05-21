@@ -4,6 +4,7 @@
                  '("~/.emacs.d")
                  '("~/.emacs.d/auto-install")
 		 '("/usr/share/emacs/site-lisp")
+		 '("/usr/share/emacs/site-lisp/howm")
                  '("~/.emacs.d/el-get")
                  '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/elisp")
@@ -475,4 +476,20 @@
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
+;howm
+;http://howm.sourceforge.jp/uu/
+(setq howm-menu-lang 'ja)
+(global-set-key "\C-c,," 'howm-menu)
+(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
+(setq howm-user-font-lock-keywords
+  '(
+    ("spam" . (0 'highlight prepend))
+    ("\[eggs\]" . (0 'font-lock-doc-face prepend))
+    ))
+
+(setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
+(setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
+(setq howm-history-file "~/howm/.howm-keys")
+;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
+(setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
