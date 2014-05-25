@@ -35,6 +35,10 @@ setopt re_match_pcre
 #zsh内蔵エディタを使う
 autoload -U zcalc
 autoload -U zed
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31' #kill の候補にも色付き表示
 #入力途中の履歴補完
