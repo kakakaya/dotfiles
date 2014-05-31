@@ -15,7 +15,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-# ---------------- setopt/autoload/zstyle ---------------- #
+# ================ setopt/autoload/zstyle ================ #
 setopt prompt_subst
 setopt auto_pushd
 setopt auto_menu
@@ -50,7 +50,7 @@ export LISTMAX=1000 #補完リストが多いときに尋ねない
 
 if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
 
-#---------------- function ----------------
+#================ function ================
 function extract() {
   case $1 in
     *.tar.gz|*.tgz) tar xzvf $1;;
@@ -100,9 +100,9 @@ function git-current-branch {
     echo "($color$name$action%f%b) "
 }
 
-#---------------- function end ----------------
-# ---------------- alias ---------------- #
-# -------- must-alias -------- #
+#================ function end ================
+# ================ alias ================ #
+# ======== must-alias ======== #
 alias md=mkdir
 case ${OSTYPE} in
     darwin*)
@@ -128,8 +128,8 @@ alias rmi='rm -i'
 alias rmd='rm -r'
 alias history='history -iD'
 alias g='git'
-# -------- must-alias end -------- #
-# -------- may-alias -------- #
+# ======== must-alias end ======== #
+# ======== may-alias ======== #
 alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
 alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
 #Keyboard
@@ -185,17 +185,17 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 alias -g PE='|& $PAGER'
-# -------- may-alias end -------- #
-# -------- maybe-alias -------- #
+# ======== may-alias end ======== #
+# ======== maybe-alias ======== #
 alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 alias ttyclock='tty-clock -stc' # Nomal
 alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
-# -------- maybe-alias end -------- #
-#---------------- alias end ----------------#
+# ======== maybe-alias end ======== #
+#================ alias end ================#
 
 
-#---------------- PROMPT ---------------- #
+#================ PROMPT ================ #
 PROMPT='
 [%n@%m]<${LINENO}/%!>`git-current-branch`:%F{cyan}%~%f
 %#'
@@ -207,37 +207,8 @@ PROMPT2="%_%%>"
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
-#---------------- PROMPT end ----------------#
-#aclsh
-case ${HOST} in
-    nest*|fg8*|rise*)
-	#alias
-	alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
-	case ${HOST} in
-	    nest*)
-		alias kagitail='tail -1 /var/log/kagisys.log'
-		;;
-	esac
-	#export
-	export http_proxy='http://proxy.uec.ac.jp:8080'
-	export ftp_proxy='http://proxy.uec.ac.jp:8080'
-	export https_proxy='http://proxy.uec.ac.jp:8080'
-
-	;;
-    purple*)
-	#JED
-	export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin
-	export LD_LIBRARY_PATH=/home/staff/jed/avrdev/supports/lib
-	setxkbmap dvorak
-	LANG=ja_JP.utf-8
-	export GTK_IM_MODULE=ibus
-	export XMODIFIERS=@im=ibus
-	export QT_IM_MODULE=ibus
-	export PYTHONPATH=~/lib/python/
-	ibus-daemon &
-
-esac
-
+#================ PROMPT end ================#
 #EXEC
-if [ -f $HOME/bin/zshexec.sh ]; then $HOME/bin/zshexec.sh; fi
-if [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ]; then zcompile ~/.zshrc; fi
+[ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
+[ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
