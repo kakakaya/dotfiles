@@ -1,39 +1,148 @@
-
-;;; ロードパスの追加
+;; -*- coding:utf-8 mode:emacs-lisp -*-
+;; ==========パス・変数関連==========
+;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
-                 '("~/.emacs.d")
-                 '("~/.emacs.d/auto-install")
 		 '("/usr/share/emacs/site-lisp")
 		 '("/usr/share/emacs/site-lisp/howm")
-                 '("~/.emacs.d/el-get")
-                 '("~/.emacs.d/elpa")
+                 '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
 		 '("~/.emacs.d/helm")
+		 '("~/.emacs.d/ajc-java-complete")
                  load-path))
-;; Localeに合わせた環境の設定
-(set-locale-environment nil)
-;; C-hでバックスペース
-;; 2012-03-18
-(keyboard-translate ?\C-h ?\C-?)
-;; define-key
+
+;; ==========全般設定==========
+;; ==========キーバインド関連==========
 (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
-(define-key global-map (kbd "C-z") 'undo)                 ; undo
-(define-key global-map (kbd "C-c i") 'indent-region)      ; インデント
-(define-key global-map (kbd "C-c C-i") 'hippie-expand)    ; 補完
-(define-key global-map (kbd "C-c ;") 'comment-dwim)       ; コメントアウト
-(define-key global-map (kbd "M-C-g") 'grep)               ; grep
-(define-key global-map (kbd "C-[ M-C-g") 'goto-line)      ; 指定行へ移動
-(define-key global-map (kbd "C-c #") 'hs-toggle-hiding)     ; 折りたたみトグル
-(define-key global-map (kbd "C-M-y") 'helm-show-kill-ring)  ;
-(define-key global-map (kbd "C-x f") 'helm-find-files)
-(define-key global-map (kbd "M-x") 'helm-M-x)
-(define-key global-map (kbd "C-c C-f") 'helm-for-files)
+(global-set-key (kbd "C-z") 'undo)			       ; undo
+(global-set-key (kbd "C-c i") 'indent-region)		       ; インデント
+(global-set-key (kbd "C-c C-i") 'hippie-expand)	       ; 補完
+(global-set-key (kbd "C-c ;") 'comment-dwim)	      ; コメントアウト
+(global-set-key (kbd "M-C-g") 'grep)		      ; grep
+(global-set-key (kbd "C-[ M-C-g") 'goto-line)	      ; 指定行へ移動
+(global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
+(global-set-key (kbd "C-M-y") 'helm-show-kill-ring) ;
+(global-set-key (kbd "C-x f") 'helm-find-files)     ;
+(global-set-key (kbd "C-M-x") 'execute-extended-command) ;
+(global-set-key (kbd "M-x") 'helm-M-x)	      ;
+(global-set-key (kbd "C-c C-f") 'helm-for-files)    ;
+(global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
+(global-set-key (kbd "C-s-p") 'previous-multiframe-window) ;
+(global-set-key (kbd "C-x C-j") 'skk-mode)
 (global-set-key [f5] 'revert-buffer)
 
-(define-key global-map (kbd "C-s-n") 'next-multiframe-window) ;; 次のウィンドウ
-(define-key global-map (kbd "C-s-p") 'previous-multiframe-window) ;; 前のウィンドウ
+;; ==========その他==========
+;; =====単行=====
+(auto-image-file-mode t)           ; 画像ファイルを表示
+(menu-bar-mode -1)                ; メニューバーを消す
+(tool-bar-mode -1)                ; ツールバーを消す
+(blink-cursor-mode 1)              ; カーソルの点滅をする
+(setq eval-expression-print-length nil) ; evalした結果を全部表示
+(show-paren-mode 1)                ; 対応する括弧を光らせる。
+(setq show-paren-delay 0)
+(set-face-attribute 'show-paren-match-face nil
+                    :background nil :foreground nil
+                    :underline "#ffff00" :weight 'extra-bold)
+(setq show-paren-style 'mixed)     ; ウィンドウ内に収まらないときだけ括弧内も光らせる。
+(setq kill-whole-line t)            ; 行の先頭でC-kを一回押すだけで行全体を消去する
+(setq require-final-newline t)      ; 最終行に必ず一行挿入する
+(setq next-line-add-newlines nil)   ; バッファの最後でnewlineで新規行を追加するのを禁止する
+(icomplete-mode 1)		    ; 補完可能なものを随時表示
+(setq history-length 100000)	    ; 履歴数を大きくする
+(savehist-mode 1)		    ; ミニバッファの履歴を保存する
+
+(auto-compression-mode t)    ;;; gzファイルも編集できるようにする
+(setq ediff-window-setup-function 'ediff-setup-windows-plain) ;;; ediffを1ウィンドウで実行
+(setq diff-switches '("-u" "-p" "-N"))    ;;; diffのオプション
+(setq vc-follow-symlinks t) ; auto-follow version controlled symlink
+(setq suggest-key-bindings t) ; suggest keybinding
+(fset 'yes-or-no-p 'y-or-n-p) ; y/n
+(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png") ;spalsh
+
+;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
+
+
+
+;; =====複行=====
+;; 80x47 screen (good for azurite)
+(setq initial-frame-alist
+      '((top . 0) (left . 0) (width . 80) (height . 47)))
+
+;; Ask for confirmation before quitting Emacs
+(add-hook 'kill-emacs-query-functions
+          (lambda () (y-or-n-p "Emacs:Are you killing me? Really?"))
+          'append)
+
+;; 大文字小文字の区別をしない
+(setq completion-ignore-case t)		       ;検索(全般)時
+(setq isearch-case-fold-search t)	       ;isearch時
+(setq read-file-name-completion-ignore-case t) ;ファイル名の問い合わせ
+(setq read-buffer-completion-ignore-case t)    ;バッファ
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(anzu-deactivate-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 10000)
+ '(anzu-use-migemo t)
+ '(column-number-mode t)
+ '(current-language-environment "Japanese")
+ '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
+ '(global-linum-mode t)
+ '(inhibit-startup-echo-area-message "")
+ '(show-paren-mode t))
+
+;;show [EOF] at EOF
+(defun set-buffer-end-mark()
+  (let ((overlay (make-overlay (point-max) (point-max))))
+    (overlay-put overlay 'before-string #("[EOF]" 0 5 (face highlight)))
+    (overlay-put overlay 'insert-behind-hooks
+                 '((lambda (overlay after beg end &optional len)
+                     (when after
+                       (move-overlay overlay (point-max) (point-max))))))))
+
+;;font
+(set-face-attribute 'default nil
+		    :family "Inconsolata"
+		    :height 100)
+(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
+
+;encode
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+;(set-default-file-name-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+
+;; ==========言語ごとの設定==========
+;; 折り畳み
+;;http://dadakusa-log.blogspot.jp/2012/02/emacs.html
+;; C coding style
+(add-hook 'c-mode-hook '(lambda () (hs-minor-mode 1)))
+;; Scheme coding style
+(add-hook 'scheme-mode-hook '(lambda () (hs-minor-mode 1)))
+;; Elisp coding style
+(add-hook 'emacs-lisp-mode-hook '(lambda () (hs-minor-mode 1)))
+;; Lisp coding style
+(add-hook 'lisp-mode-hook '(lambda () (hs-minor-mode 1)))
+;; Python coding style
+(add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
+;; Java coding style
+(add-hook 'java-mode-hook '(lambda () (hs-minor-mode 1)))
+
+;; ==========パッケージrequire==========
+(require 'package nil t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/")
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives
+	     ;; not works when shorted
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+
 ;; 再帰的にgrep
-;; 2011-02-18
 (require 'grep)
 (setq grep-command-before-query "grep -nH -r -e ")
 (defun grep-default-command ()
@@ -48,246 +157,138 @@
                 (concat grep-command-before-target " ."))
               (+ (length grep-command-before-target) 1)))
     (car grep-command)))
+
 (setq grep-command (cons (concat grep-command-before-query " .")
                          (+ (length grep-command-before-query) 1)))
-(auto-image-file-mode t)           ; 画像ファイルを表示
-(menu-bar-mode -1)                ; メニューバーを消す
-(tool-bar-mode -1)                ; ツールバーを消す
-(blink-cursor-mode 1)              ; カーソルの点滅をする
-(setq eval-expression-print-length nil) ; evalした結果を全部表示
-(show-paren-mode 1)                ; 対応する括弧を光らせる。
-(setq show-paren-style 'mixed)     ; ウィンドウ内に収まらないときだけ括弧内も光らせる。
 
-;; 空白や長すぎる行を視覚化する。
+;; =====howm=====
+;http://howm.sourceforge.jp/uu/
+(setq howm-menu-lang 'ja)
+(setq howm-prefix "\C-c")
+(global-set-key "\C-c,," 'howm-menu)
+(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+
+(setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
+(setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
+(setq howm-history-file "~/howm/.howm-keys")
+;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
+(setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
+(define-key global-map (concat howm-prefix "n") #'howm-create-nikki)
+
+;; howm日記関連
+(setq howm-template
+      #'(lambda (n buf)
+	  (interactive "p")
+	  (cond
+	   ((= 1 n)
+	    "= %title%cursor
+%date %file
+")
+	   ((= 2 n)
+	    (concat
+	     "= 日記" (format-time-string "%Y/%m/%d")
+	     "
+%date
+睡眠: %cursor
+朝食: 
+昼食: 
+夜食: 
+天気: 
+
+進捗:
+
+-
+")))))
+(defun howm-current-date-lazy ()
+  "6時前なら昨日の日付、それ以降なら今日の日付でemacs内部時間形式で返す(時分秒とか気にしない)"
+  (let ((time (decode-time (current-time))))
+    (when (< (nth 2 (decode-time (current-time)))
+	     6)				;←6時
+      (setf (nth 3 time) (- (nth 3 time) 1)))
+    (apply #'encode-time time)))
+(defun howm-nikki-file-name ()
+  (concat howm-directory (format-time-string "%Y/%m/")
+	  "daiary-" (format-time-string howm-date-format (howm-current-date-lazy)) ".md"))
+(defun howm-create-nikki ()
+  (interactive)
+  (if (file-exists-p (howm-nikki-file-name))
+      (progn (find-file (howm-nikki-file-name))
+	     (howm-set-mode))
+    (progn
+      (howm-create 2 nil)
+      (set-visited-file-name (howm-nikki-file-name)))))
+;; =====howmここまで=====
+
 (require 'whitespace)
-(setq whitespace-line-column 80)           ; 1行が80桁を超えたら長すぎると判断する。
-(setq whitespace-style '(face              ; faceを使って視覚化する。
-                         trailing          ; 行末の空白を対象とする。
-                         lines-tail        ; 長すぎる行のうち
-                                           ; whitespace-line-column以降のみを
-                                           ; 対象とする。
-                         space-before-tab  ; タブの前にあるスペースを対象とする。
+(setq whitespace-line-column 80) ; 1行が80桁を超えたら長すぎると判断する。
+(setq whitespace-style '(face	 ; faceを使って視覚化する。
+			 trailing	; 行末の空白を対象とする。
+                         lines-tail ; whitespace-line-column以降のみを対象とする。
+                         space-before-tab ; タブの前にあるスペースを対象とする。
                          space-after-tab)) ; タブの後にあるスペースを対象とする。
-(global-whitespace-mode 1)          ; デフォルトで視覚化を有効にする。
+(global-whitespace-mode 1)	; デフォルトで視覚化を有効にする。
+(global-hl-line-mode)		; 現在行を目立たせる
+(column-number-mode t)		; カーソルの位置が何文字目か
+(line-number-mode t)		; カーソルの位置が何行目か for no main-line
+(setq whitespace-display-mappings	;Tabをいい感じに表示する
+      '((space-mark ?\u3000 [?\u25a1])
+        ;; WARNING: the mapping below has a problem.
+        ;; When a TAB occupies exactly one column, it will display the
+        ;; character ?\xBB at that column followed by a TAB which goes to
+        ;; the next TAB column.
+        ;; If this is a problem for you, please, comment the line below.
+        (tab-mark ?\t [?\xBB ?\t] [?\\ ?\t])))
+(set-face-attribute 'whitespace-tab nil
+                    :foreground "LightSkyBlue"
+		    :underline t)
 
-(global-hl-line-mode)               ; 現在行を目立たせる
-(column-number-mode t)              ; カーソルの位置が何文字目かを表示する
-(line-number-mode t)                ; カーソルの位置が何行目かを表示する
+(require 'rainbow-delimiters nil t)
+;(global-rainbow-delimiters-mode t)
 
 (require 'saveplace)                ; カーソルの場所を保存する
 (setq-default save-place t)
-(setq kill-whole-line t)            ; 行の先頭でC-kを一回押すだけで行全体を消去する
-(setq require-final-newline t)      ; 最終行に必ず一行挿入する
-(setq next-line-add-newlines nil)   ; バッファの最後でnewlineで新規行を追加するのを禁止する
-;;; 補完時に大文字小文字を区別しない
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
-;;; 部分一致の補完機能を使う
-;;; p-bでprint-bufferとか
-;(partial-completion-mode t) ;not works?
-(icomplete-mode 1)               ;;; 補完可能なものを随時表示
-(setq history-length 100000)     ;;; 履歴数を大きくする
-(savehist-mode 1)                ;;; ミニバッファの履歴を保存する
-(setq recentf-max-saved-items 10000)    ;;; 最近開いたファイルを保存する数を増やす
-(auto-compression-mode t)    ;;; gzファイルも編集できるようにする
-(setq ediff-window-setup-function 'ediff-setup-windows-plain) ;;; ediffを1ウィンドウで実行
-(setq diff-switches '("-u" "-p" "-N"))    ;;; diffのオプション
-(require 'dired-x) ;;; diredを便利にする
-;;; diredから"r"でファイル名をインライン編集する
-(require 'wdired)
-(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
-;;; ファイル名が重複していたらディレクトリ名を追加する。
-;;(require 'uniquify)
-;;(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-;; 2011-03-09
-(setq-default flyspell-mode t)
-(setq ispell-dictionary "american")
-;; インストールされていたら有効にする。
-(require 'migemo nil t)
-;;http://d.hatena.ne.jp/beiz23/20090603/1244034052
-;;(defface my-face-r-1 '((t (:background "gray15"))) nil)
-(defface my-face-b-1 '((t (:background "gray"))) nil :group 'ShowSpace)
-(defface my-face-b-2 '((t (:foreground "gray30" :underline t))) nil :group 'ShowSpace)
-(defface my-face-u-1 '((t (:foreground "SteelBlue" :underline t))) nil :group 'ShowSpace)
-;;(defvar my-face-r-1 'my-face-r-1)
-(defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
 
+(when (require 'recentf nil t)
+  (setq recentf-max-saved-items 2000)
+  (setq recentf-exclude '(".recentf"))
+  (setq recentf-auto-cleanup 10)
+  (setq recentf-auto-save-timer
+	(run-with-idle-timer 30 t 'recentf-save-list))
+  (recentf-mode 1))
 
-
-;; (defadvice font-lock-mode (before my-font-lock-mode ()) ;uncomment after check
-;;   (font-lock-add-keywords
-;;    major-mode
-;;    '(("\t" 0 my-face-b-2 append)
-;;      ("　" 0 my-face-b-1 append)
-;;      ("[ \t]+$" 0 my-face-u-1 append)
-;;      ;;("[\r]*\n" 0 my-face-r-1 append)
-;;      )))
-;; (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
-;; (ad-activate 'font-lock-mode)
-
-
-
-;;show EOF
-(defun set-buffer-end-mark()
-  (let ((overlay (make-overlay (point-max) (point-max))))
-    (overlay-put overlay 'before-string #("[EOF]" 0 5 (face highlight)))
-    (overlay-put overlay 'insert-behind-hooks
-                 '((lambda (overlay after beg end &optional len)
-                     (when after
-                       (move-overlay overlay (point-max) (point-max))))))))
-(add-hook 'find-file-hooks 'set-buffer-end-mark)
-
-;;(setq navi2ch-net-http-proxy "proxy.uec.ac.jp:8080")
-;;http://d.hatena.ne.jp/syohex/20110331/1301584188
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-(setq show-paren-style 'expression)
-(set-face-attribute 'show-paren-match-face nil
-                    :background nil :foreground nil
-                    :underline "#ffff00" :weight 'extra-bold)
-
-;;http://dadakusa-log.blogspot.jp/2012/02/emacs.html
-;; C coding style
-(add-hook 'c-mode-hook
-          '(lambda ()
-      (hs-minor-mode 1)))
-;; Scheme coding style
-(add-hook 'scheme-mode-hook
-          '(lambda ()
-      (hs-minor-mode 1)))
-;; Elisp coding style
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
-      (hs-minor-mode 1)))
-;; Lisp coding style
-(add-hook 'lisp-mode-hook
-          '(lambda ()
-      (hs-minor-mode 1)))
-;; Python coding style
-(add-hook 'python-mode-hook
-          '(lambda ()
-      (hs-minor-mode 1)))
-
-;; http://d.hatena.ne.jp/kitokitoki/20100516/p1
-(add-hook 'diff-mode-hook
-          (lambda ()
-            (set-face-foreground 'diff-context-face "grey50")
-            (set-face-background 'diff-header-face "black")
-            ;(set-face-underline-p 'diff-header-face t)
-            (set-face-foreground 'diff-file-header-face "MediumSeaGreen")
-            (set-face-background 'diff-file-header-face "black")
-            (set-face-foreground 'diff-index-face "MediumSeaGreen")
-            (set-face-background 'diff-index-face "black")
-            (set-face-foreground 'diff-hunk-header-face "plum")
-            (set-face-background 'diff-hunk-header-face"black")
-            (set-face-foreground 'diff-removed-face "pink")
-            (set-face-background 'diff-removed-face "gray5")
-            (set-face-foreground 'diff-added-face "light green")
-            (set-face-foreground 'diff-added-face "white")
-            (set-face-background 'diff-added-face "SaddleBrown")
-            (set-face-foreground 'diff-changed-face "DeepSkyBlue1")))
-
-(require 'python)
-
-;http://d.hatena.ne.jp/rubikitch/20091221/autoinstall
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/elisp/")
-(auto-install-update-emacswiki-package-name t)
-(auto-install-compatibility-setup)             ; 互換性確保
-
-;;auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
-;;helm
-(require 'helm-config)
-(setq recentf-max-saved-items nil)
-;zenburn-emacs
-(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
-(load-theme 'zenburn t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(current-language-environment "Japanese")
- '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
- '(show-paren-mode t))
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-;(when
-;    (load
-;     (expand-file-name "~/.emacs.d/elpa/package.el"))
-;  (package-initialize))
-(require 'f)
-
-(require 'hlinum)
-;; 前景色を黒，背景色を赤にする．
+(require 'hlinum nil t)
 (hlinum-activate)
 (custom-set-faces
- '(linum-highlight-face ((t (:foreground "white"
-                             :background "blue"
-			     )))))
-(custom-set-variables
- '(global-linum-mode t))
+ ;; 前景色を白，背景色を青にする．
+ '(linum-highlight-face ((t (:foreground "green" :background "black")))))
 
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+(require 'migemo nil t)
 
+(require 'helm-config)
+(setq recentf-max-saved-items nil)
+
+(require 'dired-x nil t) ;diredを便利にする
+(require 'wdired nil t)  ;diredから"r"でファイル名をインライン編集する
+(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+
+(require 'flyspell nil t) ;スペルチェック、要設定重点
+
+(require 'markdown-mode nil t)
+(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
-(require 'auto-highlight-symbol)
+(require 'auto-highlight-symbol nil t)
 (global-auto-highlight-symbol-mode t)
 
-;; elpy
+;; https://github.com/jorgenschaefer/elpy
 (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
 
-;; auto-follow version controlled symlink
-(setq vc-follow-symlinks t)
-;; suggest keybinding
-(setq suggest-key-bindings t)
-;; y/n
-(fset 'yes-or-no-p 'y-or-n-p)
+(require 'emmet-mode nil t)
+(require 'magit nil t)
 
-;;font
-(set-face-attribute 'default nil
-		    :family "Inconsolata"
-		    :height 100)
-(set-fontset-font
- nil 'japanese-jisx0208
- (font-spec :family "Ricty"))
-(setq face-font-rescale-alist
-      '((".*Ricty.*" . 1.2)))
-
-;;spalsh
-(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png")
-
-;; maximize screen
-;;(set-frame-parameter nil 'fullscreen 'maximized)
-
-;; 80x47 screen (good for azurite)
-(setq initial-frame-alist
-      '((top . 0) (left . 0) (width . 80) (height . 47)))
-
-(set-language-environment 'utf-8)
-(set-default-coding-systems 'utf-8)
-;(set-default-file-name-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
-(require 'emmet-mode)
-(require 'magit)
 ;;
 ;; YaTeX
 ;;
@@ -378,7 +379,6 @@
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (auto-fill-mode -1)))
-
 ;;
 ;; RefTeX with YaTeX
 ;;
@@ -391,52 +391,23 @@
              (define-key reftex-mode-map
 	       (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
-;; Ask for confirmation before quitting Emacs
-(add-hook 'kill-emacs-query-functions
-          (lambda () (y-or-n-p "Emacs:Are you killing me? Really?"))
-          'append)
+;; =====YaTeXここまで=====
 
-;; (setq url-proxy-services
-;;       '(("http" . "proxy.uec.ac.jp:8080")
-;;	("https" . "proxy.uec.ac.jp:8080"))
-;;       )
-
-;(load-library '2048) bad works
-
-(require 'undo-tree)
+(require 'undo-tree nil t)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
-
 ;; d.hatena.ne.jp/uk-ar/20120401/1333282805
-(require 'flex-autopair)
+(require 'flex-autopair nil t)
 (flex-autopair-mode 1)
 
-;; (require 'rainbow-delimiters)
-;; (global-rainbow-delimiters-mode t)
-;; (custom-set-faces
-;;  '(rainbow-delimiters-depth-1-face ((t (:foreground "#7f8c8d")))
-;;				   ));文字列の色と被るため,変更
-
-;;; smooth-scroll
-(require 'smooth-scroll)
+(require 'smooth-scroll nil t)
 (smooth-scroll-mode t)
 
 ;; mainline (powerline not found)
-(require 'main-line)
+(require 'main-line nil t)
 (setq main-line-separator-style 'arrow14)
 (defmain-line row "%p %4l")
-
-
-;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-(global-anzu-mode +1)
-(custom-set-variables
- '(anzu-mode-lighter "")
- '(anzu-deactivate-region t)
- '(anzu-search-threshold 1000)
- '(anzu-use-migemo t))
-
-
 
 ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
 (defvar mode-line-cleaner-alist
@@ -458,7 +429,6 @@
     ;(fundamental-mode . "Fd")
     ))
 
-
 (defun clean-mode-line ()
   (interactive)
   (loop for (mode . mode-str) in mode-line-cleaner-alist
@@ -471,25 +441,14 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-;(require 'twittering-mode)
-(require 'markdown-mode)
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+;; =====modeline=====
 
-;howm
-;http://howm.sourceforge.jp/uu/
-(setq howm-menu-lang 'ja)
-(global-set-key "\C-c,," 'howm-menu)
-(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+(global-anzu-mode +1)
 
-(setq howm-user-font-lock-keywords
-  '(
-    ("spam" . (0 'highlight prepend))
-    ("\[eggs\]" . (0 'font-lock-doc-face prepend))
-    ))
+;;ajc-java-complete
+(require 'ajc-java-complete-config nil t)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
 
-(setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
-(setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
-(setq howm-history-file "~/howm/.howm-keys")
-;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
-(setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
+
+
