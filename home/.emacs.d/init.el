@@ -1,18 +1,20 @@
 ;; -*- coding:utf-8 mode:emacs-lisp -*-
-;; ==========パス・変数関連==========
+;; ================パス・変数関連================
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
 		 '("/usr/share/emacs/site-lisp")
 		 '("/usr/share/emacs/site-lisp/howm")
                  '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
+		 '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/helm")
 		 '("~/.emacs.d/ajc-java-complete")
                  load-path))
 
-;; ==========全般設定==========
-;; ==========キーバインド関連==========
+;; ================全般設定================
+;; ================キーバインド関連================
 (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
+(global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "C-z") 'undo)			       ; undo
 (global-set-key (kbd "C-c i") 'indent-region)		       ; インデント
 (global-set-key (kbd "C-c C-i") 'hippie-expand)	       ; 補完
@@ -30,8 +32,8 @@
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 (global-set-key [f5] 'revert-buffer)
 
-;; ==========その他==========
-;; =====単行=====
+;; ================その他================
+;; ========単行========
 (auto-image-file-mode t)           ; 画像ファイルを表示
 (menu-bar-mode -1)                ; メニューバーを消す
 (tool-bar-mode -1)                ; ツールバーを消す
@@ -49,7 +51,6 @@
 (icomplete-mode 1)		    ; 補完可能なものを随時表示
 (setq history-length 100000)	    ; 履歴数を大きくする
 (savehist-mode 1)		    ; ミニバッファの履歴を保存する
-
 (auto-compression-mode t)    ;;; gzファイルも編集できるようにする
 (setq ediff-window-setup-function 'ediff-setup-windows-plain) ;;; ediffを1ウィンドウで実行
 (setq diff-switches '("-u" "-p" "-N"))    ;;; diffのオプション
@@ -62,7 +63,11 @@
 
 
 
-;; =====複行=====
+;; ========複行========
+;zenburn-emacs
+(add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
+(load-theme 'zenburn t)
+
 ;; 80x47 screen (good for azurite)
 (setq initial-frame-alist
       '((top . 0) (left . 0) (width . 80) (height . 47)))
@@ -102,6 +107,7 @@
                  '((lambda (overlay after beg end &optional len)
                      (when after
                        (move-overlay overlay (point-max) (point-max))))))))
+(add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;;font
 (set-face-attribute 'default nil
@@ -116,8 +122,7 @@
 ;(set-default-file-name-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-
-;; ==========言語ごとの設定==========
+;; ================言語ごとの設定================
 ;; 折り畳み
 ;;http://dadakusa-log.blogspot.jp/2012/02/emacs.html
 ;; C coding style
@@ -133,14 +138,22 @@
 ;; Java coding style
 (add-hook 'java-mode-hook '(lambda () (hs-minor-mode 1)))
 
-;; ==========パッケージrequire==========
-(require 'package nil t)
+(require 'python)
+
+;; ================パッケージrequire================
+(require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives
 	     ;; not works when shorted
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+(package-initialize)
+
+(require 'auto-install)
+(setq auto-install-directory "~/.emacs.d/elisp/")
+(auto-install-update-emacswiki-package-name t)
+(auto-install-compatibility-setup)             ; 互換性確保
 
 ;; 再帰的にgrep
 (require 'grep)
@@ -161,7 +174,7 @@
 (setq grep-command (cons (concat grep-command-before-query " .")
                          (+ (length grep-command-before-query) 1)))
 
-;; =====howm=====
+;; ========howm========
 ;http://howm.sourceforge.jp/uu/
 (setq howm-menu-lang 'ja)
 (setq howm-prefix "\C-c")
@@ -217,10 +230,10 @@
     (progn
       (howm-create 2 nil)
       (set-visited-file-name (howm-nikki-file-name)))))
-;; =====howmここまで=====
+;; ========howmここまで========
 
 (require 'whitespace)
-(setq whitespace-line-column 80) ; 1行が80桁を超えたら長すぎると判断する。
+(setq whitespace-line-column 120) ; 1行が80桁を超えたら長すぎると判断する。
 (setq whitespace-style '(face	 ; faceを使って視覚化する。
 			 trailing	; 行末の空白を対象とする。
                          lines-tail ; whitespace-line-column以降のみを対象とする。
@@ -245,7 +258,7 @@
 (require 'rainbow-delimiters nil t)
 ;(global-rainbow-delimiters-mode t)
 
-(require 'saveplace)                ; カーソルの場所を保存する
+(require 'saveplace)			; カーソルの場所を保存する
 (setq-default save-place t)
 
 (when (require 'recentf nil t)
@@ -255,12 +268,6 @@
   (setq recentf-auto-save-timer
 	(run-with-idle-timer 30 t 'recentf-save-list))
   (recentf-mode 1))
-
-(require 'hlinum nil t)
-(hlinum-activate)
-(custom-set-faces
- ;; 前景色を白，背景色を青にする．
- '(linum-highlight-face ((t (:foreground "green" :background "black")))))
 
 (require 'migemo nil t)
 
@@ -289,9 +296,7 @@
 (require 'emmet-mode nil t)
 (require 'magit nil t)
 
-;;
-;; YaTeX
-;;
+;;======== YaTeX ========
 (add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq auto-mode-alist
@@ -379,9 +384,7 @@
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (auto-fill-mode -1)))
-;;
 ;; RefTeX with YaTeX
-;;
 ;(add-hook 'yatex-mode-hook 'turn-on-reftex)
 (add-hook 'yatex-mode-hook
           '(lambda ()
@@ -391,7 +394,7 @@
              (define-key reftex-mode-map
 	       (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
 
-;; =====YaTeXここまで=====
+;; ========YaTeXここまで========
 
 (require 'undo-tree nil t)
 (global-undo-tree-mode t)
@@ -404,7 +407,7 @@
 (require 'smooth-scroll nil t)
 (smooth-scroll-mode t)
 
-;; mainline (powerline not found)
+;; ========mainline (powerline not found)========
 (require 'main-line nil t)
 (setq main-line-separator-style 'arrow14)
 (defmain-line row "%p %4l")
@@ -416,7 +419,7 @@
     (paredit-mode . " Pe")
     (eldoc-mode . "")
     (abbrev-mode . "")
-    (undo-tree-mode . " Ut")
+    (undo-tree-mode . "")
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
@@ -441,7 +444,7 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-;; =====modeline=====
+;; ========modeline========
 
 ;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 (global-anzu-mode +1)
@@ -450,5 +453,15 @@
 (require 'ajc-java-complete-config nil t)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 
+(require 'f)
 
+(require 'hlinum)
+;(hlinum-activate)
+(custom-set-faces
+ ;; 前景色を白，背景色を青にする．
+ '(linum-highlight-face ((t (:foreground "green" :background "black")))))
 
+;;auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
