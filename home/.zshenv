@@ -104,4 +104,31 @@ then
 	    ;;
     esac
 fi
+case ${HOST} in
+    nest|rise|debian)
+	#alias
+	alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
+	case ${HOST} in
+	    nest*)
+		alias kagitail='tail -1 /var/log/kagisys.log'
+		;;
+	esac
+	#export
+	export http_proxy='http://proxy.uec.ac.jp:8080'
+	export ftp_proxy='http://proxy.uec.ac.jp:8080'
+	export https_proxy='http://proxy.uec.ac.jp:8080'
+
+	;;
+    # purple*)
+    # 	#JED
+    # 	export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin
+    # 	export LD_LIBRARY_PATH=/home/staff/jed/avrdev/supports/lib
+    # 	setxkbmap dvorak
+    # 	LANG=ja_JP.utf-8
+    # 	export GTK_IM_MODULE=ibus
+    # 	export XMODIFIERS=@im=ibus
+    # 	export QT_IM_MODULE=ibus
+    # 	export PYTHONPATH=~/lib/python/
+    # 	ibus-daemon &
+esac
 
