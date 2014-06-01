@@ -115,7 +115,7 @@
 ;;font
 (set-face-attribute 'default nil
 		    :family "Inconsolata"
-		    :height 100)
+		    :height 120)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
