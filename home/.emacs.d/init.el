@@ -30,6 +30,10 @@
 (global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
 (global-set-key (kbd "C-s-p") 'previous-multiframe-window) ;
 (global-set-key (kbd "C-x C-j") 'skk-mode)
+(global-set-key [(control down)] 'scroll-up-1)
+(global-set-key [(control up)] 'scroll-down-1)
+(global-set-key [(control left)] 'scroll-right-1)
+(global-set-key [(control right)] 'scroll-left-1)
 (global-set-key [f5] 'revert-buffer)
 
 ;; ================その他================
@@ -60,7 +64,6 @@
 (setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png") ;spalsh
 
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
-
 
 
 ;; ========複行========
@@ -114,13 +117,18 @@
 		    :family "Inconsolata"
 		    :height 100)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
-(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
+;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
-;encode
+;; encode
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
 ;(set-default-file-name-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+
+;; browser
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "hv3")
+
 
 ;; ================言語ごとの設定================
 ;; 折り畳み
@@ -176,8 +184,8 @@
 
 ;; ========howm========
 ;http://howm.sourceforge.jp/uu/
+(setq howm-prefix "\C-c,")
 (setq howm-menu-lang 'ja)
-(setq howm-prefix "\C-c")
 (global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
@@ -186,7 +194,7 @@
 (setq howm-history-file "~/howm/.howm-keys")
 ;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
 (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
-(define-key global-map (concat howm-prefix "n") #'howm-create-nikki)
+(global-set-key (concat howm-prefix "n") #'howm-create-nikki)
 
 ;; howm日記関連
 (setq howm-template
@@ -202,14 +210,24 @@
 	     "= 日記" (format-time-string "%Y/%m/%d")
 	     "
 %date
-睡眠: %cursor
-朝食: 
-昼食: 
-夜食: 
-天気: 
+# 全般
+## 睡眠
+%cursor
+## 朝食
 
-進捗:
+## 昼食
 
+## 夕食
+## 天気
+
+# 進捗
+* 
+* 
+# 得点
+* 
+ * 
+* 合計
+ * 
 -
 ")))))
 (defun howm-current-date-lazy ()
@@ -221,7 +239,7 @@
     (apply #'encode-time time)))
 (defun howm-nikki-file-name ()
   (concat howm-directory (format-time-string "%Y/%m/")
-	  "daiary-" (format-time-string howm-date-format (howm-current-date-lazy)) ".md"))
+	  "diary-" (format-time-string howm-date-format (howm-current-date-lazy)) ".md"))
 (defun howm-create-nikki ()
   (interactive)
   (if (file-exists-p (howm-nikki-file-name))
@@ -283,6 +301,15 @@
 (require 'markdown-mode nil t)
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
+(custom-set-faces
+ '(markdown-header-face-1 ((t (:inherit org-level-1))))
+ '(markdown-header-face-2 ((t (:inherit org-level-2))))
+ '(markdown-header-face-3 ((t (:inherit org-level-3))))
+ '(markdown-header-face-4 ((t (:inherit org-level-4))))
+ '(markdown-header-face-5 ((t (:inherit org-level-5))))
+ '(markdown-header-face-6 ((t (:inherit org-level-6))))
+)
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
 (require 'auto-highlight-symbol nil t)
@@ -407,6 +434,7 @@
 (require 'smooth-scroll nil t)
 (smooth-scroll-mode t)
 
+(require 'skk nil t)
 ;; ========mainline (powerline not found)========
 (require 'main-line nil t)
 (setq main-line-separator-style 'arrow14)
@@ -423,6 +451,7 @@
     (elisp-slime-nav-mode . " EN")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
+    (smooth-scroll-mode . "")
     ;; Major modes
     (lisp-interaction-mode . "Li")
     (python-mode . "Py")
@@ -452,6 +481,7 @@
 ;;ajc-java-complete
 (require 'ajc-java-complete-config nil t)
 (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
 (require 'f)
 
@@ -465,3 +495,10 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+(setq ac-menu-height 10)
+
+
+
