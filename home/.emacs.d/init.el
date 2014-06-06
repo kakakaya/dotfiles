@@ -30,6 +30,7 @@
 (global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
 (global-set-key (kbd "C-s-p") 'previous-multiframe-window) ;
 (global-set-key (kbd "C-x C-j") 'skk-mode)
+(global-set-key (kbd "C-x C-b") 'ibuffer) ;buffer-listより高級なリスト
 (global-set-key [(control down)] 'scroll-up-1)
 (global-set-key [(control up)] 'scroll-down-1)
 (global-set-key [(control left)] 'scroll-right-1)
@@ -115,7 +116,7 @@
 ;;font
 (set-face-attribute 'default nil
 		    :family "Inconsolata"
-		    :height 120)
+		    :height 100)
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
@@ -479,9 +480,9 @@
 (global-anzu-mode +1)
 
 ;;ajc-java-complete
-(require 'ajc-java-complete-config nil t)
-(add-hook 'java-mode-hook 'ajc-java-complete-mode)
-(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+;; (require 'ajc-java-complete-config nil t)
+;; (add-hook 'java-mode-hook 'ajc-java-complete-mode)
+;; (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
 
 (require 'f)
 
