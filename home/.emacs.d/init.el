@@ -11,7 +11,9 @@
 		 '("~/.emacs.d/ajc-java-complete")
                  load-path))
 
-;; ================全般設定================
+;; ========================================
+;;                 全般設定
+;; ========================================
 ;; ================キーバインド関連================
 (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
 (global-set-key (kbd "C-h") 'delete-backward-char)
@@ -41,8 +43,8 @@
 (global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
 (global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
-;; ================その他================
-;; ========単行========
+;;================その他================
+;;================== 単行 ==================
 (auto-image-file-mode t)           ; 画像ファイルを表示
 (menu-bar-mode -1)                ; メニューバーを消す
 (tool-bar-mode -1)                ; ツールバーを消す
@@ -70,8 +72,7 @@
 
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
-
-;; ========複行========
+;;================== 複行 ==================
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
@@ -150,11 +151,16 @@
 ;; Python coding style
 (add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Java coding style
-(add-hook 'java-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-hook 'java-mode-hook (lambda ()
+			     (hs-minor-mode 1)
+			     (setq indent-tabs-mode nil)
+			     (setq c-basic-offset 2)))
 
 (require 'python)
 
-;; ================パッケージrequire================
+;; ========================================
+;;             require 'package
+;; ========================================
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/")
@@ -188,8 +194,8 @@
 (setq grep-command (cons (concat grep-command-before-query " .")
                          (+ (length grep-command-before-query) 1)))
 
-;; ========howm========
-;http://howm.sourceforge.jp/uu/
+;; ================= howm =================
+;; http://howm.sourceforge.jp/uu/
 (setq howm-prefix "\C-c,")
 (setq howm-menu-lang 'ja)
 (global-set-key "\C-c,," 'howm-menu)
@@ -301,8 +307,9 @@
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
 
-(require 'dired-x nil t) ;diredを便利にする
-(require 'wdired nil t)  ;diredから"r"でファイル名をインライン編集する
+(require 'dired-x nil t)		;diredを便利にする
+
+(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集する
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 (require 'flyspell nil t) ;スペルチェック、要設定重点
@@ -310,6 +317,7 @@
 (require 'markdown-mode nil t)
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
  '(markdown-header-face-1 ((t (:inherit org-level-1))))
@@ -483,7 +491,7 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-;; ========modeline========
+;; ========modeline end========
 
 ;; anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 ;; https://github.com/syohex/emacs-anzu
@@ -514,7 +522,7 @@
 (define-key ac-menu-map "\C-p" 'ac-previous)
 (setq ac-menu-height 10)
 
-;; tabbar
+;; ========tabbar========
 (require 'tabbar)
 (tabbar-mode)
 (global-set-key "\M-]" 'tabbar-forward)  ; 次のタブ
@@ -547,3 +555,5 @@
  :background (face-attribute 'mode-line :background)
  :foreground (face-attribute 'mode-line :foreground)
  :box nil)
+;; ========tabbar end========
+
