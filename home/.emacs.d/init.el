@@ -297,8 +297,9 @@
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
 
-(require 'dired-x nil t) ;diredを便利にする
-(require 'wdired nil t)  ;diredから"r"でファイル名をインライン編集する
+(require 'dired-x nil t)		;diredを便利にする
+
+(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集する
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
 (require 'flyspell nil t) ;スペルチェック、要設定重点
@@ -306,6 +307,7 @@
 (require 'markdown-mode nil t)
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
  '(markdown-header-face-1 ((t (:inherit org-level-1))))
@@ -478,7 +480,7 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-;; ========modeline========
+;; ========modeline end========
 
 ;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
 (global-anzu-mode +1)
@@ -505,7 +507,7 @@
 (define-key ac-menu-map "\C-p" 'ac-previous)
 (setq ac-menu-height 10)
 
-;; tabbar
+;; ========tabbar========
 (require 'tabbar)
 (tabbar-mode)
 (global-set-key "\M-]" 'tabbar-forward)  ; 次のタブ
@@ -538,3 +540,5 @@
  :background (face-attribute 'mode-line :background)
  :foreground (face-attribute 'mode-line :foreground)
  :box nil)
+;; ========tabbar end========
+
