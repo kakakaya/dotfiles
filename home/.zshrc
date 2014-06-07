@@ -77,28 +77,27 @@ function runcpp () { g++ -O2 $1; ./a.out }
 # 	return 1
 #     fi
 # }
+# function git-current-branch {
+#     local name st color gitdir action
+#     if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
+#     name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
+#     if [[ -z $name ]]; then return;fi
 
-function git-current-branch {
-    local name st color gitdir action
-    if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then return;fi
-    name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
-    if [[ -z $name ]]; then return;fi
+#     gitdir=`git rev-parse --git-dir 2> /dev/null`
+#     action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
 
-    gitdir=`git rev-parse --git-dir 2> /dev/null`
-    action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
-
-    st=`git status 2> /dev/null`
-    if [[ "$st" =~ "(?m)^nothing to" ]]; then
-        color=%F{green}
-    elif [[ "$st" =~ "(?m)^nothing added" ]]; then
-        color=%F{yellow}
-    elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
-        color=%B%F{red}
-    else
-        color=%F{red}
-    fi
-    echo "($color$name$action%f%b) "
-}
+#     st=`git status 2> /dev/null`
+#     if [[ "$st" =~ "(?m)^nothing to" ]]; then
+#         color=%F{green}
+#     elif [[ "$st" =~ "(?m)^nothing added" ]]; then
+#         color=%F{yellow}
+#     elif [[ "$st" =~ "(?m)^# Untracked" ]]; then
+#         color=%B%F{red}
+#     else
+#         color=%F{red}
+#     fi
+#     echo "($color$name$action%f%b) "
+# }
 
 #================ function end ================
 # ================ alias ================ #
@@ -177,7 +176,7 @@ alias -g A='| awk'
 alias -g P='| $PAGER'
 alias -g LE='|& less'
 alias -g LER='|& less -R'
-alias -g DCLER='| colordiff -c |& less -R'
+alias -g CDF='| colordiff -c |& less -R'
 alias -g HE='|& head'
 alias -g TE='|& tail'
 alias -g GE='|& grep'
@@ -197,7 +196,7 @@ alias killmebaby='pkill -9 sshd'
 
 #================ PROMPT ================ #
 PROMPT='
-[%n@%m]<${LINENO}/%!>`git-current-branch`:%F{cyan}%~%f
+[%n@%m]<${LINENO}/%!>:%F{cyan}%~%f
 %#'
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
