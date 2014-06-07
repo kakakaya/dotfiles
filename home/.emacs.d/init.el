@@ -31,6 +31,8 @@
 (global-set-key (kbd "C-s-p") 'previous-multiframe-window) ;
 (global-set-key (kbd "C-x C-j") 'skk-mode)
 (global-set-key (kbd "C-x C-b") 'ibuffer) ;buffer-listより高級なリスト
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
 (global-set-key [(control down)] 'scroll-up-1)
 (global-set-key [(control up)] 'scroll-down-1)
 (global-set-key [(control left)] 'scroll-right-1)
