@@ -38,6 +38,8 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 (global-set-key [f5] 'revert-buffer)
+(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
 
 ;; ================その他================
 ;; ========単行========
@@ -98,6 +100,7 @@
  '(anzu-mode-lighter "")
  '(anzu-search-threshold 10000)
  '(anzu-use-migemo t)
+ '(anzu-minimum-input-length 2)
  '(column-number-mode t)
  '(current-language-environment "Japanese")
  '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
@@ -293,6 +296,7 @@
   (recentf-mode 1))
 
 (require 'migemo nil t)
+(setq migemo-isearch-min-length 2)	;"Regular expression too big"
 
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
@@ -319,6 +323,7 @@
 )
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
+;; http://shibayu36.hatenablog.com/entry/2013/10/29/221427
 (require 'auto-highlight-symbol nil t)
 (global-auto-highlight-symbol-mode t)
 
@@ -482,10 +487,14 @@
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 ;; ========modeline end========
 
-;;anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+;; anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
+;; https://github.com/syohex/emacs-anzu
 (global-anzu-mode +1)
+(set-face-attribute 'anzu-replace-highlight nil
+                    :foreground "black" :background "PaleGreen4"
+		    :weight 'bold)
 
-;;ajc-java-complete
+;; ajc-java-complete
 ;; (require 'ajc-java-complete-config nil t)
 ;; (add-hook 'java-mode-hook 'ajc-java-complete-mode)
 ;; (add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
