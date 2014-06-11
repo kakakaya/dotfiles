@@ -51,6 +51,7 @@
 (blink-cursor-mode 1)              ; カーソルの点滅をする
 (setq eval-expression-print-length nil) ; evalした結果を全部表示
 (show-paren-mode 1)                ; 対応する括弧を光らせる。
+(setq visible-bell t)		   ; visible bell
 (setq show-paren-delay 0)
 (set-face-attribute 'show-paren-match-face nil
                     :background nil :foreground nil
@@ -292,6 +293,7 @@
 
 (require 'saveplace)			; カーソルの場所を保存する
 (setq-default save-place t)
+(run-at-time 600 600 'save-place-kill-emacs-hook)
 
 (when (require 'recentf nil t)
   (setq recentf-max-saved-items 2000)
@@ -449,8 +451,8 @@
 (require 'flex-autopair nil t)
 (flex-autopair-mode 1)
 
-(require 'smooth-scroll nil t)
-(smooth-scroll-mode t)
+;; (require 'smooth-scroll nil t)
+;; (smooth-scroll-mode t)
 
 (require 'skk nil t)
 ;; ========mainline (powerline not found)========
@@ -557,3 +559,32 @@
  :box nil)
 ;; ========tabbar end========
 
+;; ========== sublimity ==========
+(require 'sublimity)
+(require 'sublimity-scroll)
+(require 'sublimity-map)
+;; (require 'sublimity-attractive)
+(sublimity-mode 1)
+(setq sublimity-scroll-weight 10
+      sublimity-scroll-drift-length 10)
+
+(setq sublimity-map-size 20)
+(setq sublimity-map-fraction 0.3)
+(setq sublimity-map-on-scroll t)
+(setq sublimity-map-on-commands
+      '(previous-line next-line backward-paragraph forward-paragraph
+                      end-of-defun beginning-of-defun))
+(sublimity-map-set-delay 2)
+
+(defun sublimity-toggle ()
+  "Toggle sublimity for current buffer."
+  (interactive)
+ (if sublimity-mode
+     (message "sublimity off")
+   (message "sublimity on"))
+  (if sublimity-mode
+      (setq sublimity-mode nil)
+    (setq sublimity-mode t)))
+(global-set-key [f7] 'sublimity-toggle)
+(setq sublimity-attractive-centering-width nil)
+;; ========== sublimity end ==========
