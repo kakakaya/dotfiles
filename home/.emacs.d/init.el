@@ -51,6 +51,7 @@
 (blink-cursor-mode 1)              ; カーソルの点滅をする
 (setq eval-expression-print-length nil) ; evalした結果を全部表示
 (show-paren-mode 1)                ; 対応する括弧を光らせる。
+(setq visible-bell t)		   ; visible bell
 (setq show-paren-delay 0)
 (set-face-attribute 'show-paren-match-face nil
                     :background nil :foreground nil
@@ -198,7 +199,8 @@
 ;; http://howm.sourceforge.jp/uu/
 (setq howm-prefix "\C-c,")
 (setq howm-menu-lang 'ja)
-(global-set-key "\C-c,," 'howm-menu)
+(require 'howm)
+;; (global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
 (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
@@ -238,6 +240,10 @@
 * 
 
 # 得点
+* 
+ * 
+* 
+ * 
 * 
  * 
 * 合計
@@ -292,6 +298,7 @@
 
 (require 'saveplace)			; カーソルの場所を保存する
 (setq-default save-place t)
+(run-at-time 600 600 'save-place-kill-emacs-hook)
 
 (when (require 'recentf nil t)
   (setq recentf-max-saved-items 2000)
@@ -449,8 +456,8 @@
 (require 'flex-autopair nil t)
 (flex-autopair-mode 1)
 
-(require 'smooth-scroll nil t)
-(smooth-scroll-mode t)
+;; (require 'smooth-scroll nil t)
+;; (smooth-scroll-mode t)
 
 (require 'skk nil t)
 ;; ========mainline (powerline not found)========
@@ -525,21 +532,39 @@
 ;; ========tabbar========
 (require 'tabbar)
 (tabbar-mode)
-(global-set-key "\M-]" 'tabbar-forward)  ; 次のタブ
-(global-set-key "\M-[" 'tabbar-backward) ; 前のタブ
-;; タブ上でマウスホイールを使わない
-(tabbar-mwheel-mode nil)
-;; グループを使わない
-(setq tabbar-buffer-groups-function nil)
+(global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
+(global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
+(tabbar-mwheel-mode nil)					;タブ上でマウスホイールを使わない
+(setq tabbar-buffer-groups-function nil) ; グループを使わない
 ;; 左側のボタンを消す
 (dolist (btn '(tabbar-buffer-home-button
                tabbar-scroll-left-button
                tabbar-scroll-right-button))
   (set btn (cons (cons "" nil)
                  (cons "" nil))))
-;; タブ同士の間隔
-(setq tabbar-separator '(0.8))
-;; 外観変更
+(defvar tabbar-displayed-buffers
+  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*")
+  "*Regexps matches buffer names always included tabs.")
+;; 作業バッファの一部を非表示
+(setq tabbar-buffer-list-function
+      (lambda ()
+	(let* ((hides (list ?\ ?\*))
+	       (re (regexp-opt tabbar-displayed-buffers))
+	       (cur-buf (current-buffer))
+	       (tabs (delq
+		      nil
+		      (mapcar
+		       (lambda (buf)
+			 (let ((name (buffer-name buf)))
+			   (when (or (string-match re name)
+				     (not (memq (aref name 0) hides)))
+			     buf)))
+		       (buffer-list)))))
+	  (if (memq cur-buf tabs)
+	      tabs
+	    (cons cur-buf tabs)))))
+(setq tabbar-separator '(0.8))		;; タブ同士の間隔
+;; ====外観変更====
 (set-face-attribute			;バー自体の色
  'tabbar-default nil
  :family (face-attribute 'default :family)
@@ -557,3 +582,32 @@
  :box nil)
 ;; ========tabbar end========
 
+;; ========== sublimity ==========
+(require 'sublimity)
+(require 'sublimity-scroll)
+(require 'sublimity-map)
+;; (require 'sublimity-attractive)
+(sublimity-mode 1)
+(setq sublimity-scroll-weight 10
+      sublimity-scroll-drift-length 10)
+
+(setq sublimity-map-size 20)
+(setq sublimity-map-fraction 0.3)
+(setq sublimity-map-on-scroll t)
+(setq sublimity-map-on-commands
+      '(previous-line next-line backward-paragraph forward-paragraph
+                      end-of-defun beginning-of-defun))
+(sublimity-map-set-delay 2)
+
+(defun sublimity-toggle ()
+  "Toggle sublimity for current buffer."
+  (interactive)
+ (if sublimity-mode
+     (message "sublimity off")
+   (message "sublimity on"))
+  (if sublimity-mode
+      (setq sublimity-mode nil)
+    (setq sublimity-mode t)))
+(global-set-key [f7] 'sublimity-toggle)
+(setq sublimity-attractive-centering-width nil)
+;; ========== sublimity end ==========
