@@ -199,7 +199,8 @@
 ;; http://howm.sourceforge.jp/uu/
 (setq howm-prefix "\C-c,")
 (setq howm-menu-lang 'ja)
-(global-set-key "\C-c,," 'howm-menu)
+(require 'howm)
+;; (global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
 (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
@@ -239,6 +240,10 @@
 * 
 
 # 得点
+* 
+ * 
+* 
+ * 
 * 
  * 
 * 合計
@@ -527,21 +532,39 @@
 ;; ========tabbar========
 (require 'tabbar)
 (tabbar-mode)
-(global-set-key "\M-]" 'tabbar-forward)  ; 次のタブ
-(global-set-key "\M-[" 'tabbar-backward) ; 前のタブ
-;; タブ上でマウスホイールを使わない
-(tabbar-mwheel-mode nil)
-;; グループを使わない
-(setq tabbar-buffer-groups-function nil)
+(global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
+(global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
+(tabbar-mwheel-mode nil)					;タブ上でマウスホイールを使わない
+(setq tabbar-buffer-groups-function nil) ; グループを使わない
 ;; 左側のボタンを消す
 (dolist (btn '(tabbar-buffer-home-button
                tabbar-scroll-left-button
                tabbar-scroll-right-button))
   (set btn (cons (cons "" nil)
                  (cons "" nil))))
-;; タブ同士の間隔
-(setq tabbar-separator '(0.8))
-;; 外観変更
+(defvar tabbar-displayed-buffers
+  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*")
+  "*Regexps matches buffer names always included tabs.")
+;; 作業バッファの一部を非表示
+(setq tabbar-buffer-list-function
+      (lambda ()
+	(let* ((hides (list ?\ ?\*))
+	       (re (regexp-opt tabbar-displayed-buffers))
+	       (cur-buf (current-buffer))
+	       (tabs (delq
+		      nil
+		      (mapcar
+		       (lambda (buf)
+			 (let ((name (buffer-name buf)))
+			   (when (or (string-match re name)
+				     (not (memq (aref name 0) hides)))
+			     buf)))
+		       (buffer-list)))))
+	  (if (memq cur-buf tabs)
+	      tabs
+	    (cons cur-buf tabs)))))
+(setq tabbar-separator '(0.8))		;; タブ同士の間隔
+;; ====外観変更====
 (set-face-attribute			;バー自体の色
  'tabbar-default nil
  :family (face-attribute 'default :family)
