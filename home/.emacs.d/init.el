@@ -315,9 +315,9 @@
 (setq recentf-max-saved-items nil)
 
 (require 'dired-x nil t)		;diredを便利にする
-
-(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集する
+(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+(require 'wgrep-helm nil t)		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
 
 (require 'flyspell nil t) ;スペルチェック、要設定重点
 
@@ -543,7 +543,7 @@
   (set btn (cons (cons "" nil)
                  (cons "" nil))))
 (defvar tabbar-displayed-buffers
-  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*")
+  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*")
   "*Regexps matches buffer names always included tabs.")
 ;; 作業バッファの一部を非表示
 (setq tabbar-buffer-list-function
