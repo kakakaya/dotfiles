@@ -69,6 +69,10 @@ function extract() {
 
 function runcpp () { g++ -O2 $1; ./a.out }
 
+function runjavac() {javac $1}
+function runjavaclass() {java $1}
+function runjar() {java -jar $1}
+
 # function exist () {
 #     if type $1 >/dev/null 2>&1;
 #     then
@@ -144,6 +148,7 @@ alias tlstream='tw -st'
 alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
+alias chistory='history 1-'
 alias apti-search='aptitude search'
 
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
@@ -160,6 +165,9 @@ fi
 alias chrome='google-chrome'
 alias -s html=chrome
 alias -s {c,cpp}=runcpp
+alias -s java=runjavac
+alias -s class=runjavaclass
+alias -s jar=runjar
 if [[ `uname` = "Darwin" ]]; then
     alias IMGVIEWER='open -a Preview'
 fi
@@ -192,7 +200,6 @@ alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
 # ======== maybe-alias end ======== #
 #================ alias end ================#
-
 
 #================ PROMPT ================ #
 PROMPT='
