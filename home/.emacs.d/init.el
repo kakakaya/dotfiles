@@ -314,11 +314,12 @@
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
 
+;; ========== dired関連 ==========
 (require 'dired-x nil t)		;diredを便利にする
 (require 'wdired nil t)			;diredから"r"でファイル名をインライン編集
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 (require 'wgrep-helm nil t)		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
-
+(setq dired-listing-switches "-AFGhlrt")
 (require 'flyspell nil t) ;スペルチェック、要設定重点
 
 (require 'markdown-mode nil t)

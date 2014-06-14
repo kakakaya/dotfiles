@@ -41,11 +41,16 @@ export host=`echo $HOST | sed -e 's/\..*//'`
 
 export UID
 export SHELL=`which zsh`
-export CC=`which gcc`
 export JLESSCHARSET="japanese"
 export INFOPATH="$HOME/info:/usr/share/info:/usr/local/info"
 export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
+
+if which colorgcc >& /dev/null ; then
+    export CC="which colorgcc"
+else
+    export CC=`which gcc`
+fi
 
 if which lv >& /dev/null ; then
     export PAGER="lv"
