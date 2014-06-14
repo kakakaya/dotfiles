@@ -129,6 +129,7 @@ alias gpp='g++'
 alias sudo='sudo ' #makes alias-sudo able
 alias rmi='rm -i'
 alias rmd='rm -r'
+alias cpd='cp -rv'
 alias history='history -iD'
 alias g='git'
 # ======== must-alias end ======== #
