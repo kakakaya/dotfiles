@@ -109,19 +109,20 @@ function runjar() {java -jar $1}
 alias md=mkdir
 case ${OSTYPE} in
     darwin*)
-	 alias ls='ls -h -G'
+	 alias ls='ls -h -GF'
 	 ;;
     linux*)
-	 alias ls='ls -h --show-control-char --color=always'
+	 alias ls='ls -FGh --show-control-char --color=always'
 	 ;;
 esac
 alias lh=ls
-alias la='ls -aF'
+alias la='ls -A'
 alias ll='ls -ltr'
-alias lla='ll -a'
+alias lla='ll -A'
 alias lli='ll -i'
-alias l.='ls -d .[a-zA-Z]* --color=always'
-alias ll.='l. -lt'
+alias l.='ls -d .[a-zA-Z]*'
+alias ll.='l. -ltr'
+
 alias less='less -MN -gj10'
 alias em='emacs -nw'
 alias strdate='date +%Y-%m-%d_%H-%M-%S'
