@@ -17,13 +17,11 @@ home/.emacs.d/tramp
 home/.navi2ch
 home/Pictures
 *.rcp
-
 !home/Pictures/SmallTsunErio
 !home/.emacs.d/init.el
+!home/.zshrc
 home/.emacs.d/elpa/*
 home/.emacs.d/elisp/popup.el
 home/.emacs.d/ajc-java-complete/
-home/.emacs.d/init.el.bak.2014-05-30_19-05-38
-home/.zshrc
 home/.emacs.d/bookmarks
 home/.emacs.d/helm
