@@ -47,7 +47,7 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 
 if which colorgcc >& /dev/null ; then
-    export CC="which colorgcc"
+    export CC=`which colorgcc`
 else
     export CC=`which gcc`
 fi
