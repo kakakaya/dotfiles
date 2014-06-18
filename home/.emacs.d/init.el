@@ -88,6 +88,11 @@
           (lambda () (y-or-n-p "Emacs:Are you killing me? Really?"))
           'append)
 
+;; start server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;; 大文字小文字の区別をしない
 (setq completion-ignore-case t)		       ;検索(全般)時
 (setq isearch-case-fold-search t)	       ;isearch時
