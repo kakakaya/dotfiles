@@ -27,7 +27,6 @@
 (global-set-key (kbd "C-M-y") 'helm-show-kill-ring) ;
 (global-set-key (kbd "C-x f") 'helm-find-files)     ;
 (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
-(global-set-key (kbd "M-x") 'helm-M-x)	      ;
 (global-set-key (kbd "C-c C-f") 'helm-for-files)    ;
 (global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
 (global-set-key (kbd "C-s-p") 'previous-multiframe-window) ;
@@ -40,8 +39,10 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 (global-set-key [f5] 'revert-buffer)
-(global-set-key (kbd "<f3>") 'highlight-symbol-at-point)
-(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
+(global-set-key (kbd "<f3>")   'ahs-forward)
+(global-set-key (kbd "S-<f3>") 'ahs-backward)
+;(global-set-key (kbd "M-<f3>") ')
 
 ;;================その他================
 ;;================== 単行 ==================
@@ -86,6 +87,11 @@
 (add-hook 'kill-emacs-query-functions
           (lambda () (y-or-n-p "Emacs:Are you killing me? Really?"))
           'append)
+
+;; start server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;; 大文字小文字の区別をしない
 (setq completion-ignore-case t)		       ;検索(全般)時
@@ -313,7 +319,8 @@
 
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
-
+(global-set-key (kbd "M-x") 'helm-M-x)	      ;これでHelm起動失敗して
+					;も平気？
 ;; ========== dired関連 ==========
 (require 'dired-x nil t)		;diredを便利にする
 (require 'wdired nil t)			;diredから"r"でファイル名をインライン編集
