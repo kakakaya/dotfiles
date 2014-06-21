@@ -1,4 +1,4 @@
 remove Lock = Caps_Lock
 keysym Caps_Lock = Control_L
 add Control = Control_L
-keycode 97 = grave asciitilde grave asciitilde dead_grave dead_tilde
+keycode 97 = grave asciitilde grave asciitilde
