@@ -39,7 +39,7 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 (global-set-key [f5] 'revert-buffer)
-(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
+;(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
 (global-set-key (kbd "<f3>")   'ahs-forward)
 (global-set-key (kbd "S-<f3>") 'ahs-backward)
 ;(global-set-key (kbd "M-<f3>") ')
@@ -619,3 +619,6 @@
 (global-set-key [f7] 'sublimity-toggle)
 (setq sublimity-attractive-centering-width nil)
 ;; ========== sublimity end ==========
+(require 'highlight-symbol)
+(global-set-key (kbd "C-<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
