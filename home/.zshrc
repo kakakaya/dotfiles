@@ -124,7 +124,9 @@ alias l.='ls -d .[a-zA-Z]*'
 alias ll.='l. -ltr'
 
 alias less='less -MN -gj10'
+alias ec='emacsclient'
 alias em='emacs -nw'
+alias emc='emacsclient -nw'
 alias strdate='date +%Y-%m-%d_%H-%M-%S'
 alias gpp='g++'
 alias sudo='sudo ' #makes alias-sudo able
