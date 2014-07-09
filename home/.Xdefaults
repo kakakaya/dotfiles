@@ -17,8 +17,8 @@ URxvt*inheritPixmap: true
 URxvt*saveLines: 12000
 
 # font color (default is black)
-! URxvt*foreground: Snow
-urxvt.foreground: rgba:ffff/ffff/ffff/ffff
+URxvt*foreground: Snow
+! urxvt.foreground: rgba:ffff/ffff/ffff/ffff
 
 # background color (prior to tinting) (default is white)
 ! URxvt*background: Blue
