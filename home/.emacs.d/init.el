@@ -632,3 +632,5 @@
 
 ;; https://github.com/gongo/emacs-realtime-markdown-viewer
 ;; (require 'realtime-markdown-viewer)
+
+(require 'lua-mode)
