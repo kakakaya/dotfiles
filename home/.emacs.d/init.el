@@ -39,7 +39,7 @@
 (global-set-key [(control left)] 'scroll-right-1)
 (global-set-key [(control right)] 'scroll-left-1)
 (global-set-key [f5] 'revert-buffer)
-(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
+;(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
 (global-set-key (kbd "<f3>")   'ahs-forward)
 (global-set-key (kbd "S-<f3>") 'ahs-backward)
 ;(global-set-key (kbd "M-<f3>") ')
@@ -354,6 +354,12 @@
 (elpy-use-ipython)
 
 (require 'emmet-mode nil t)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; マークアップ言語全部で使う
+(add-hook 'css-mode-hook  'emmet-mode) ;; CSSにも使う
+(add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent はスペース2個
+(eval-after-load "emmet-mode"
+  '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
+
 (require 'magit nil t)
 
 ;;======== YaTeX ========
@@ -593,19 +599,19 @@
 ;; ========== sublimity ==========
 (require 'sublimity)
 (require 'sublimity-scroll)
-(require 'sublimity-map)
+;; (require 'sublimity-map)
 ;; (require 'sublimity-attractive)
 (sublimity-mode 1)
 (setq sublimity-scroll-weight 10
       sublimity-scroll-drift-length 10)
 
-(setq sublimity-map-size 20)
-(setq sublimity-map-fraction 0.3)
-(setq sublimity-map-on-scroll t)
-(setq sublimity-map-on-commands
-      '(previous-line next-line backward-paragraph forward-paragraph
-                      end-of-defun beginning-of-defun))
-(sublimity-map-set-delay 2)
+;; (setq sublimity-map-size 20)
+;; (setq sublimity-map-fraction 0.3)
+;; (setq sublimity-map-on-scroll t)
+;; (setq sublimity-map-on-commands
+;;       '(previous-line next-line backward-paragraph forward-paragraph
+;;                       end-of-defun beginning-of-defun))
+;; (sublimity-map-set-delay 2)
 
 (defun sublimity-toggle ()
   "Toggle sublimity for current buffer."
@@ -619,3 +625,12 @@
 (global-set-key [f7] 'sublimity-toggle)
 (setq sublimity-attractive-centering-width nil)
 ;; ========== sublimity end ==========
+(require 'highlight-symbol)
+(global-set-key (kbd "C-<f3>") 'highlight-symbol-at-point)
+(global-set-key (kbd "M-<f3>") 'highlight-symbol-remove-all)
+
+
+;; https://github.com/gongo/emacs-realtime-markdown-viewer
+;; (require 'realtime-markdown-viewer)
+
+(require 'lua-mode)
