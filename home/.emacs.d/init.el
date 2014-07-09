@@ -175,7 +175,7 @@
 (add-to-list 'package-archives
 	     ;; not works when shorted
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-;; (package-initialize)
+(package-initialize)
 
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/elisp/")
