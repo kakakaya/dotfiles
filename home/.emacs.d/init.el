@@ -175,7 +175,7 @@
 (add-to-list 'package-archives
 	     ;; not works when shorted
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-(package-initialize)
+;; (package-initialize)
 
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/elisp/")
@@ -205,7 +205,7 @@
 ;; http://howm.sourceforge.jp/uu/
 (setq howm-prefix "\C-c,")
 (setq howm-menu-lang 'ja)
-(require 'howm)
+(require 'howm nil t)
 ;; (global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
@@ -349,7 +349,7 @@
 (global-auto-highlight-symbol-mode t)
 
 ;; https://github.com/jorgenschaefer/elpy
-(package-initialize)
+;; (package-initialize)
 (elpy-enable)
 (elpy-use-ipython)
 
