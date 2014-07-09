@@ -87,7 +87,7 @@ if which jed >& /dev/null; then
 else
     export EDITOR='nano'
 fi
-if [[ $COLORTERM -eq 1 ]]; then export LANG=ja_JP.UTF8; else export LANG=C; fi
+if [[ $COLORTERM -eq 0 ]]; then export LANG=C; fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]
 then
