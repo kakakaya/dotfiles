@@ -45,6 +45,7 @@ export JLESSCHARSET="japanese"
 export INFOPATH="$HOME/info:/usr/share/info:/usr/local/info"
 export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
+export LC_ALL="ja_JP.UTF-8"
 
 if which colorgcc >& /dev/null ; then
     export CC=`which colorgcc`
@@ -78,7 +79,7 @@ case "$TERM" in
     kterm*);	COLORTERM=1 ; TERM='kterm-color';;
     rxvt*);     COLORTERM=1
 	export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
-	export LC_ALL=ja_JP.eucJP;;
+	# export LC_ALL=ja_JP.eucJP;;
     #vim は TERM='kterm' ではカラー化しない
     #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 esac
