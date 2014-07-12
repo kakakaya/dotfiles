@@ -24,3 +24,10 @@ home/.emacs.d/bookmarks
 home/.emacs.d/helm
 home/.emacs.d/%backup%~
 
+.config/awesome/rc.lua
+.config/awesome/themes/my-zenburn/theme.lua
+.config/awesome/themes/my-zenburn/awesome-icon.png
+.config/awesome/themes/my-zenburn/layouts/
+.config/awesome/themes/my-zenburn/taglist/
+.config/awesome/themes/my-zenburn/titlebar/
+.config/awesome/themes/my-zenburn/zenburn-background.png
