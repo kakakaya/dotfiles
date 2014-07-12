@@ -474,6 +474,14 @@
 ;; (smooth-scroll-mode t)
 
 (require 'skk nil t)
+(defun skk-j-mode-activate ()
+  (interactive)
+  (cond (skk-j-mode
+	 (skk-toggle-kana nil))
+	(t
+	 (skk-j-mode-on))))
+(global-set-key (kbd "C-.") 'skk-j-mode-activate)
+(global-set-key (kbd "C-,") 'skk-latin-mode)
 ;; ========mainline (powerline not found)========
 (require 'main-line nil t)
 (setq main-line-separator-style 'arrow14)
