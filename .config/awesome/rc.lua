@@ -11,7 +11,6 @@ require("debian.menu")
 -- For dynamic widgets
 require("vicious")
 
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -79,7 +78,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Web", "2.Dev", "3.Miku", "4.Term", 5, 6, 7, 8, 9 },
+   names = { "1.Term", "2.Web", "3.Dev", "4.Miku", 5, 6, 7, 8, 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
 	      layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -99,13 +98,13 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-				    { "Debian", debian.menu.Debian_menu.Debian },
+				    { "debian", debian.menu.Debian_menu.Debian },
 				    { "open terminal", terminal },
-				    { "Shutdown", function ()
+				    { "shutdown", function ()
 					 awful.util.spawn_with_shell("gksu 'shutdown -h now'") end  },
-				    { "Reboot", function ()
+				    { "reboot", function ()
 					 awful.util.spawn_with_shell("gksu 'reboot'") end  },
-				    { "Suspend", function ()
+				    { "suspend", function ()
 					 awful.util.spawn_with_shell("gksu 'pm-suspend'") end  }
 				  }})
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
@@ -144,6 +143,9 @@ cpugraph:set_color("#004080")
 cpugraph:set_gradient_colors({ "#004080", "#006699", "#CCCCFF" })
 vicious.register(cpugraph, vicious.widgets.cpu, "$1", refreshdelay)
 -- // cpuwidget
+
+-- batteryWidget
+-- batteryWidget
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -318,7 +320,8 @@ clientkeys = awful.util.table.join(
 	     function (c)
 		c.maximized_horizontal = not c.maximized_horizontal
 		c.maximized_vertical   = not c.maximized_vertical
-	     end)
+	     end),
+   awful.key({ modkey,           }, "F12",    function () awful.util.spawn("xlock") end)
 				  )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -385,11 +388,24 @@ awful.rules.rules = {
      properties = { floating = true } },
    { rule = { class = "gimp" },
      properties = { floating = true } },
+   { rule = { class = "Guake" },
+     properties = { floating = true } },
+   { rule = { class = "Conky" },
+     properties = { floating = true } },
    -- Set Firefox to always map on tags number 2 of screen 1.
    -- { rule = { class = "Firefox" },
    --   properties = { tag = tags[1][2] } },
+   -- xprop to check class
+   { rule = { class = "URxvt" },
+     properties = { tag = tags[1][1]}},
    { rule = { class = "Google-chrome" },
-     properties = { tag = tags[1][1]} }
+     properties = { tag = tags[1][2]} },
+   { rule = { class = "Emacs" },
+     properties = { tag = tags[1][3]}},
+   { rule = { class = "Mikutter.rb" },
+     properties = { tag = tags[1][4]}}
+
+
 }
 -- }}}
 

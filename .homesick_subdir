@@ -1,2 +1,4 @@
 .homesick/repos/dotfiles/bin
 bin
+.config
+
