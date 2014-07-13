@@ -1,5 +1,5 @@
 # What's this
-@kakakayaのdotfilesいわゆる設定集。再配布禁止なものが混じってそうな問題は修正済み。
+@kakakayaのdotfilesいわゆる設定集。再配布禁止なものが混じってそうな問題は修正済み。……たぶん。
 
 # Contents
 ## Emacs
