@@ -359,8 +359,8 @@
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; マークアップ言語全部で使う
 (add-hook 'css-mode-hook  'emmet-mode) ;; CSSにも使う
 (add-hook 'emmet-mode-hook (lambda () (setq emmet-indentation 2))) ;; indent はスペース2個
-(eval-after-load "emmet-mode"
-  '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
+;; (eval-after-load "emmet-mode"
+;;   '(define-key emmet-mode-keymap (kbd "C-j") nil)) ;; C-j は newline のままにしておく
 
 (require 'magit nil t)
 
@@ -547,7 +547,7 @@
 ;;auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp//ac-dict")
 (setq ac-use-menu-map t)
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
@@ -644,3 +644,8 @@
 ;; (require 'realtime-markdown-viewer)
 
 (require 'lua-mode)
+
+;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
+(require 'yasnippet)
+(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
+(yas-global-mode 1)
