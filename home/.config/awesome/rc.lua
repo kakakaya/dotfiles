@@ -78,7 +78,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Term", "2.Web", "3.Dev", "4.Miku", 5, 6, 7, 8, 9 },
+   names = { "1.Term", "2.Web", "3.Dev", "4.Miku", "5.File", 6, 7, 8, 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
 	      layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -145,6 +145,17 @@ vicious.register(cpugraph, vicious.widgets.cpu, "$1", refreshdelay)
 -- // cpuwidget
 
 -- batteryWidget
+batterywidget = widget({ type = "textbox" })
+batterywidget.text = " | Battery | "
+batterywidgettimer = timer({ timeout = 5 })
+batterywidgettimer:add_signal("timeout",
+			      function()
+				 fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+				 batterywidget.text = " |" .. fh:read("*l") .. " | "
+				 fh:close()
+			      end
+			     )
+batterywidgettimer:start()
 -- batteryWidget
 
 -- Create a wibox for each screen and add it
@@ -407,9 +418,12 @@ awful.rules.rules = {
    { rule = { class = "Emacs" },
      properties = { tag = tags[1][3]}},
    { rule = { class = "Mikutter.rb" },
-     properties = { tag = tags[1][4]}}
-
-
+     properties = { tag = tags[1][4]}},
+   { rule = { class = "Pcmanfm" },
+     properties = { tag = tags[1][5]}},
+   { rule = { class = "jp-guma-twitter-ricelauncher-Launcher" },
+     properties = { floating = true,
+		    tag = tags[1][9] }}
 }
 -- }}}
 
