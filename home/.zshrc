@@ -102,6 +102,16 @@ function runjar() {java -jar $1}
 #     fi
 #     echo "($color$name$action%f%b) "
 # }
+function current-battery {
+    local per
+    if ! [ -x /usr/bin/acpi ]; then return; fi
+    per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
+    if [[ $(acpi -a | grep on | wc -l) -eq 0 ]]; then
+	echo "%F{red}$per%%f"
+    else
+	echo "%F{green}$per%%f"
+    fi
+}
 
 #================ function end ================
 # ================ alias ================ #
@@ -207,7 +217,7 @@ alias killmebaby='pkill -9 sshd'
 
 #================ PROMPT ================ #
 PROMPT='
-[%n@%m]<${LINENO}/%!>:%F{cyan}%~%f
+[%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
 %#'
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
