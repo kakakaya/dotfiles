@@ -22,7 +22,6 @@ if [[ -x /usr/bin/google-chrome ]]; then
     google-chrome &
 fi
 emacs &
-mikutter &
 dropbox start
 
 exec awesome
