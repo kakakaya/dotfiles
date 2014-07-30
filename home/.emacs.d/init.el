@@ -6,6 +6,7 @@
 		 '("/usr/share/emacs/site-lisp/howm")
                  '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
+		 '("~/.emacs.d/elisp/twittering-mode")
 		 '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/helm")
 		 '("~/.emacs.d/ajc-java-complete")
@@ -649,3 +650,8 @@
 (require 'yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
 (yas-global-mode 1)
+
+
+;; twittering-mode retry
+(require 'twittering-mode)
+(setq twittering-icon-mode t)
