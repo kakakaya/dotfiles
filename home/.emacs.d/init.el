@@ -661,6 +661,11 @@
 (setq twittering-icon-mode nil)
 (setq twittering-use-master-password t)
 
+;; emms
+(require 'emms-setup)
+(emms-all)
+(emms-default-players)
+
 
 ;; Must at last!!!
 (cond
