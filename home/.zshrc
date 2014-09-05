@@ -216,9 +216,14 @@ alias killmebaby='pkill -9 sshd'
 #================ alias end ================#
 
 #================ PROMPT ================ #
-PROMPT='
+if [[ -d /sys/class/power_supply/BAT0 ]];
+then PROMPT='
 [%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
-%#'
+%#';
+else PROMPT='
+[%n@%m]<${LINENO}/%!>:%F{cyan}%~%f
+%#';
+fi
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
 else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
