@@ -112,7 +112,7 @@ then
     esac
 fi
 case ${HOST} in
-    nest|rise|debian)
+    nest*|rise*|debian*)
 	#alias
 	alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
 	case ${HOST} in

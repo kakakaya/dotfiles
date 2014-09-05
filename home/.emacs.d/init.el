@@ -6,6 +6,7 @@
 		 '("/usr/share/emacs/site-lisp/howm")
                  '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
+		 '("~/.emacs.d/elisp/twittering-mode")
 		 '("~/.emacs.d/elpa")
 		 '("~/.emacs.d/helm")
 		 '("~/.emacs.d/ajc-java-complete")
@@ -140,6 +141,10 @@
 (prefer-coding-system 'utf-8)
 
 ;; browser
+;; (setq browse-url-generic-program
+;; (setq browse-url-browser-function 'browse-url-generic)
+;;       (if (file-exists-p "/usr/bin/chromium")
+;;           "/usr/bin/chromium" "/usr/bin/google-chrome"))
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "hv3")
 
@@ -649,3 +654,19 @@
 (require 'yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
 (yas-global-mode 1)
+
+
+;; twittering-mode retry
+(require 'twittering-mode)
+(setq twittering-icon-mode nil)
+(setq twittering-use-master-password t)
+
+;; emms
+(require 'emms-setup)
+(emms-all)
+(emms-default-players)
+
+
+;; Must at last!!!
+(cond
+ ((file-readable-p "~/.emacs.d/init-local.el") (load "~/.emacs.d/init-local.el")))

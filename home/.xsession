@@ -21,8 +21,10 @@ urxvt &
 if [[ -x /usr/bin/google-chrome ]]; then
     google-chrome &
 fi
+if [[ -x /usr/bin/vmware-user ]]; then
+    /usr/bin/vmware-user
+fi
 emacs &
-mikutter &
 dropbox start
 
 exec awesome
