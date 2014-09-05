@@ -657,14 +657,14 @@
 
 
 ;; twittering-mode retry
-(require 'twittering-mode)
+(require 'twittering-mode nil t)
 (setq twittering-icon-mode nil)
 (setq twittering-use-master-password t)
 
 ;; emms
-(require 'emms-setup)
-(emms-all)
-(emms-default-players)
+(when (require 'emms-setup nil t)
+  (emms-all)
+  (emms-default-players))
 
 
 ;; Must at last!!!
