@@ -145,17 +145,17 @@ vicious.register(cpugraph, vicious.widgets.cpu, "$1", refreshdelay)
 -- // cpuwidget
 
 -- batteryWidget
-batterywidget = widget({ type = "textbox" })
-batterywidget.text = " | Battery | "
-batterywidgettimer = timer({ timeout = 5 })
-batterywidgettimer:add_signal("timeout",
-			      function()
-				 fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-				 batterywidget.text = " |" .. fh:read("*l") .. " | "
-				 fh:close()
-			      end
-			     )
-batterywidgettimer:start()
+-- batterywidget = widget({ type = "textbox" })
+-- batterywidget.text = " | Battery | "
+-- batterywidgettimer = timer({ timeout = 5 })
+-- batterywidgettimer:add_signal("timeout",
+-- 			      function()
+-- 				 fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+-- 				 batterywidget.text = " |" .. fh:read("*l") .. " | "
+-- 				 fh:close()
+-- 			      end
+-- 			     )
+-- batterywidgettimer:start()
 -- batteryWidget
 
 -- Create a wibox for each screen and add it
