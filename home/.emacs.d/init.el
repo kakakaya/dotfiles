@@ -666,6 +666,8 @@
   (emms-all)
   (emms-default-players))
 
+(require 'coffee-mode nil t)
+
 
 ;; Must at last!!!
 (cond
