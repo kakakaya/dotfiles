@@ -206,6 +206,17 @@ alias -g WE='|& wc'
 alias -g SE='|& sed'
 alias -g AE='|& awk'
 alias -g PE='|& $PAGER'
+
+# ======== consists whether I am alias ========
+case ${HOST} in
+    *mma*)
+	# set PULSE_SERVER for remote audio
+	alias vlc='PULSE_SERVER=192.168.2.1 vlc'
+	alias totem='PULSE_SERVER=192.168.2.1 totem'
+	;;
+esac
+# ======== consists whether I am alias end ========
+
 # ======== may-alias end ======== #
 # ======== maybe-alias ======== #
 alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
