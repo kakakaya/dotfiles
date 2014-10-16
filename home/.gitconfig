@@ -32,3 +32,5 @@
 	pl = pull
 [merge]
 	ff = false
+[credential]
+	helper = cache
