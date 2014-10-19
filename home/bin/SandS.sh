@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ -x ~/opt/xcape/xcape -o /usr/bin/xcape ]
+if [ -x ~/opt/xcape/xcape -o -x /usr/bin/xcape ]
 then
     xmodmap -e 'keycode 255=space'
     xmodmap -e 'keycode 65=Shift_L'
