@@ -78,7 +78,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Term", "2.Web", "3.Dev", "4.Miku", "5.File", 6, 7, 8, 9 },
+   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", 6, 7, 8, 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
 	      layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -407,7 +407,7 @@ awful.rules.rules = {
    -- { rule = { class = "Firefox" },
    --   properties = { tag = tags[1][2] } },
    -- xprop to check class
-   { rule = { class = "URxvt" },
+   { rule = { class = "Emacs" },
      properties = { tag = tags[1][1]}},
    { rule = { class = "Google-chrome" },
      properties = { tag = tags[1][2]} },
@@ -415,7 +415,7 @@ awful.rules.rules = {
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
-   { rule = { class = "Emacs" },
+   { rule = { class = "URxvt" },
      properties = { tag = tags[1][3]}},
    { rule = { class = "Mikutter.rb" },
      properties = { floating = true,
