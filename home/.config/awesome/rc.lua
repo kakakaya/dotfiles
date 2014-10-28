@@ -100,6 +100,8 @@ myawesomemenu = {
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
 				    { "debian", debian.menu.Debian_menu.Debian },
 				    { "open terminal", terminal },
+				    { "lock screen", function ()
+					 awful.util.spawn_with_shell("xscreensaver-command -lock") end  },
 				    { "shutdown", function ()
 					 awful.util.spawn_with_shell("gksu 'shutdown -h now'") end  },
 				    { "reboot", function ()
