@@ -217,6 +217,7 @@
 (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
 (setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
 (setq howm-history-file "~/howm/.howm-keys")
+(setq howm-view-use-grep t)		; 高速化される？
 ;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
 (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
 (global-set-key (concat howm-prefix "n") #'howm-create-nikki)
