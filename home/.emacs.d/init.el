@@ -163,10 +163,18 @@
 ;; Python coding style
 (add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Java coding style
-(add-hook 'java-mode-hook (lambda ()
-			     (hs-minor-mode 1)
-			     (setq indent-tabs-mode nil)
-			     (setq c-basic-offset 2)))
+(add-hook 'java-mode-hook '(lambda ()
+			    (hs-minor-mode 1)
+			    (setq indent-tabs-mode nil)
+			    (setq c-basic-offset 2)))
+;; Javascript coding style
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
+(add-hook 'js2-mode-hook '(lambda ()
+			    (setq js2-basic-offset 2
+				  indent-tabs-mode nil)
+			    (hs-minor-mode 1)
+			    ))
 
 (require 'python)
 
@@ -217,6 +225,7 @@
 (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
 (setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
 (setq howm-history-file "~/howm/.howm-keys")
+(setq howm-view-use-grep t)		; 高速化される？
 ;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
 (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
 (global-set-key (concat howm-prefix "n") #'howm-create-nikki)
