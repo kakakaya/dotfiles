@@ -163,10 +163,18 @@
 ;; Python coding style
 (add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Java coding style
-(add-hook 'java-mode-hook (lambda ()
-			     (hs-minor-mode 1)
-			     (setq indent-tabs-mode nil)
-			     (setq c-basic-offset 2)))
+(add-hook 'java-mode-hook '(lambda ()
+			    (hs-minor-mode 1)
+			    (setq indent-tabs-mode nil)
+			    (setq c-basic-offset 2)))
+;; Javascript coding style
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
+(add-hook 'js2-mode-hook '(lambda ()
+			    (setq js2-basic-offset 2
+				  indent-tabs-mode nil)
+			    (hs-minor-mode 1)
+			    ))
 
 (require 'python)
 
