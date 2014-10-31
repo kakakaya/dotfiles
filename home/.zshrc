@@ -155,13 +155,15 @@ function runjar() {java -jar $1}
 #     echo "($color$name$action%f%b) "
 # }
 function current-battery {
-    local per
-    if ! [ -x /usr/bin/acpi ]; then return; fi
-    per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
-    if [[ $(acpi -a | grep on | wc -l) -eq 0 ]]; then
-	echo "%F{red}$per%%f"
-    else
-	echo "%F{green}$per%%f"
+    if [ -d /sys/class/power_supply/BAT0 ] ; then
+	local per
+	if ! [ -x /usr/bin/acpi ]; then return; fi
+	per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
+	if [[ $(acpi -a | grep on | wc -l) -eq 0 ]]; then
+	    echo "%F{red}$per%%f"
+	else
+	    echo "%F{green}$per%%f"
+	fi
     fi
 }
 
@@ -234,8 +236,8 @@ alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
 alias chistory='history 1-'
-alias apti-search='aptitude search'
-
+alias apt-search='aptitude search'
+alias apt-show='aptitude show'
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s pdf=$PDFVIEWER
@@ -259,7 +261,8 @@ fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
 if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 #pipe
-alias -g L='| lv'
+alias -g L='| less'
+alias -g LR='| less -R'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
@@ -267,6 +270,7 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 alias -g P='| $PAGER'
+
 alias -g LE='|& less'
 alias -g LER='|& less -R'
 alias -g CDF='| colordiff -c |& less -R'
@@ -298,14 +302,9 @@ alias killmebaby='pkill -9 sshd'
 #================ alias end ================#
 
 #================ PROMPT ================ #
-if [[ -d /sys/class/power_supply/BAT0 ]];
-then PROMPT='
+PROMPT='
 [%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
-%#';
-else PROMPT='
-[%n@%m]<${LINENO}/%!>:%F{cyan}%~%f
-%#';
-fi
+%#'
 if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
 then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
 else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
