@@ -124,6 +124,7 @@ function runjavac() {javac $1}
 function runjavaclass() {java $1}
 function runjar() {java -jar $1}
 
+
 # function exist () {
 #     if type $1 >/dev/null 2>&1;
 #     then
@@ -164,6 +165,24 @@ function current-battery {
     fi
 }
 
+function zsh-autocmp {
+    # Setup zsh-autosuggestions
+    source ~/.zsh-autosuggestions/autosuggestions.zsh
+
+    # Enable autosuggestions automatically
+    zle-line-init() {
+	zle autosuggest-start
+    }
+    zle -N zle-line-init
+
+    # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+    # zsh-autosuggestions is designed to be unobtrusive)
+    # bindkey '^T' autosuggest-toggle # I use ^T so don't need this.
+}
+function simple-term {
+    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
+}
+
 #================ function end ================
 # ================ alias ================ #
 # ======== must-alias ======== #
@@ -196,6 +215,7 @@ alias rmd='rm -r'
 alias cpd='cp -rv'
 alias history='history -iD'
 alias g='git'
+alias sterm=simple-term
 # ======== must-alias end ======== #
 # ======== may-alias ======== #
 alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
@@ -291,6 +311,7 @@ then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
 else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
 fi
 PROMPT2="%_%%>"
+
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
@@ -299,3 +320,4 @@ PROMPT2="%_%%>"
 [ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
 [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -d .zsh-autosuggestions ] && zsh-autocmp
