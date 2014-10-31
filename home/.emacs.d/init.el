@@ -4,7 +4,7 @@
 (setq load-path (append
 		 '("/usr/share/emacs/site-lisp")
 		 '("/usr/share/emacs/site-lisp/howm")
-                 '("~/.emacs.d")
+                 ;; '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
 		 '("~/.emacs.d/elisp/twittering-mode")
 		 '("~/.emacs.d/elpa")
