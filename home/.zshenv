@@ -84,11 +84,13 @@ case "$TERM" in
 	#screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 	;;
 esac
+
 if which jed >& /dev/null; then
     export EDITOR='jed'
 else
     export EDITOR='nano'
 fi
+if [[ $COLORTERM -eq 1 ]]; then export LC_ALL=ja_JP.UTF8; fi
 if [[ $COLORTERM -eq 0 ]]; then export LANG=C; fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]
