@@ -45,7 +45,15 @@ URxvt*color12: RoyalBlue
 URxvt*scrollBar: true
 
 # scrollbar position - left=false (default) or right=true
-URxvt*scrollBar_right: false
+URxvt*scrollBar_right: true
 
 # scrollbar style - rxvt (default), plain, next, or xterm
 URxvt*scrollstyle: plain
+
+
+URxvt.perl-ext-common: default,matcher,tabbed
+# URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
+! URL Color
+URxvt.colorUL: #4682B4
