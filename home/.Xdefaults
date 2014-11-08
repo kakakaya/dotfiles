@@ -50,10 +50,24 @@ URxvt*scrollBar_right: true
 # scrollbar style - rxvt (default), plain, next, or xterm
 URxvt*scrollstyle: plain
 
-
 URxvt.perl-ext-common: default,matcher,tabbed
+
 # URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
 
 ! URL Color
 URxvt.colorUL: #4682B4
+
+! %git clone https://github.com/muennich/urxvt-perls .urxvt/
+URxvt.perl-lib: /home/kakakaya/.urxvt/urxvt-perls
+URxvt.perl-ext-common: keyboard-select,url-select,clipboard
+
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+URxvt.clipboard.autocopy: 1
+! Urxvt.keysym.C-C:perl:clipboard:copy
+! Urxvt.keysym.C-V:perl:clipboard:paste
+! Urxvt.keysym.C-M-V:perl:clipboard:paste_escaped
+
