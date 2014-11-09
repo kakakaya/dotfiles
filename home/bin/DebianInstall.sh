@@ -14,10 +14,13 @@ sudo aptitude install\
 sudo pip install elpy
 
 LANG=C xdg-user-dirs-gtk-update
+
+#making dir
 mkdir ~/.fonts
 mkdir ~/tmp
 mkdir ~/mnt
 
+# Dropbox init
 dropbox start -i
 
 # ln -s Dropbox/Backups/config/.skk-jisyo .skk-jisyo
@@ -26,6 +29,15 @@ dropbox start -i
 ## ssh
 mkdir .ssh
 ssh-keygen -t rsa
+
+#urxvt config
+mkdir -p ~/.urxvt/
+git clone htpps://muennich/urxvt-perls ~/.urxvt/
+cd ~/.urxvt/urxvt-perls/
+chmod u+x url-select
+chmod u+x keyboard-select
+chmod u+x clipboard
+cd
 
 ## Emacs
 mkdir -p ~/.emacs.d/elisp
