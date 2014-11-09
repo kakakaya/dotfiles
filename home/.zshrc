@@ -236,6 +236,7 @@ alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
 alias chistory='history 1-'
+alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
 alias apt-search='aptitude search'
 alias apt-show='aptitude show'
 alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract

@@ -100,23 +100,6 @@
 (setq read-file-name-completion-ignore-case t) ;ファイル名の問い合わせ
 (setq read-buffer-completion-ignore-case t)    ;バッファ
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-search-threshold 10000)
- '(anzu-use-migemo t)
- '(anzu-minimum-input-length 2)
- '(column-number-mode t)
- '(current-language-environment "Japanese")
- '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
- '(global-linum-mode t)
- '(inhibit-startup-echo-area-message "")
- '(show-paren-mode t))
-
 ;;show [EOF] at EOF
 (defun set-buffer-end-mark()
   (let ((overlay (make-overlay (point-max) (point-max))))
@@ -290,6 +273,11 @@
     (progn
       (howm-create 2 nil)
       (set-visited-file-name (howm-nikki-file-name)))))
+
+;; yameta
+;; (require 'calfw-howm)
+;; (cfw:install-howm-schedules)
+;; (define-key howm-mode-map (kbd "M-C") 'cfw:open-howm-calendar)
 ;; ========howmここまで========
 
 (require 'whitespace)
@@ -331,15 +319,15 @@
   (recentf-mode 1))
 
 (require 'migemo nil t)
-(setq migemo-isearch-min-length 2)	;"Regular expression too big"
+(setq migemo-isearch-min-length 5)	;"Regular expression too big"
 
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
 (global-set-key (kbd "M-x") 'helm-M-x)	      ;これでHelm起動失敗して
 					;も平気？
 ;; ========== dired関連 ==========
-(require 'dired-x nil t)		;diredを便利にする
-(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集
+(require 'dired-x)		;diredを便利にする
+(require 'wdired)			;diredから"r"でファイル名をインライン編集
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 (require 'wgrep-helm nil t)		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
 (setq dired-listing-switches "-AFGhlrt")
@@ -544,6 +532,23 @@
 (set-face-attribute 'anzu-replace-highlight nil
                     :foreground "black" :background "PaleGreen4"
 		    :weight 'bold)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(anzu-deactivate-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 10000)
+ '(anzu-use-migemo nil)			;Root of EVIL!
+ '(anzu-minimum-input-length 2)
+ '(column-number-mode t)
+ '(current-language-environment "Japanese")
+ '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
+ '(global-linum-mode t)
+ '(inhibit-startup-echo-area-message "")
+ '(show-paren-mode t))
+
 
 ;; ajc-java-complete
 ;; (require 'ajc-java-complete-config nil t)
@@ -557,6 +562,8 @@
 (custom-set-faces
  ;; 前景色を白，背景色を青にする．
  '(linum-highlight-face ((t (:foreground "green" :background "black")))))
+(require 'volatile-highlights nil t)
+(volatile-highlights-mode t)
 
 ;;auto-complete
 (require 'auto-complete-config)
