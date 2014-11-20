@@ -1,6 +1,6 @@
 ## First
 sudo aptitude install\
-     rxvt-unicode-256color guake jed\
+     rxvt-unicode-256color guake jed byobu\
      chromium\
      python-pip trash-cli wdiff\
      colorgcc colortail colormake colordiff\
