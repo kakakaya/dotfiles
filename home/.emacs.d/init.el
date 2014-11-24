@@ -319,7 +319,7 @@
   (recentf-mode 1))
 
 (require 'migemo nil t)
-(setq migemo-isearch-min-length 5)	;"Regular expression too big"
+(setq migemo-isearch-min-length 2)	;"Regular expression too big"
 
 (require 'helm-config)
 (setq recentf-max-saved-items nil)
