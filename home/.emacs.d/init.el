@@ -120,7 +120,7 @@
 ;; encode
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
-;(set-default-file-name-coding-system 'utf-8)
+(setq default-file-name-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; browser
