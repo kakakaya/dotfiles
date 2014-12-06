@@ -27,6 +27,8 @@
 (global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
 (global-set-key (kbd "C-M-y") 'helm-show-kill-ring) ;
 (global-set-key (kbd "C-x f") 'helm-find-files)     ;
+;; (global-set-key (kbd "C-x r") 'helm-recentf)	    ;
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
 (global-set-key (kbd "C-c C-f") 'helm-for-files)    ;
 (global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
@@ -281,7 +283,7 @@
 ;; ========howmここまで========
 
 (require 'whitespace)
-(setq whitespace-line-column 120) ; 1行が80桁を超えたら長すぎると判断する。
+;; (setq whitespace-line-column 160) ; 1行が160桁を超えたら長すぎると判断する。
 (setq whitespace-style '(face	 ; faceを使って視覚化する。
 			 trailing	; 行末の空白を対象とする。
                          lines-tail ; whitespace-line-column以降のみを対象とする。
@@ -322,9 +324,13 @@
 (setq migemo-isearch-min-length 2)	;"Regular expression too big"
 
 (require 'helm-config)
+(helm-mode 1)
 (setq recentf-max-saved-items nil)
-(global-set-key (kbd "M-x") 'helm-M-x)	      ;これでHelm起動失敗して
-					;も平気？
+(global-set-key (kbd "M-x") 'helm-M-x)
+(define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
+;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
+(define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+
 ;; ========== dired関連 ==========
 (require 'dired-x)		;diredを便利にする
 (require 'wdired)			;diredから"r"でファイル名をインライン編集
