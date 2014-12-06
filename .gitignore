@@ -15,6 +15,7 @@ home/.emacs.d/history
 home/.emacs.d/image-dired/
 home/.emacs.d/session*
 home/.emacs.d/tramp
+home/.emacs.d/.emacs.desktop*
 home/.navi2ch
 home/Pictures
 *.rcp
