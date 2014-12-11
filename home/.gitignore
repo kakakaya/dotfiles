@@ -1,5 +1,6 @@
 a.out
-.elc
+*.pyc
+*.elc
 .DS_Store
 *.swp
 vendor
