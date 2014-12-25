@@ -76,6 +76,14 @@
 
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
+;; encode WENT UNDERGROUND
+;; (set-language-environment 'Japanese)
+;; (set-keyboard-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8-unix)
+;; (set-language-environment 'utf-8)
+;; (set-default-coding-systems 'utf-8)
+;; (setq default-file-name-coding-system 'utf-8)
+
 ;;================== 複行 ==================
 ;zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
@@ -128,12 +136,6 @@
 (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
-;; encode
-(prefer-coding-system 'utf-8-unix)
-;; (set-language-environment 'utf-8)
-;; (set-default-coding-systems 'utf-8)
-;; (setq default-file-name-coding-system 'utf-8)
-
 ;; browser
 ;; (setq browse-url-generic-program
 ;; (setq browse-url-browser-function 'browse-url-generic)
@@ -142,6 +144,10 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "hv3")
 
+;; 矩形選択
+(cua-mode t)
+(setq cua-enable-cua-keys nil)	      ; デフォルトキーバインドを無効化
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 ;; ================言語ごとの設定================
 ;; (add-hook 'prog-mode-hook '(lambda ()
@@ -300,7 +306,7 @@
 ;; ========howmここまで========
 
 (require 'whitespace)
-;; (setq whitespace-line-column 160) ; 1行が160桁を超えたら長すぎると判断する。
+(setq whitespace-line-column 160) ; 1行が160桁を超えたら長すぎると判断する。
 (setq whitespace-style '(face	 ; faceを使って視覚化する。
 			 trailing	; 行末の空白を対象とする。
                          lines-tail ; whitespace-line-column以降のみを対象とする。
@@ -763,6 +769,10 @@
 ;; ================ mew end ================
 
 
-;; Must at last!!!
+;; ================ EVAL AT LAST ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
+
+;; Someone changes coding
+(prefer-coding-system 'utf-8)
+
