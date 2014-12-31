@@ -53,10 +53,9 @@ else
     export CC=`which gcc`
 fi
 
-if which lv >& /dev/null ; then
-    export PAGER="lv"
-else
-    export PAGER="less -RM --quiet -x2"
+if which most >& /dev/null ; then export PAGER="most"
+elif which lv >& /dev/null ; then export PAGER="lv"
+else export PAGER="less -RM --quiet -x2"
 fi
 
 if which mupdf >& /dev/null ; then
