@@ -73,7 +73,8 @@
 (setq vc-follow-symlinks t) ; auto-follow version controlled symlink
 (setq suggest-key-bindings t) ; suggest keybinding
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
-
+(setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
 ;; encode WENT UNDERGROUND
@@ -767,8 +768,10 @@
   (setq mew-prog-ssl "stunnel4")
   (setq mew-ssl-cert-directory "/etc/ssl/certs"))
 ;; ================ mew end ================
-
-
+(require 'git-gutter)
+(git-gutter:linum-setup)
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 ;; ================ EVAL AT LAST ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
