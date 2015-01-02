@@ -770,9 +770,23 @@
 ;; ================ mew end ================
 (require 'git-gutter)
 (git-gutter:linum-setup)
+(global-git-gutter-mode t)
 (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
+(when (require 'navi2ch nil t)
+  (require 'navi2ch-mona)
+  (custom-set-variables
+   '(navi2ch-article-use-jit t)
+   '(navi2ch-article-exist-message-range nil)
+   '(navi2ch-article-new-message-range nil)
+   '(navi2ch-mona-enable t)
+   '(navi2ch-mona-use-ipa-mona t)
+   '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
+  (navi2ch-mona-setup))
+
 ;; ================ EVAL AT LAST ================
+;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
 
