@@ -131,10 +131,11 @@
 (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;;font
-(set-face-attribute 'default nil
-		    :family "Inconsolata"
-		    :height 100)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+(when window-system
+  (set-face-attribute 'default nil
+		      :family "Inconsolata"
+		      :height 100)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
 ;; browser
