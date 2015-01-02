@@ -219,6 +219,7 @@ alias cpd='cp -rv'
 alias history='history -iD'
 alias g='git'
 alias sterm=simple-term
+alias rxterm='export TERM=rxvt-unicode-256color'
 # ======== must-alias end ======== #
 # ======== may-alias ======== #
 alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
