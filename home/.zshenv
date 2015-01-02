@@ -73,15 +73,15 @@ export COLORTERM=0
 case "$TERM" in
     xterm*);	COLORTERM=1 ;;  # putty
     mlterm*);	COLORTERM=1 ; TERM='kterm-color';;
-    screen*);	COLORTERM=1 ;;
+    screen*);	COLORTERM=1 ; TERM='rxvt-unicode-256color';;
     ct100*);	COLORTERM=1 ;;	# TeraTermPro
     kterm*);	COLORTERM=1 ; TERM='kterm-color';;
     rxvt*);     COLORTERM=1
-	# export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
-	# export LC_ALL=ja_JP.eucJP;;
-	#vim は TERM='kterm' ではカラー化しない
-	#screen は TERM='kterm-color' ではタイトルバーに情報表示できない
-	;;
+	  # export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
+	  # export LC_ALL=ja_JP.eucJP;;
+	  #vim は TERM='kterm' ではカラー化しない
+	  #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
+	  ;;
 esac
 
 if which jed >& /dev/null; then
