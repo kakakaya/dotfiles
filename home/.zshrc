@@ -115,6 +115,7 @@ function extract() {
     *.Z) uncompress $1;;
     *.tar) tar xvf $1;;
     *.arj) unarj $1;;
+    *.7z) 7z x $1;;
   esac
 }
 
@@ -218,6 +219,7 @@ alias cpd='cp -rv'
 alias history='history -iD'
 alias g='git'
 alias sterm=simple-term
+alias rxterm='export TERM=rxvt-unicode-256color'
 # ======== must-alias end ======== #
 # ======== may-alias ======== #
 alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
@@ -239,7 +241,7 @@ alias chistory='history 1-'
 alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
 alias apt-search='aptitude search'
 alias apt-show='aptitude show'
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
+alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
 alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
 alias -s pdf=$PDFVIEWER
 alias -s mp3=mplayer

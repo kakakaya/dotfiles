@@ -73,7 +73,8 @@
 (setq vc-follow-symlinks t) ; auto-follow version controlled symlink
 (setq suggest-key-bindings t) ; suggest keybinding
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
-
+(setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
 ;; encode WENT UNDERGROUND
@@ -138,10 +139,11 @@
 (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;;font
-(set-face-attribute 'default nil
-		    :family "Inconsolata"
-		    :height 100)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+(when window-system
+  (set-face-attribute 'default nil
+		      :family "Inconsolata"
+		      :height 100)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
 ;; browser
@@ -775,9 +777,25 @@
   (setq mew-prog-ssl "stunnel4")
   (setq mew-ssl-cert-directory "/etc/ssl/certs"))
 ;; ================ mew end ================
+(require 'git-gutter)
+(git-gutter:linum-setup)
+(global-git-gutter-mode t)
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 
+(when (require 'navi2ch nil t)
+  (require 'navi2ch-mona)
+  (custom-set-variables
+   '(navi2ch-article-use-jit t)
+   '(navi2ch-article-exist-message-range nil)
+   '(navi2ch-article-new-message-range nil)
+   '(navi2ch-mona-enable t)
+   '(navi2ch-mona-use-ipa-mona t)
+   '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
+  (navi2ch-mona-setup))
 
 ;; ================ EVAL AT LAST ================
+;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
 

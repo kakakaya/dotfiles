@@ -50,8 +50,9 @@ cd ~/.emacs.d/helm && make && cd
 
 ## Emacs memo
 cd ~/tmp && git clone https://github.com/zk-phi/sublimity && cd
+wget 'https://sites.google.com/site/rtfreesoft/font-drop/mona-izmg16.7z' # mona font
 
-## package-install:
+## must package-install:
 # main-line
 # markdown-mode
 # highlight-symbol
@@ -75,15 +76,15 @@ cd ~/tmp && git clone https://github.com/zk-phi/sublimity && cd
 
 
 
+# Unknown
+# (require 'dired-x )		;diredを便利にする
+# (require 'wdired )			;diredから"r"でファイル名をインライン編集
+# (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+# (require 'wgrep-helm )		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
+# (setq dired-listing-switches "-AFGhlrt")
+# (require 'flyspell nil t) ;スペルチェック、要設定重点
 
-(require 'dired-x )		;diredを便利にする
-(require 'wdired )			;diredから"r"でファイル名をインライン編集
-(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
-(require 'wgrep-helm )		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
-(setq dired-listing-switches "-AFGhlrt")
-(require 'flyspell nil t) ;スペルチェック、要設定重点
-
-(require 'markdown-mode nil t)
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+# (require 'markdown-mode nil t)
+# (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
+# (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
 
