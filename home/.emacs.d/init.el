@@ -139,12 +139,11 @@
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
 ;; browser
-;; (setq browse-url-generic-program
-;; (setq browse-url-browser-function 'browse-url-generic)
-;;       (if (file-exists-p "/usr/bin/chromium")
-;;           "/usr/bin/chromium" "/usr/bin/google-chrome"))
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "hv3")
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "hv3")
+      browse-url-generic-program
+      (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m"))
 
 ;; 矩形選択
 (cua-mode t)
