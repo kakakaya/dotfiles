@@ -341,7 +341,7 @@
   (setq recentf-exclude '(".recentf"))
   (setq recentf-auto-cleanup 10)
   (setq recentf-auto-save-timer
-	(run-with-idle-timer 180 t 'recentf-save-list))
+	(run-with-idle-timer 600 t 'recentf-save-list))
   (recentf-mode 1))
 
 (require 'migemo nil t)
@@ -354,6 +354,17 @@
 (define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
 ;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
 (define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+(when (require 'helm-gtags nil t)
+  (add-hook 'go-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'python-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'ruby-mode-hook (lambda () (helm-gtags-mode)))
+  (setq helm-gtags-path-style 'root)
+  (setq helm-gtags-auto-update t)
+  (add-hook 'helm-gtags-mode-hook
+	    '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol))))
 
 ;; ========== dired関連 ==========
 (require 'dired-x)		;diredを便利にする
@@ -803,4 +814,3 @@
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
-
