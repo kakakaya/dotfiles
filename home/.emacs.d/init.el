@@ -785,6 +785,17 @@
    '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
   (navi2ch-mona-setup))
 
+(when (require 'auto-save-buffers-enhanced nil t)
+  (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+  (setq auto-save-buffers-enhanced-exclude-regexps
+	'(
+	  "^/ssh"
+	  "^/scp"
+	  ))
+  (auto-save-buffers-enhanced-include-only-checkout-path t) ;gitとかのディレクトリだけ
+  (auto-save-buffers-enhanced t)
+  )
+
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
