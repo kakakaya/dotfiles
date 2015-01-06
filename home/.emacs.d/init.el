@@ -550,6 +550,7 @@
       (eldoc-mode . "")
       (abbrev-mode . "")
       (undo-tree-mode . "")
+      (git-gutter-mode . "")
       (elisp-slime-nav-mode . " EN")
       (helm-gtags-mode . " HG")
       (flymake-mode . " Fm")
@@ -560,6 +561,7 @@
       (ruby-mode   . "Rb")
       (emacs-lisp-mode . "El")
       (markdown-mode . "Md")
+      (matlab-mode . "Mlab")
 					;(fundamental-mode . "Fd")
       ))
 
