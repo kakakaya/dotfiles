@@ -802,6 +802,7 @@
 	'(
 	  "^/ssh"
 	  "^/scp"
+	  "/mnt/"
 	  ))
   (auto-save-buffers-enhanced-include-only-checkout-path t) ;gitとかのディレクトリだけ
   (auto-save-buffers-enhanced t)
