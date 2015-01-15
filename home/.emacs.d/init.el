@@ -73,7 +73,8 @@
 (setq vc-follow-symlinks t) ; auto-follow version controlled symlink
 (setq suggest-key-bindings t) ; suggest keybinding
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
-
+(setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
 ;; encode WENT UNDERGROUND
@@ -130,19 +131,19 @@
 (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;;font
-(set-face-attribute 'default nil
-		    :family "Inconsolata"
-		    :height 100)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+(when window-system
+  (set-face-attribute 'default nil
+		      :family "Inconsolata"
+		      :height 100)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
 ;; browser
-;; (setq browse-url-generic-program
-;; (setq browse-url-browser-function 'browse-url-generic)
-;;       (if (file-exists-p "/usr/bin/chromium")
-;;           "/usr/bin/chromium" "/usr/bin/google-chrome"))
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "hv3")
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "hv3")
+      browse-url-generic-program
+      (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m"))
 
 ;; 矩形選択
 (cua-mode t)
@@ -340,7 +341,7 @@
   (setq recentf-exclude '(".recentf"))
   (setq recentf-auto-cleanup 10)
   (setq recentf-auto-save-timer
-	(run-with-idle-timer 180 t 'recentf-save-list))
+	(run-with-idle-timer 600 t 'recentf-save-list))
   (recentf-mode 1))
 
 (require 'migemo nil t)
@@ -353,6 +354,17 @@
 (define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
 ;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
 (define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+(when (require 'helm-gtags nil t)
+  (add-hook 'go-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'python-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'ruby-mode-hook (lambda () (helm-gtags-mode)))
+  (setq helm-gtags-path-style 'root)
+  (setq helm-gtags-auto-update t)
+  (add-hook 'helm-gtags-mode-hook
+	    '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol))))
 
 ;; ========== dired関連 ==========
 (require 'dired-x)		;diredを便利にする
@@ -538,6 +550,7 @@
       (eldoc-mode . "")
       (abbrev-mode . "")
       (undo-tree-mode . "")
+      (git-gutter-mode . "")
       (elisp-slime-nav-mode . " EN")
       (helm-gtags-mode . " HG")
       (flymake-mode . " Fm")
@@ -548,6 +561,7 @@
       (ruby-mode   . "Rb")
       (emacs-lisp-mode . "El")
       (markdown-mode . "Md")
+      (matlab-mode . "Mlab")
 					;(fundamental-mode . "Fd")
       ))
 
@@ -767,12 +781,39 @@
   (setq mew-prog-ssl "stunnel4")
   (setq mew-ssl-cert-directory "/etc/ssl/certs"))
 ;; ================ mew end ================
+(require 'git-gutter)
+(git-gutter:linum-setup)
+(global-git-gutter-mode t)
+(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 
+(when (require 'navi2ch nil t)
+  (require 'navi2ch-mona)
+  (custom-set-variables
+   '(navi2ch-article-use-jit t)
+   '(navi2ch-article-exist-message-range nil)
+   '(navi2ch-article-new-message-range nil)
+   '(navi2ch-mona-enable t)
+   '(navi2ch-mona-use-ipa-mona t)
+   '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
+  (navi2ch-mona-setup))
+
+(when (require 'auto-save-buffers-enhanced nil t)
+  (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+  (setq auto-save-buffers-enhanced-exclude-regexps
+	'(
+	  "^/ssh"
+	  "^/scp"
+	  "/mnt/"
+	  ))
+  (auto-save-buffers-enhanced-include-only-checkout-path t) ;gitとかのディレクトリだけ
+  (auto-save-buffers-enhanced t)
+  )
 
 ;; ================ EVAL AT LAST ================
+;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
-
