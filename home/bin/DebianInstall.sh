@@ -52,6 +52,8 @@ cd ~/.emacs.d/helm && make && cd
 cd ~/tmp && git clone https://github.com/zk-phi/sublimity && cd
 wget 'https://sites.google.com/site/rtfreesoft/font-drop/mona-izmg16.7z' # mona font
 
+# get catimg.sh
+
 ## must package-install:
 # main-line
 # markdown-mode
