@@ -165,7 +165,9 @@
 ;; Lisp coding style
 (add-hook 'lisp-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Python coding style
-(add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-hook 'python-mode-hook '(lambda ()
+			       (hs-minor-mode 1)
+			       (auto-complete-mode -1)))
 ;; Java coding style
 (add-hook 'java-mode-hook '(lambda ()
 			    (hs-minor-mode 1)
