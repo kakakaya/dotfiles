@@ -783,11 +783,11 @@
   (setq mew-prog-ssl "stunnel4")
   (setq mew-ssl-cert-directory "/etc/ssl/certs"))
 ;; ================ mew end ================
-(require 'git-gutter)
-(git-gutter:linum-setup)
-(global-git-gutter-mode t)
-(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+(when (require 'git-gutter nil t)
+  (git-gutter:linum-setup)
+  (global-git-gutter-mode t)
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk))
 
 (when (require 'navi2ch nil t)
   (require 'navi2ch-mona)
