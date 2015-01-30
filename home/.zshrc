@@ -125,7 +125,13 @@ function runjavac() {javac $1}
 function runjavaclass() {java $1}
 function runjar() {java -jar $1}
 
-
+function notify-tw() {
+    if [ $? = 0 ]; then
+	tw -yes "@kakakaya Successfully completed! at `date`"
+    else
+	tw -yes "@kakakaya Failed with Error code ${?} at `date`"
+    fi
+}
 # function exist () {
 #     if type $1 >/dev/null 2>&1;
 #     then
@@ -263,6 +269,7 @@ if [[ `uname` = "Darwin" ]]; then
 fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
 if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
+if hash tw 2>/dev/null; then alias notify-tw=notify-tw;fi
 #pipe
 alias -g L='| less'
 alias -g LR='| less -R'

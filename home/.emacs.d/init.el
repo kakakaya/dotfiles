@@ -147,12 +147,11 @@
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
 ;; browser
-;; (setq browse-url-generic-program
-;; (setq browse-url-browser-function 'browse-url-generic)
-;;       (if (file-exists-p "/usr/bin/chromium")
-;;           "/usr/bin/chromium" "/usr/bin/google-chrome"))
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "hv3")
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "hv3")
+      browse-url-generic-program
+      (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m"))
 
 ;; 矩形選択
 (cua-mode t)
@@ -174,7 +173,9 @@
 ;; Lisp coding style
 (add-hook 'lisp-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Python coding style
-(add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-hook 'python-mode-hook '(lambda ()
+			       (hs-minor-mode 1)
+			       (auto-complete-mode -1)))
 ;; Java coding style
 (add-hook 'java-mode-hook '(lambda ()
 			    (hs-minor-mode 1)
@@ -350,7 +351,7 @@
   (setq recentf-exclude '(".recentf"))
   (setq recentf-auto-cleanup 10)
   (setq recentf-auto-save-timer
-	(run-with-idle-timer 180 t 'recentf-save-list))
+	(run-with-idle-timer 600 t 'recentf-save-list))
   (recentf-mode 1))
 
 (require 'migemo nil t)
@@ -363,6 +364,17 @@
 (define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
 ;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
 (define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+(when (require 'helm-gtags nil t)
+  (add-hook 'go-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'python-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'ruby-mode-hook (lambda () (helm-gtags-mode)))
+  (setq helm-gtags-path-style 'root)
+  (setq helm-gtags-auto-update t)
+  (add-hook 'helm-gtags-mode-hook
+	    '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol))))
 
 ;; ========== dired関連 ==========
 (require 'dired-x)		;diredを便利にする
@@ -548,6 +560,7 @@
       (eldoc-mode . "")
       (abbrev-mode . "")
       (undo-tree-mode . "")
+      (git-gutter-mode . "")
       (elisp-slime-nav-mode . " EN")
       (helm-gtags-mode . " HG")
       (flymake-mode . " Fm")
@@ -558,6 +571,7 @@
       (ruby-mode   . "Rb")
       (emacs-lisp-mode . "El")
       (markdown-mode . "Md")
+      (matlab-mode . "Mlab")
 					;(fundamental-mode . "Fd")
       ))
 
@@ -777,11 +791,11 @@
   (setq mew-prog-ssl "stunnel4")
   (setq mew-ssl-cert-directory "/etc/ssl/certs"))
 ;; ================ mew end ================
-(require 'git-gutter)
-(git-gutter:linum-setup)
-(global-git-gutter-mode t)
-(global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+(when (require 'git-gutter nil t)
+  (git-gutter:linum-setup)
+  (global-git-gutter-mode t)
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk))
 
 (when (require 'navi2ch nil t)
   (require 'navi2ch-mona)
@@ -794,6 +808,18 @@
    '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
   (navi2ch-mona-setup))
 
+(when (require 'auto-save-buffers-enhanced nil t)
+  (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+  (setq auto-save-buffers-enhanced-exclude-regexps
+	'(
+	  "^/ssh"
+	  "^/scp"
+	  "/mnt/"
+	  ))
+  (auto-save-buffers-enhanced-include-only-checkout-path t) ;gitとかのディレクトリだけ
+  (auto-save-buffers-enhanced t)
+  )
+
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
@@ -801,4 +827,3 @@
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
-
