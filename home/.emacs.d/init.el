@@ -110,15 +110,23 @@
 (setq read-file-name-completion-ignore-case t) ;ファイル名の問い合わせ
 (setq read-buffer-completion-ignore-case t)    ;バッファ
 
+
+;; splash-images directory
+(setq splash-image-dir (concat (getenv "HOME") "/.emacs.d/splash-images"))
+
 ;; random-choose
 (defun random-elt (choices)
-  "Choose an element from a list at random."
   (elt choices (random (length choices))))
+(defun choose-image (image-dir)
+  (random-elt (directory-files image-dir t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)")))
 ;; Wallpapers!!
 (setq fancy-splash-image
-      (random-elt (directory-files (concat (getenv "HOME") "/.emacs.d/splash-images") t
-				   "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"
-				   )))
+      (choose-image splash-image-dir))
+
+(defun reroll-splash-screen ()
+  (setq fancy-splash-image
+      (choose-image splash-image-dir))
+  (display-startup-screen))
 
 ;;show [EOF] at EOF
 (defun set-buffer-end-mark()
