@@ -184,7 +184,7 @@
 			    ))
 
 (autoload 'coffee-mode "coffee-mode" nil t)
-(add-to-list 'auto-mode-alist '("\.js$" . coffee-mode))
+;; (add-to-list 'auto-mode-alist '("\.js$" . coffee-mode))
 
 (require 'python)
 
