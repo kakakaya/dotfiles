@@ -387,6 +387,7 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
+-- MEMO: class can be found with "xprop | grep "WM_CLASS" "
 awful.rules.rules = {
    -- All clients will match this rule.
    { rule = { },
@@ -405,6 +406,8 @@ awful.rules.rules = {
      properties = { floating = true } },
    { rule = { class = "Conky" },
      properties = { floating = true } },
+   { rule = { class = "Uim-pref-gtk3" },
+     properties = { floating = true } },
    -- Set Firefox to always map on tags number 2 of screen 1.
    -- { rule = { class = "Firefox" },
    --   properties = { tag = tags[1][2] } },
@@ -418,6 +421,8 @@ awful.rules.rules = {
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
    { rule = { class = "URxvt" },
+     properties = { tag = tags[1][3]}},
+   { rule = { class = "Terminator" },
      properties = { tag = tags[1][3]}},
    { rule = { class = "Mikutter.rb" },
      properties = { floating = true,
