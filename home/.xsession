@@ -17,9 +17,11 @@ if [ $(nmcli -t -f active,ssid dev wifi | grep "UECWireless" | wc -l) -gt 0 ]; t
     export FTP_PROXY=http://proxy.uec.ac.jp:8080
 fi
 
-# exec!
-guake &
-urxvt &
+# Run some Terminal
+if [[ -x /usr/bin/terminator ]]; then terminator &
+elif [[ -x /usr/bin/urxvt ]]; then urxvt &
+fi
+
 if [[ -x /usr/bin/google-chrome ]]; then
     google-chrome &
 fi
@@ -27,6 +29,9 @@ if [[ -x /usr/bin/vmware-user ]]; then
     /usr/bin/vmware-user
 fi
 emacs &
-dropbox start
+
+if [[ -x /usr/bin/dropbox ]]; then
+    dropbox start
+fi
 
 exec awesome
