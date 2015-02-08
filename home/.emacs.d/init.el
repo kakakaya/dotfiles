@@ -533,6 +533,8 @@
 ;; (smooth-scroll-mode t)
 
 (require 'skk nil t)
+;; (setq skk-use-act t)			; This is right way but NOT WORKS, so...
+(require 'skk-act)			; used this instead.
 (defun skk-j-mode-activate ()
   (interactive)
   (cond (skk-j-mode
@@ -738,7 +740,8 @@
 ;; twittering-mode retry
 (when (require 'twittering-mode nil t)
   (setq twittering-icon-mode nil)
-  (setq twittering-use-master-password t))
+  (setq twittering-use-master-password t)
+  (global-set-key (kbd "C-c t") 'twittering-update-status-interactive))
 
 ;; emms
 (when (require 'emms-setup nil t)
