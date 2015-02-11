@@ -1,9 +1,18 @@
 a.out
-.elc
+*.pyc
+*.elc
 .DS_Store
 *.swp
 vendor
 .ruby-version
+wget-log
+
+# emacs backups
 *~
 \#*
-wget-log
+
+# gnu global
+GPATH
+GRTAGS
+GSYMS
+GTAGS

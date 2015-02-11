@@ -1,0 +1,125 @@
+# -*- Mode: shell-script;coding:utf-8 -*- #
+# alias file, may works not only zsh but also bash and others
+
+# basic commands
+alias md=mkdir
+alias lh=ls
+alias la='ls -A'
+alias ll='ls -ltr'
+alias lla='ll -A'
+alias lli='ll -i'
+alias l.='ls -d .[a-zA-Z]*'
+alias ll.='l. -ltr'
+alias less='less -MN -gj10'
+alias ec='emacsclient'
+alias em='emacs -nw'
+alias emc='emacsclient -nw'
+alias strdate='date +%Y-%m-%d_%H-%M-%S'
+alias gpp='g++'			# ++ is hard to type
+alias sudo='sudo '		# makes aliased command to sudo
+alias rmi='rm -i'
+alias rmd='rm -r'		# rmdir
+alias cpd='cp -rv'
+alias history='history -iD'
+alias g='git'
+alias E='$EDITOR'		# It seems jed, or nano
+alias V='emacsclient -nw -a E'	# emacsclient or EDITOR
+
+#Keyboard
+alias aoeu='setxkbmap us'
+alias ueoa='setxkbmap us'
+alias asdf='setxkbmap dvorak'
+alias fdsa='setxkbmap dvorak'
+alias lxmodmap='xmodmap ~/.Xmodmap'
+alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
+alias postbox='tw -pipe'
+alias tlstream='tw -st'
+alias sl='sl -e'
+alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
+alias psauxG='ps aux | grep'
+alias chistory='history 1-'
+alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
+alias screenshot='import ~/Pictures/`strdate`.png'
+alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
+alias chrome='google-chrome'
+alias ttyclock='tty-clock -stc' # Nomal clock
+alias boundclock='tty-clock -str' # It moves!
+alias killmebaby='pkill -9 sshd'
+# alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
+
+if hash aptitude 2>/dev/null; then
+    # for Debian, "aptitude" is hard to type
+    alias apt-search='aptitude search'
+    alias apt-show='aptitude show'
+    alias apt-install='aptitude install'
+fi
+
+if hash colordiff 2>/dev/null; then alias diff='colordiff'; fi
+if hash colorgcc 2>/dev/null; then alias gcc='colorgcc'; fi
+if hash trash-put 2>/dev/null; then alias rm='trash-put'; fi
+if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
+
+case $(ps --no-headers -p $$) in
+    # shell based config
+    *zsh)
+	alias sterm=simple-term
+
+	# Global alias
+	alias -g L='| less'
+	alias -g LR='| less -R'
+	alias -g H='| head'
+	alias -g T='| tail'
+	alias -g G='| grep'
+	alias -g W='| wc'
+	alias -g S='| sed'
+	alias -g A='| awk'
+	alias -g C='| cut'
+	alias -g P='| $PAGER'
+
+	alias -g LE='|& less'
+	alias -g LER='|& less -R'
+	alias -g CDF='| colordiff -c |& less -R'
+	alias -g HE='|& head'
+	alias -g TE='|& tail'
+	alias -g GE='|& grep'
+	alias -g WE='|& wc'
+	alias -g SE='|& sed'
+	alias -g AE='|& awk'
+	alias -g CE='|& cut'
+	alias -g PE='|& $PAGER'
+
+	# Suffix alias
+	alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
+	alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
+	alias -s pdf=$PDFVIEWER
+	alias -s mp3=mplayer
+	alias -s py=python
+	alias -s html=chrome
+	alias -s {c,cpp}=runcpp
+	alias -s java=runjavac
+	alias -s class=runjavaclass
+	alias -s jar=runjar
+	;;
+esac
+
+case ${HOST} in
+    # host based config
+    *mma*)
+	# set PULSE_SERVER for remote audio
+	alias vlc='PULSE_SERVER=192.168.2.1 vlc'
+	alias totem='PULSE_SERVER=192.168.2.1 totem'
+	;;
+esac
+
+case ${OSTYPE} in
+    # OS based config
+    darwin*)
+	alias ls='ls -h -GF'
+	alias IMGVIEWER='open -a Preview'
+	alias google-chrome='open -a Google\ Chrome'
+	;;
+    linux*)
+	alias google-chrome=chromium
+	alias ls='ls -FGh --show-control-char --color=always'
+	;;
+esac

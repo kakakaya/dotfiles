@@ -64,8 +64,8 @@ layouts = {
    -- awful.layout.suit.tile.left,
    -- awful.layout.suit.tile.bottom,
    -- awful.layout.suit.tile.top,
-   awful.layout.suit.fair,
-   -- awful.layout.suit.fair.horizontal,
+   -- awful.layout.suit.fair,
+   awful.layout.suit.fair.horizontal,
    -- awful.layout.suit.spiral,
    awful.layout.suit.spiral.dwindle,
    awful.layout.suit.max,
@@ -78,7 +78,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Term", "2.Web", "3.Dev", "4.Miku", "5.File", 6, 7, 8, 9 },
+   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", 6, 7, 8, 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
 	      layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -100,6 +100,8 @@ myawesomemenu = {
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
 				    { "debian", debian.menu.Debian_menu.Debian },
 				    { "open terminal", terminal },
+				    { "lock screen", function ()
+					 awful.util.spawn_with_shell("xscreensaver-command -lock") end  },
 				    { "shutdown", function ()
 					 awful.util.spawn_with_shell("gksu 'shutdown -h now'") end  },
 				    { "reboot", function ()
@@ -145,17 +147,17 @@ vicious.register(cpugraph, vicious.widgets.cpu, "$1", refreshdelay)
 -- // cpuwidget
 
 -- batteryWidget
-batterywidget = widget({ type = "textbox" })
-batterywidget.text = " | Battery | "
-batterywidgettimer = timer({ timeout = 5 })
-batterywidgettimer:add_signal("timeout",
-			      function()
-				 fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-				 batterywidget.text = " |" .. fh:read("*l") .. " | "
-				 fh:close()
-			      end
-			     )
-batterywidgettimer:start()
+-- batterywidget = widget({ type = "textbox" })
+-- batterywidget.text = " | Battery | "
+-- batterywidgettimer = timer({ timeout = 5 })
+-- batterywidgettimer:add_signal("timeout",
+-- 			      function()
+-- 				 fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+-- 				 batterywidget.text = " |" .. fh:read("*l") .. " | "
+-- 				 fh:close()
+-- 			      end
+-- 			     )
+-- batterywidgettimer:start()
 -- batteryWidget
 
 -- Create a wibox for each screen and add it
@@ -385,6 +387,7 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
+-- MEMO: class can be found with "xprop | grep "WM_CLASS" "
 awful.rules.rules = {
    -- All clients will match this rule.
    { rule = { },
@@ -403,11 +406,13 @@ awful.rules.rules = {
      properties = { floating = true } },
    { rule = { class = "Conky" },
      properties = { floating = true } },
+   { rule = { class = "Uim-pref-gtk3" },
+     properties = { floating = true } },
    -- Set Firefox to always map on tags number 2 of screen 1.
    -- { rule = { class = "Firefox" },
    --   properties = { tag = tags[1][2] } },
    -- xprop to check class
-   { rule = { class = "URxvt" },
+   { rule = { class = "Emacs" },
      properties = { tag = tags[1][1]}},
    { rule = { class = "Google-chrome" },
      properties = { tag = tags[1][2]} },
@@ -415,10 +420,13 @@ awful.rules.rules = {
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
-   { rule = { class = "Emacs" },
+   { rule = { class = "URxvt" },
+     properties = { tag = tags[1][3]}},
+   { rule = { class = "Terminator" },
      properties = { tag = tags[1][3]}},
    { rule = { class = "Mikutter.rb" },
-     properties = { tag = tags[1][4]}},
+     properties = { floating = true,
+		    tag = tags[1][4]}},
    { rule = { class = "Pcmanfm" },
      properties = { tag = tags[1][5]}},
    { rule = { class = "jp-guma-twitter-ricelauncher-Launcher" },
