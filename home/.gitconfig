@@ -1,6 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
-	editor = emacsclient -nw
+	editor = $EDITOR
 [user]
         name = kakakaya
         email = kakakaya+git@gmail.com

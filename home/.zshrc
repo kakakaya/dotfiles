@@ -99,7 +99,7 @@ elif type compctl &>/dev/null; then
     }
 fi
 compctl -K _npm_completion npm
-
+#================ npm end ================
 
 #================ function ================
 function extract() {
@@ -120,13 +120,14 @@ function extract() {
 }
 
 function runcpp () { g++ -O2 $1; ./a.out }
-
 function runjavac() {javac $1}
 function runjavaclass() {java $1}
 function runjar() {java -jar $1}
 
 function notify-tw() {
-    if [ $? = 0 ]; then
+    if [ ! hash tw 2>/dev/null ]; then
+	echo "tw not found"
+    elif [ $? = 0 ]; then
 	tw -yes "@kakakaya Successfully completed! at `date`"
     else
 	tw -yes "@kakakaya Failed with Error code ${?} at `date`"
@@ -164,9 +165,9 @@ function notify-tw() {
 function current-battery {
     if [ -d /sys/class/power_supply/BAT0 ] ; then
 	local per
-	if ! [ -x /usr/bin/acpi ]; then return; fi
+	if [ ! -x /usr/bin/acpi ]; then return; fi
 	per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
-	if [[ $(acpi -a | grep on | wc -l) -eq 0 ]]; then
+	if [ $(acpi -a | grep on | wc -l) -eq 0 ]; then
 	    echo "%F{red}$per%%f"
 	else
 	    echo "%F{green}$per%%f"
@@ -177,156 +178,42 @@ function current-battery {
 function zsh-autocmp {
     # Setup zsh-autosuggestions
     source ~/.zsh-autosuggestions/autosuggestions.zsh
-
     # Enable autosuggestions automatically
     zle-line-init() {
 	zle autosuggest-start
     }
     zle -N zle-line-init
-
-    # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
-    # zsh-autosuggestions is designed to be unobtrusive)
-    # bindkey '^T' autosuggest-toggle # I use ^T so don't need this.
 }
 function simple-term {
     RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
 }
 
 #================ function end ================
-# ================ alias ================ #
-# ======== must-alias ======== #
-alias md=mkdir
-case ${OSTYPE} in
-    darwin*)
-	 alias ls='ls -h -GF'
-	 ;;
-    linux*)
-	 alias ls='ls -FGh --show-control-char --color=always'
-	 ;;
-esac
-alias lh=ls
-alias la='ls -A'
-alias ll='ls -ltr'
-alias lla='ll -A'
-alias lli='ll -i'
-alias l.='ls -d .[a-zA-Z]*'
-alias ll.='l. -ltr'
-
-alias less='less -MN -gj10'
-alias ec='emacsclient'
-alias em='emacs -nw'
-alias emc='emacsclient -nw'
-alias strdate='date +%Y-%m-%d_%H-%M-%S'
-alias gpp='g++'
-alias sudo='sudo ' #makes alias-sudo able
-alias rmi='rm -i'
-alias rmd='rm -r'
-alias cpd='cp -rv'
-alias history='history -iD'
-alias g='git'
-alias sterm=simple-term
-alias rxterm='export TERM=rxvt-unicode-256color'
-# ======== must-alias end ======== #
-# ======== may-alias ======== #
-alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
-alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
-#Keyboard
-alias aoeu='setxkbmap us'
-alias ueoa='setxkbmap us'
-alias asdf='setxkbmap dvorak'
-alias fdsa='setxkbmap dvorak'
-alias lxmodmap='xmodmap ~/.Xmodmap'
-alias cdiff='colordiff -c'
-alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
-alias postbox='tw -pipe'
-alias tlstream='tw -st'
-alias sl='sl -e'
-alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
-alias psauxG='ps aux | grep'
-alias chistory='history 1-'
-alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
-alias apt-search='aptitude search'
-alias apt-show='aptitude show'
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
-alias -s pdf=$PDFVIEWER
-alias -s mp3=mplayer
-alias -s py=python
-if [[ `uname` = "Darwin" ]]; then
-    alias google-chrome='open -a Google\ Chrome'
+# Alias config
+if [ -f ~/.alias ]; then
+    source ~/.alias
 else
-    #alias google-chrome='chromium' because chromium dead
-    alias google-chrome='google-chrome'
+    echo "~/.alias not found."
 fi
-alias chrome='google-chrome'
-alias -s html=chrome
-alias -s {c,cpp}=runcpp
-alias -s java=runjavac
-alias -s class=runjavaclass
-alias -s jar=runjar
-if [[ `uname` = "Darwin" ]]; then
-    alias IMGVIEWER='open -a Preview'
-fi
-if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
-if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
-if hash tw 2>/dev/null; then alias notify-tw=notify-tw;fi
-#pipe
-alias -g L='| less'
-alias -g LR='| less -R'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g W='| wc'
-alias -g S='| sed'
-alias -g A='| awk'
-alias -g P='| $PAGER'
-
-alias -g LE='|& less'
-alias -g LER='|& less -R'
-alias -g CDF='| colordiff -c |& less -R'
-alias -g HE='|& head'
-alias -g TE='|& tail'
-alias -g GE='|& grep'
-alias -g WE='|& wc'
-alias -g SE='|& sed'
-alias -g AE='|& awk'
-alias -g PE='|& $PAGER'
-
-# ======== consists whether I am alias ========
-case ${HOST} in
-    *mma*)
-	# set PULSE_SERVER for remote audio
-	alias vlc='PULSE_SERVER=192.168.2.1 vlc'
-	alias totem='PULSE_SERVER=192.168.2.1 totem'
-	;;
-esac
-# ======== consists whether I am alias end ========
-
-# ======== may-alias end ======== #
-# ======== maybe-alias ======== #
-alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
-alias ttyclock='tty-clock -stc' # Nomal
-alias boundclock='tty-clock -str' # It moves!
-alias killmebaby='pkill -9 sshd'
-# ======== maybe-alias end ======== #
-#================ alias end ================#
-
 #================ PROMPT ================ #
 PROMPT='
 [%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
 %#'
-if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
-then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
-else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
+if [ $COLORTERM -eq 1 ]; then
+    RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
+else
+    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
 fi
 PROMPT2="%_%%>"
 
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
-#================ PROMPT end ================#
 #EXEC
 [ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
 [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -d .zsh-autosuggestions ] && zsh-autocmp
+[ -d ~/.zsh-autosuggestions ] && zsh-autocmp
+
+# start zsh with status 0
+true

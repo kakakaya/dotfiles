@@ -694,13 +694,13 @@
 ;; ========tabbar end========
 
 ;; ========== sublimity ==========
-(require 'sublimity)
-(require 'sublimity-scroll)
+;; (require 'sublimity)
+;; (require 'sublimity-scroll)
 ;; (require 'sublimity-map)
 ;; (require 'sublimity-attractive)
-(sublimity-mode 1)
-(setq sublimity-scroll-weight 10
-      sublimity-scroll-drift-length 10)
+;; (sublimity-mode 1)
+;; (setq sublimity-scroll-weight 10
+;;       sublimity-scroll-drift-length 10)
 
 ;; (setq sublimity-map-size 20)
 ;; (setq sublimity-map-fraction 0.3)

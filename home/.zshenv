@@ -2,10 +2,11 @@
 # almost from https://github.com/shin3900/dotfiles/blob/master/.zshenv
 
 
-userpath=( \			# 配列に候補を入れる
-    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin \
+userpath=(
+    # 配列に候補を入れる
     $HOME/bin $HOME/.local/bin \
-	)
+    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+)
 addpath=()			# 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
     chksame=0
@@ -24,7 +25,7 @@ done
 path=( $path $addpath )
 unset userpath addpath i chksame # 後始末
 
-if [[ -x /usr/bin/uname ]] || [[ -x /bin/uname ]]; then
+if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
     case "`uname -sr`" in
         FreeBSD*); export ARCHI="freebsd" ;;
         Linux*);   export ARCHI="linux"   ;;
@@ -47,23 +48,26 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 # export LC_ALL="ja_JP.UTF-8"
 
-if which colorgcc >& /dev/null ; then
+if hash colorgcc >& /dev/null ; then
     export CC=`which colorgcc`
 else
     export CC=`which gcc`
 fi
 
-if which most >& /dev/null ; then export PAGER="most"
-elif which lv >& /dev/null ; then export PAGER="lv"
-else export PAGER="less -RM --quiet -x2"
+if hash most >& /dev/null; then
+    export PAGER="most"
+elif hash lv >& /dev/null ; then
+    export PAGER="lv"
+else
+    export PAGER="less -RM --quiet -x2"
 fi
 
-if which mupdf >& /dev/null ; then
+if hash mupdf >& /dev/null ; then
     export PDFVIEWER="mupdf"
 else
     export PDFVIEWER="evince"
 fi
-if which viewnior >& /dev/null; then
+if hash viewnior >& /dev/null; then
     export IMGVIEWER="viewnior"
 else
     export IMGVIEWER="eog"
@@ -73,7 +77,7 @@ export COLORTERM=0
 case "$TERM" in
     xterm*);	COLORTERM=1 ;;  # putty
     mlterm*);	COLORTERM=1 ; TERM='kterm-color';;
-    screen*);	COLORTERM=1 ; TERM='rxvt-unicode-256color';;
+    screen*);	COLORTERM=1 ;;
     ct100*);	COLORTERM=1 ;;	# TeraTermPro
     kterm*);	COLORTERM=1 ; TERM='kterm-color';;
     rxvt*);     COLORTERM=1
@@ -83,17 +87,21 @@ case "$TERM" in
 	  #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
 	  ;;
 esac
+if [[ $COLORTERM -eq 1 ]]; then
+    export LC_ALL=ja_JP.UTF8
+    TERM='rxvt-unicode-256color'
+fi
 
-if which jed >& /dev/null; then
+if hash jed >& /dev/null; then
     export EDITOR='jed'
+    export VISUAL='emacsclient -nw -a jed'
 else
     export EDITOR='nano'
+    export VISUAL='emacsclient -nw -a nano'
 fi
-if [[ $COLORTERM -eq 1 ]]; then export LC_ALL=ja_JP.UTF8; fi
-if [[ $COLORTERM -eq 0 ]]; then export LANG=C; fi
 
-if [[ `tty | cut -d / -f 3` = pts ]]
-then
+if [[ `tty | cut -d / -f 3` = pts ]]; then
+    # This is in X
     case ${HOST} in
 	Azurite*)
 	    #ThinkpadX200 setting
@@ -111,6 +119,9 @@ then
 	    synclient CircScrollTrigger=0
 	    ;;
     esac
+else
+    # This is in console
+    LANG=C
 fi
 case ${HOST} in
     nest*|rise*|debian*)
