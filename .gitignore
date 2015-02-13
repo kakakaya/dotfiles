@@ -15,6 +15,7 @@ home/.emacs.d/history
 home/.emacs.d/image-dired/
 home/.emacs.d/session*
 home/.emacs.d/tramp
+home/.emacs.d/.emacs.desktop*
 home/.navi2ch
 home/Pictures
 *.rcp
@@ -32,3 +33,7 @@ home/.emacs.d/%backup%~
 .config/awesome/themes/my-zenburn/titlebar/
 .config/awesome/themes/my-zenburn/zenburn-background.png
 home/.emacs.d/emms/
+home/.emacs.d/places
+home/.emacs.d/recentf
+home/.emacs.d/matlab-emacs/
+home/.emacs.d/url/

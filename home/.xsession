@@ -1,8 +1,10 @@
 ~/bin/SandS.sh
 export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 xcompmgr &
+pcmanfm -d &
 urxvtd -q -f -o &
-nm-applet --sm-disable &-
+nm-applet --sm-disable &
 
 xscreensaver -no-splash &
 
@@ -14,10 +16,12 @@ if [ $(nmcli -t -f active,ssid dev wifi | grep "UECWireless" | wc -l) -gt 0 ]; t
     export HTTPS_PROXY=http://proxy.uec.ac.jp:8080
     export FTP_PROXY=http://proxy.uec.ac.jp:8080
 fi
-guake &
 
-# exec!
-urxvt &
+# Run some Terminal
+if [[ -x /usr/bin/terminator ]]; then terminator &
+elif [[ -x /usr/bin/urxvt ]]; then urxvt &
+fi
+
 if [[ -x /usr/bin/google-chrome ]]; then
     google-chrome &
 fi
@@ -25,6 +29,9 @@ if [[ -x /usr/bin/vmware-user ]]; then
     /usr/bin/vmware-user
 fi
 emacs &
-dropbox start
+
+if [[ -x /usr/bin/dropbox ]]; then
+    dropbox start
+fi
 
 exec awesome
