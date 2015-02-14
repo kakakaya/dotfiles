@@ -6,6 +6,8 @@ pcmanfm -d &
 urxvtd -q -f -o &
 nm-applet --sm-disable &
 
+setkbmap dvorak
+xmodmap .Xmodmap
 xscreensaver -no-splash &
 
 if [ $(nmcli -t -f active,ssid dev wifi | grep "UECWireless" | wc -l) -gt 0 ]; then
