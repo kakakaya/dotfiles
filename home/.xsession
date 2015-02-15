@@ -1,4 +1,3 @@
-~/bin/SandS.sh
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 xcompmgr &
@@ -6,8 +5,11 @@ pcmanfm -d &
 urxvtd -q -f -o &
 nm-applet --sm-disable &
 
+# Keyboard
 setkbmap dvorak
 xmodmap .Xmodmap
+~/bin/SandS.sh
+
 xscreensaver -no-splash &
 
 if [ $(nmcli -t -f active,ssid dev wifi | grep "UECWireless" | wc -l) -gt 0 ]; then
