@@ -26,11 +26,12 @@ if [[ -x /usr/bin/terminator ]]; then terminator &
 elif [[ -x /usr/bin/urxvt ]]; then urxvt &
 fi
 
-if [[ -x /usr/bin/google-chrome ]]; then
-    google-chrome &
-fi
 if [[ -x /usr/bin/vmware-user ]]; then
     /usr/bin/vmware-user
+else
+    if [[ -x /usr/bin/google-chrome ]]; then
+	google-chrome &
+    fi
 fi
 emacs &
 
