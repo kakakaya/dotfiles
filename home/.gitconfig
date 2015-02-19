@@ -1,6 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
-	editor = $EDITOR
+	editor = $VISUAL
 [user]
         name = kakakaya
         email = kakakaya+git@gmail.com
