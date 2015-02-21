@@ -24,7 +24,7 @@ alias cpd='cp -rv'
 alias history='history -iD'
 alias g='git'
 alias E='$EDITOR'		# It seems jed, or nano
-alias V='emacsclient -nw -a E'	# emacsclient or EDITOR
+alias V='emacsclient -nw -a $EDITOR' # emacsclient or EDITOR
 
 #Keyboard
 alias aoeu='setxkbmap us'
