@@ -4,7 +4,7 @@
 (setq load-path (append
 		 '("/usr/share/emacs/site-lisp")
 		 '("/usr/share/emacs/site-lisp/howm")
-                 '("~/.emacs.d")
+                 ;; '("~/.emacs.d")
 		 '("~/.emacs.d/elisp")
 		 '("~/.emacs.d/elisp/twittering-mode")
 		 '("~/.emacs.d/elpa")
@@ -25,8 +25,10 @@
 (global-set-key (kbd "M-C-g") 'grep)		      ; grep
 (global-set-key (kbd "C-[ M-C-g") 'goto-line)	      ; 指定行へ移動
 (global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
-(global-set-key (kbd "C-M-y") 'helm-show-kill-ring) ;
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)   ; yank list
 (global-set-key (kbd "C-x f") 'helm-find-files)     ;
+(global-set-key (kbd "C-x C-r") 'helm-recentf)	    ;
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
 (global-set-key (kbd "C-c C-f") 'helm-for-files)    ;
 (global-set-key (kbd "C-s-n") 'next-multiframe-window)     ;次のウィンドウ
@@ -71,9 +73,17 @@
 (setq vc-follow-symlinks t) ; auto-follow version controlled symlink
 (setq suggest-key-bindings t) ; suggest keybinding
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
-(setq fancy-splash-image "/home/kakakaya/Pictures/Wallpapers/SmallTsunErio.png") ;spalsh
-
+(setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
+
+;; encode WENT UNDERGROUND
+;; (set-language-environment 'Japanese)
+;; (set-keyboard-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8-unix)
+;; (set-language-environment 'utf-8)
+;; (set-default-coding-systems 'utf-8)
+;; (setq default-file-name-coding-system 'utf-8)
 
 ;;================== 複行 ==================
 ;zenburn-emacs
@@ -100,22 +110,23 @@
 (setq read-file-name-completion-ignore-case t) ;ファイル名の問い合わせ
 (setq read-buffer-completion-ignore-case t)    ;バッファ
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(anzu-deactivate-region t)
- '(anzu-mode-lighter "")
- '(anzu-search-threshold 10000)
- '(anzu-use-migemo t)
- '(anzu-minimum-input-length 2)
- '(column-number-mode t)
- '(current-language-environment "Japanese")
- '(custom-safe-themes (quote ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
- '(global-linum-mode t)
- '(inhibit-startup-echo-area-message "")
- '(show-paren-mode t))
+
+;; splash-images directory
+(setq splash-image-dir (concat (getenv "HOME") "/.emacs.d/splash-images"))
+
+;; random-choose
+(defun random-elt (choices)
+  (elt choices (random (length choices))))
+(defun choose-image (image-dir)
+  (random-elt (directory-files image-dir t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)")))
+;; Wallpapers!!
+(setq fancy-splash-image
+      (choose-image splash-image-dir))
+
+(defun reroll-splash-screen ()
+  (setq fancy-splash-image
+      (choose-image splash-image-dir))
+  (display-startup-screen))
 
 ;;show [EOF] at EOF
 (defun set-buffer-end-mark()
@@ -128,28 +139,29 @@
 (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
 ;;font
-(set-face-attribute 'default nil
-		    :family "Inconsolata"
-		    :height 100)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+(when window-system
+  (set-face-attribute 'default nil
+		      :family "Inconsolata"
+		      :height 100)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
 ;(setq face-font-rescale-alist '((".*Ricty.*" . 1.2)))
 
-;; encode
-(set-language-environment 'utf-8)
-(set-default-coding-systems 'utf-8)
-;(set-default-file-name-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
 ;; browser
-;; (setq browse-url-generic-program
-;; (setq browse-url-browser-function 'browse-url-generic)
-;;       (if (file-exists-p "/usr/bin/chromium")
-;;           "/usr/bin/chromium" "/usr/bin/google-chrome"))
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "hv3")
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "hv3")
+      browse-url-generic-program
+      (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m"))
 
+;; 矩形選択
+(cua-mode t)
+(setq cua-enable-cua-keys nil)	      ; デフォルトキーバインドを無効化
+(define-key global-map (kbd "C-x SPC") 'cua-set-rectangle-mark)
 
 ;; ================言語ごとの設定================
+;; (add-hook 'prog-mode-hook '(lambda ()
+;; 			     (rainbow-mode)
+;; 			     (smart-newline-mode 1)))
 ;; 折り畳み
 ;;http://dadakusa-log.blogspot.jp/2012/02/emacs.html
 ;; C coding style
@@ -161,12 +173,26 @@
 ;; Lisp coding style
 (add-hook 'lisp-mode-hook '(lambda () (hs-minor-mode 1)))
 ;; Python coding style
-(add-hook 'python-mode-hook '(lambda () (hs-minor-mode 1)))
+(add-hook 'python-mode-hook '(lambda ()
+			       (hs-minor-mode 1)
+			       (auto-complete-mode -1)))
 ;; Java coding style
-(add-hook 'java-mode-hook (lambda ()
-			     (hs-minor-mode 1)
-			     (setq indent-tabs-mode nil)
-			     (setq c-basic-offset 2)))
+(add-hook 'java-mode-hook '(lambda ()
+			    (hs-minor-mode 1)
+			    (setq indent-tabs-mode nil)
+			    (setq c-basic-offset 2)))
+
+;; Javascript coding style
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
+(add-hook 'js2-mode-hook '(lambda ()
+			    (setq js2-basic-offset 2
+				  indent-tabs-mode nil)
+			    (hs-minor-mode 1)
+			    ))
+
+(autoload 'coffee-mode "coffee-mode" nil t)
+;; (add-to-list 'auto-mode-alist '("\.js$" . coffee-mode))
 
 (require 'python)
 
@@ -174,11 +200,12 @@
 ;;             require 'package
 ;; ========================================
 (require 'package)
+;; not works when shorted
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/")
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
 (add-to-list 'package-archives
-	     ;; not works when shorted
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 
@@ -217,6 +244,7 @@
 (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
 (setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
 (setq howm-history-file "~/howm/.howm-keys")
+(setq howm-view-use-grep t)		; 高速化される？
 ;http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
 (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
 (global-set-key (concat howm-prefix "n") #'howm-create-nikki)
@@ -281,17 +309,22 @@
     (progn
       (howm-create 2 nil)
       (set-visited-file-name (howm-nikki-file-name)))))
+
+;; yameta
+;; (require 'calfw-howm)
+;; (cfw:install-howm-schedules)
+;; (define-key howm-mode-map (kbd "M-C") 'cfw:open-howm-calendar)
 ;; ========howmここまで========
 
 (require 'whitespace)
-(setq whitespace-line-column 120) ; 1行が80桁を超えたら長すぎると判断する。
+(setq whitespace-line-column 160) ; 1行が160桁を超えたら長すぎると判断する。
 (setq whitespace-style '(face	 ; faceを使って視覚化する。
 			 trailing	; 行末の空白を対象とする。
                          lines-tail ; whitespace-line-column以降のみを対象とする。
                          space-before-tab ; タブの前にあるスペースを対象とする。
                          space-after-tab)) ; タブの後にあるスペースを対象とする。
 (global-whitespace-mode 1)	; デフォルトで視覚化を有効にする。
-(global-hl-line-mode)		; 現在行を目立たせる
+;; (global-hl-line-mode nil)		; 現在行を目立たせる
 (column-number-mode t)		; カーソルの位置が何文字目か
 (line-number-mode t)		; カーソルの位置が何行目か for no main-line
 (setq whitespace-display-mappings	;Tabをいい感じに表示する
@@ -306,8 +339,8 @@
                     :foreground "LightSkyBlue"
 		    :underline t)
 
-(require 'rainbow-delimiters nil t)
-;(global-rainbow-delimiters-mode t)
+(when (require 'rainbow-delimiters nil t)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (require 'saveplace)			; カーソルの場所を保存する
 (setq-default save-place t)
@@ -318,19 +351,34 @@
   (setq recentf-exclude '(".recentf"))
   (setq recentf-auto-cleanup 10)
   (setq recentf-auto-save-timer
-	(run-with-idle-timer 30 t 'recentf-save-list))
+	(run-with-idle-timer 600 t 'recentf-save-list))
   (recentf-mode 1))
 
 (require 'migemo nil t)
 (setq migemo-isearch-min-length 2)	;"Regular expression too big"
 
 (require 'helm-config)
+(helm-mode 1)
 (setq recentf-max-saved-items nil)
-(global-set-key (kbd "M-x") 'helm-M-x)	      ;これでHelm起動失敗して
-					;も平気？
+(global-set-key (kbd "M-x") 'helm-M-x)
+(define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
+;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
+(define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+(when (require 'helm-gtags nil t)
+  (add-hook 'go-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'python-mode-hook (lambda () (helm-gtags-mode)))
+  (add-hook 'ruby-mode-hook (lambda () (helm-gtags-mode)))
+  (setq helm-gtags-path-style 'root)
+  (setq helm-gtags-auto-update t)
+  (add-hook 'helm-gtags-mode-hook
+	    '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol))))
+
 ;; ========== dired関連 ==========
-(require 'dired-x nil t)		;diredを便利にする
-(require 'wdired nil t)			;diredから"r"でファイル名をインライン編集
+(require 'dired-x)		;diredを便利にする
+(require 'wdired)			;diredから"r"でファイル名をインライン編集
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 (require 'wgrep-helm nil t)		;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
 (setq dired-listing-switches "-AFGhlrt")
@@ -342,13 +390,17 @@
 
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(linum-highlight-face ((t (:foreground "green" :background "black"))))
  '(markdown-header-face-1 ((t (:inherit org-level-1))))
  '(markdown-header-face-2 ((t (:inherit org-level-2))))
  '(markdown-header-face-3 ((t (:inherit org-level-3))))
  '(markdown-header-face-4 ((t (:inherit org-level-4))))
  '(markdown-header-face-5 ((t (:inherit org-level-5))))
- '(markdown-header-face-6 ((t (:inherit org-level-6))))
-)
+ '(markdown-header-face-6 ((t (:inherit org-level-6)))))
 
 ;; http://tkr.hatenablog.com/entry/2013/07/20/142425
 ;; http://shibayu36.hatenablog.com/entry/2013/10/29/221427
@@ -481,6 +533,8 @@
 ;; (smooth-scroll-mode t)
 
 (require 'skk nil t)
+;; (setq skk-use-act t)			; This is right way but NOT WORKS, so...
+(require 'skk-act)			; used this instead.
 (defun skk-j-mode-activate ()
   (interactive)
   (cond (skk-j-mode
@@ -489,44 +543,52 @@
 	 (skk-j-mode-on))))
 (global-set-key (kbd "C-.") 'skk-j-mode-activate)
 (global-set-key (kbd "C-,") 'skk-latin-mode)
+
+;; nyan-mode (conflict with main-line)
+;; (when (require 'nyan-mode nil t)
+;;   (nyan-mode)
+;;   (nyan-start-animation))
+
 ;; ========mainline (powerline not found)========
-(require 'main-line nil t)
-(setq main-line-separator-style 'arrow14)
-(defmain-line row "%p %4l")
+(when (require 'main-line nil t)
+  (setq main-line-separator-style 'arrow14)
+  (defmain-line row "%p %4l")
 
-;;http://d.hatena.ne.jp/syohex/20130131/1359646452
-(defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (yas-minor-mode . " Ys")
-    (paredit-mode . " Pe")
-    (eldoc-mode . "")
-    (abbrev-mode . "")
-    (undo-tree-mode . "")
-    (elisp-slime-nav-mode . " EN")
-    (helm-gtags-mode . " HG")
-    (flymake-mode . " Fm")
-    (smooth-scroll-mode . "")
-    ;; Major modes
-    (lisp-interaction-mode . "Li")
-    (python-mode . "Py")
-    (ruby-mode   . "Rb")
-    (emacs-lisp-mode . "El")
-    (markdown-mode . "Md")
-    ;(fundamental-mode . "Fd")
-    ))
+  ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
+  (defvar mode-line-cleaner-alist
+    '( ;; For minor-mode, first char is 'space'
+      (yas-minor-mode . " Ys")
+      (paredit-mode . " Pe")
+      (eldoc-mode . "")
+      (abbrev-mode . "")
+      (undo-tree-mode . "")
+      (git-gutter-mode . "")
+      (elisp-slime-nav-mode . " EN")
+      (helm-gtags-mode . " HG")
+      (flymake-mode . " Fm")
+      (smooth-scroll-mode . "")
+      ;; Major modes
+      (lisp-interaction-mode . "Li")
+      (python-mode . "Py")
+      (ruby-mode   . "Rb")
+      (emacs-lisp-mode . "El")
+      (markdown-mode . "Md")
+      (matlab-mode . "Mlab")
+					;(fundamental-mode . "Fd")
+      ))
 
-(defun clean-mode-line ()
-  (interactive)
-  (loop for (mode . mode-str) in mode-line-cleaner-alist
-        do
-        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-          (when old-mode-str
-            (setcar old-mode-str mode-str))
-          ;; major mode
-          (when (eq mode major-mode)
-            (setq mode-name mode-str)))))
+  (defun clean-mode-line ()
+    (interactive)
+    (loop for (mode . mode-str) in mode-line-cleaner-alist
+	  do
+	  (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+	    (when old-mode-str
+	      (setcar old-mode-str mode-str))
+	    ;; major mode
+	    (when (eq mode major-mode)
+	      (setq mode-name mode-str)))))
 
-(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+  (add-hook 'after-change-major-mode-hook 'clean-mode-line))
 ;; ========modeline end========
 
 ;; anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
@@ -535,6 +597,26 @@
 (set-face-attribute 'anzu-replace-highlight nil
                     :foreground "black" :background "PaleGreen4"
 		    :weight 'bold)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(anzu-deactivate-region t)
+ '(anzu-minimum-input-length 2)
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 10000)
+ '(anzu-use-migemo nil)
+ '(column-number-mode t)
+ '(current-language-environment "Japanese")
+ '(custom-safe-themes
+   (quote
+    ("3ee402a796b1bf92ad3175ac5d6f48582aa232aa7854b5edaba54801a28dd08a" default)))
+ '(global-linum-mode t)
+ '(inhibit-startup-echo-area-message "")
+ '(send-mail-function (quote smtpmail-send-it))
+ '(show-paren-mode t))
+
 
 ;; ajc-java-complete
 ;; (require 'ajc-java-complete-config nil t)
@@ -545,9 +627,9 @@
 
 (require 'hlinum)
 ;(hlinum-activate)
-(custom-set-faces
- ;; 前景色を白，背景色を青にする．
- '(linum-highlight-face ((t (:foreground "green" :background "black")))))
+
+(require 'volatile-highlights nil t)
+(volatile-highlights-mode t)
 
 ;;auto-complete
 (require 'auto-complete-config)
@@ -572,7 +654,7 @@
   (set btn (cons (cons "" nil)
                  (cons "" nil))))
 (defvar tabbar-displayed-buffers
-  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*")
+  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*" "GNU Emacs")
   "*Regexps matches buffer names always included tabs.")
 ;; 作業バッファの一部を非表示
 (setq tabbar-buffer-list-function
@@ -612,13 +694,13 @@
 ;; ========tabbar end========
 
 ;; ========== sublimity ==========
-(require 'sublimity)
-(require 'sublimity-scroll)
+;; (require 'sublimity)
+;; (require 'sublimity-scroll)
 ;; (require 'sublimity-map)
 ;; (require 'sublimity-attractive)
-(sublimity-mode 1)
-(setq sublimity-scroll-weight 10
-      sublimity-scroll-drift-length 10)
+;; (sublimity-mode 1)
+;; (setq sublimity-scroll-weight 10
+;;       sublimity-scroll-drift-length 10)
 
 ;; (setq sublimity-map-size 20)
 ;; (setq sublimity-map-fraction 0.3)
@@ -647,7 +729,6 @@
 
 ;; https://github.com/gongo/emacs-realtime-markdown-viewer
 ;; (require 'realtime-markdown-viewer)
-
 (require 'lua-mode)
 
 ;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
@@ -657,16 +738,95 @@
 
 
 ;; twittering-mode retry
-(require 'twittering-mode)
-(setq twittering-icon-mode nil)
-(setq twittering-use-master-password t)
+(when (require 'twittering-mode nil t)
+  (setq twittering-icon-mode nil)
+  (setq twittering-use-master-password t)
+  (global-set-key (kbd "C-c t") 'twittering-update-status-interactive))
 
 ;; emms
-(require 'emms-setup)
-(emms-all)
-(emms-default-players)
+(when (require 'emms-setup nil t)
+  (emms-all)
+  (emms-default-players))
 
+;; column-hilight
+;; not working?
+(when (require 'fill-column-indicator nil t)
+  (setq fci-rule-width 5)
+  (setq fci-rule-color "darkblue"))
 
-;; Must at last!!!
-(cond
- ((file-readable-p "~/.emacs.d/init-local.el") (load "~/.emacs.d/init-local.el")))
+;; hl-line overrides highlight-symbols
+(require 'hl-line+)
+(global-hl-line-mode t)
+;; (require 'col-highlight)
+;; (require 'crosshairs)
+
+;; ================ mew ================
+(when (autoload 'mew "mew" nil t)
+  (autoload 'mew-send "mew" nil t)
+  ;; Optional setup read mail menu:
+  (setq read-mail-command 'mew)
+  ;; Optional setup C-xm for sending a message:
+  (if (boundp 'mail-user-agent)
+      (setq mail-useragent 'mew-user-agent))
+  (if (fboundp 'define-mail-user-agent)
+      (define-mail-user-agent
+	'mew-user-agent
+	'mew-user-agent-compose
+	'mew-draft-send-message
+	'mew-draft-kill
+	'mew-send-hook))
+
+  (setq mew-proto "%")
+  (setq mew-user "kakakaya@gmail.com")
+  (setq mew-mail-domain "gmail.com")
+  (setq mew-imap-server "imap.gmail.com")
+  (setq mew-imap-user "kakakaya@gmail.com")
+  (setq mew-imap-auth t)
+  (setq mew-imap-ssl t)
+  (setq mew-imap-ssl-port "993")
+  (setq mew-smtp-auth t)
+  (setq mew-smtp-ssl t)
+  (setq mew-smtp-ssl-port "465")
+  (setq mew-smtp-user "kakakaya@gmail.com")
+  (setq mew-smtp-server "smtp.gmail.com")
+  (setq mew-ssl-verify-level 0)
+  (setq mew-use-cached-passwd t)
+  (setq mew-prog-ssl "stunnel4")
+  (setq mew-ssl-cert-directory "/etc/ssl/certs"))
+;; ================ mew end ================
+(when (require 'git-gutter nil t)
+  (git-gutter:linum-setup)
+  (global-git-gutter-mode t)
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk))
+
+(when (require 'navi2ch nil t)
+  (require 'navi2ch-mona)
+  (custom-set-variables
+   '(navi2ch-article-use-jit t)
+   '(navi2ch-article-exist-message-range nil)
+   '(navi2ch-article-new-message-range nil)
+   '(navi2ch-mona-enable t)
+   '(navi2ch-mona-use-ipa-mona t)
+   '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
+  (navi2ch-mona-setup))
+
+(when (require 'auto-save-buffers-enhanced nil t)
+  (setq auto-save-buffers-enhanced-include-regexps '(".+"))
+  (setq auto-save-buffers-enhanced-exclude-regexps
+	'(
+	  "^/ssh"
+	  "^/scp"
+	  "/mnt/"
+	  ))
+  (auto-save-buffers-enhanced-include-only-checkout-path t) ;gitとかのディレクトリだけ
+  (auto-save-buffers-enhanced t)
+  )
+
+;; ================ EVAL AT LAST ================
+;; ================ BELOW  FILES ================
+(cond ((file-readable-p "~/.emacs.d/init-local.el")
+       (load "~/.emacs.d/init-local.el")))
+
+;; Someone changes coding
+(prefer-coding-system 'utf-8)

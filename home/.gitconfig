@@ -1,6 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
-	editor = emacsclient -nw
+	editor = $VISUAL
 [user]
         name = kakakaya
         email = kakakaya+git@gmail.com
@@ -32,3 +32,5 @@
 	pl = pull
 [merge]
 	ff = false
+[credential]
+	helper = cache

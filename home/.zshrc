@@ -50,6 +50,57 @@ export LISTMAX=1000 #補完リストが多いときに尋ねない
 
 if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
 
+#================ npm ================
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+    _npm_completion () {
+	local si="$IFS"
+	IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+            COMP_LINE="$COMP_LINE" \
+            COMP_POINT="$COMP_POINT" \
+            npm completion -- "${COMP_WORDS[@]}" \
+            2>/dev/null)) || return $?
+	IFS="$si"
+    }
+    complete -F _npm_completion npm
+elif type compdef &>/dev/null; then
+    _npm_completion() {
+	si=$IFS
+	compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+            COMP_LINE=$BUFFER \
+            COMP_POINT=0 \
+            npm completion -- "${words[@]}" \
+            2>/dev/null)
+	IFS=$si
+    }
+    compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+    _npm_completion () {
+	local cword line point words si
+	read -Ac words
+	read -cn cword
+	let cword-=1
+	read -l line
+	read -ln point
+	si="$IFS"
+	IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+            COMP_LINE="$line" \
+            COMP_POINT="$point" \
+            npm completion -- "${words[@]}" \
+            2>/dev/null)) || return $?
+	IFS="$si"
+    }
+fi
+compctl -K _npm_completion npm
+#================ npm end ================
+
 #================ function ================
 function extract() {
   case $1 in
@@ -64,15 +115,24 @@ function extract() {
     *.Z) uncompress $1;;
     *.tar) tar xvf $1;;
     *.arj) unarj $1;;
+    *.7z) 7z x $1;;
   esac
 }
 
 function runcpp () { g++ -O2 $1; ./a.out }
-
 function runjavac() {javac $1}
 function runjavaclass() {java $1}
 function runjar() {java -jar $1}
 
+function notify-tw() {
+    if [ ! hash tw 2>/dev/null ]; then
+	echo "tw not found"
+    elif [ $? = 0 ]; then
+	tw -yes "@kakakaya Successfully completed! at `date`"
+    else
+	tw -yes "@kakakaya Failed with Error code ${?} at `date`"
+    fi
+}
 # function exist () {
 #     if type $1 >/dev/null 2>&1;
 #     then
@@ -103,137 +163,57 @@ function runjar() {java -jar $1}
 #     echo "($color$name$action%f%b) "
 # }
 function current-battery {
-    local per
-    if ! [ -x /usr/bin/acpi ]; then return; fi
-    per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
-    if [[ $(acpi -a | grep on | wc -l) -eq 0 ]]; then
-	echo "%F{red}$per%%f"
-    else
-	echo "%F{green}$per%%f"
+    if [ -d /sys/class/power_supply/BAT0 ] ; then
+	local per
+	if [ ! -x /usr/bin/acpi ]; then return; fi
+	per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
+	if [ $(acpi -a | grep on | wc -l) -eq 0 ]; then
+	    echo "%F{red}$per%%f"
+	else
+	    echo "%F{green}$per%%f"
+	fi
     fi
 }
 
+function zsh-autocmp {
+    # Setup zsh-autosuggestions
+    source ~/.zsh-autosuggestions/autosuggestions.zsh
+    # Enable autosuggestions automatically
+    zle-line-init() {
+	zle autosuggest-start
+    }
+    zle -N zle-line-init
+}
+function simple-term {
+    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
+}
+
 #================ function end ================
-# ================ alias ================ #
-# ======== must-alias ======== #
-alias md=mkdir
-case ${OSTYPE} in
-    darwin*)
-	 alias ls='ls -h -GF'
-	 ;;
-    linux*)
-	 alias ls='ls -FGh --show-control-char --color=always'
-	 ;;
-esac
-alias lh=ls
-alias la='ls -A'
-alias ll='ls -ltr'
-alias lla='ll -A'
-alias lli='ll -i'
-alias l.='ls -d .[a-zA-Z]*'
-alias ll.='l. -ltr'
-
-alias less='less -MN -gj10'
-alias ec='emacsclient'
-alias em='emacs -nw'
-alias emc='emacsclient -nw'
-alias strdate='date +%Y-%m-%d_%H-%M-%S'
-alias gpp='g++'
-alias sudo='sudo ' #makes alias-sudo able
-alias rmi='rm -i'
-alias rmd='rm -r'
-alias cpd='cp -rv'
-alias history='history -iD'
-alias g='git'
-# ======== must-alias end ======== #
-# ======== may-alias ======== #
-alias Screenshot='import ~/Pictures/`strdate`.png' #reccomend:shutter
-alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
-#Keyboard
-alias aoeu='setxkbmap us'
-alias ueoa='setxkbmap us'
-alias asdf='setxkbmap dvorak'
-alias fdsa='setxkbmap dvorak'
-alias lxmodmap='xmodmap ~/.Xmodmap'
-alias cdiff='colordiff -c'
-alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
-alias postbox='tw -pipe'
-alias tlstream='tw -st'
-alias sl='sl -e'
-alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
-alias psauxG='ps aux | grep'
-alias chistory='history 1-'
-alias apti-search='aptitude search'
-
-alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz}=extract
-alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
-alias -s pdf=$PDFVIEWER
-alias -s mp3=mplayer
-alias -s py=python
-if [[ `uname` = "Darwin" ]]; then
-    alias google-chrome='open -a Google\ Chrome'
+# Alias config
+if [ -f ~/.alias ]; then
+    source ~/.alias
 else
-    #alias google-chrome='chromium' because chromium dead
-    alias google-chrome='google-chrome'
+    echo "~/.alias not found."
 fi
-alias chrome='google-chrome'
-alias -s html=chrome
-alias -s {c,cpp}=runcpp
-alias -s java=runjavac
-alias -s class=runjavaclass
-alias -s jar=runjar
-if [[ `uname` = "Darwin" ]]; then
-    alias IMGVIEWER='open -a Preview'
-fi
-if hash trash-put 2>/dev/null; then alias rm='trash-put';fi
-if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
-#pipe
-alias -g L='| lv'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g W='| wc'
-alias -g S='| sed'
-alias -g A='| awk'
-alias -g P='| $PAGER'
-alias -g LE='|& less'
-alias -g LER='|& less -R'
-alias -g CDF='| colordiff -c |& less -R'
-alias -g HE='|& head'
-alias -g TE='|& tail'
-alias -g GE='|& grep'
-alias -g WE='|& wc'
-alias -g SE='|& sed'
-alias -g AE='|& awk'
-alias -g PE='|& $PAGER'
-# ======== may-alias end ======== #
-# ======== maybe-alias ======== #
-alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
-alias ttyclock='tty-clock -stc' # Nomal
-alias boundclock='tty-clock -str' # It moves!
-alias killmebaby='pkill -9 sshd'
-# ======== maybe-alias end ======== #
-#================ alias end ================#
-
 #================ PROMPT ================ #
-if [[ -d /sys/class/power_supply/BAT0 ]];
-then PROMPT='
+PROMPT='
 [%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
-%#';
-else PROMPT='
-[%n@%m]<${LINENO}/%!>:%F{cyan}%~%f
-%#';
-fi
-if [ $COLORTERM -eq 1 -a $HOST != iPod-kakakaya -a $HOST != kakakaya_FPK ];
-then RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
-else RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
+%#'
+if [ $COLORTERM -eq 1 ]; then
+    RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
+else
+    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
 fi
 PROMPT2="%_%%>"
+
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
-#================ PROMPT end ================#
 #EXEC
 [ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
 [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -d ~/.zsh-autosuggestions ] && zsh-autocmp
+
+# start zsh with status 0
+true
