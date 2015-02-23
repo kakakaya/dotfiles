@@ -834,7 +834,10 @@
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-engines-alist
 	'(("php"    . "\\.phtml\\'")
-	  ("blade"  . "\\.blade\\."))))
+	  ("blade"  . "\\.blade\\.")))
+  (define-key web-mode-map (kbd "C-;") nil)
+  (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
+  )
 
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
