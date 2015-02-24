@@ -46,6 +46,8 @@ export JLESSCHARSET="japanese"
 export INFOPATH="$HOME/info:/usr/share/info:/usr/local/info"
 export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
+export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+
 # export LC_ALL="ja_JP.UTF-8"
 
 if hash colorgcc >& /dev/null ; then
