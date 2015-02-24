@@ -233,6 +233,39 @@
 (setq grep-command (cons (concat grep-command-before-query " .")
                          (+ (length grep-command-before-query) 1)))
 
+;; ================= autoinsert =================
+(require 'autoinsert)
+
+(setq user-id-string "kakakaya")
+(setq user-mail-address "kakakaya AT gmail.com")
+
+(setq auto-insert-directory "~/.emacs.d/templates")
+(setq auto-insert-alist
+      (nconc '(
+               ("\\.rst$" . ["template.rst" my-template])
+               ("\\.py$" . ["template.py" my-template])
+               ) auto-insert-alist))
+(require 'cl)
+
+(defvar template-replacements-alists
+  '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
+    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%date%" . (lambda() (current-time-string)))
+    ("%id%" . (lambda () (identity user-id-string)))
+    ("%mail%" . (lambda () (identity user-mail-address)))
+))
+
+(defun my-template ()
+  (time-stamp)
+  (mapc #'(lambda(c)
+            (progn
+              (goto-char (point-min))
+              (replace-string (car c) (funcall (cdr c)) nil)))
+        template-replacements-alists)
+  (goto-char (point-max))
+  (message "done."))
+(add-hook 'find-file-not-found-hooks 'auto-insert)
+
 ;; ================= howm =================
 ;; http://howm.sourceforge.jp/uu/
 (setq howm-prefix "\C-c,")
