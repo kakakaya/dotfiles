@@ -23,11 +23,11 @@
 (global-set-key (kbd "C-c C-i") 'hippie-expand)	       ; 補完
 (global-set-key (kbd "C-c ;") 'comment-dwim)	      ; コメントアウト
 (global-set-key (kbd "M-C-g") 'grep)		      ; grep
-(global-set-key (kbd "C-[ M-C-g") 'goto-line)	      ; 指定行へ移動
+;; (global-set-key (kbd "C-[ M-C-g") 'goto-line)	      ; 指定行へ移動
 (global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)   ; yank list
 (global-set-key (kbd "C-x f") 'helm-find-files)     ;
-(global-set-key (kbd "C-x C-r") 'helm-recentf)	    ;
+;; (global-set-key (kbd "C-x C-r") 'helm-recentf)	    ;
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
 (global-set-key (kbd "C-c C-f") 'helm-for-files)    ;
@@ -37,10 +37,10 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer) ;buffer-listより高級なリスト
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-(global-set-key [(control down)] 'scroll-up-1)
-(global-set-key [(control up)] 'scroll-down-1)
-(global-set-key [(control left)] 'scroll-right-1)
-(global-set-key [(control right)] 'scroll-left-1)
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <down>") 'windmove-down)
 (global-set-key [f5] 'revert-buffer)
 ;(global-set-key (kbd "C-<f3>") 'ahs-highlight-now)
 (global-set-key (kbd "<f3>")   'ahs-forward)
@@ -75,6 +75,7 @@
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
 (setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
 (setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
+(setq-default indicate-empty-lines t)			      ; バッファの終端を表示
 ;(set-frame-parameter nil 'fullscreen 'maximized) ; maximize screen
 
 ;; encode WENT UNDERGROUND
@@ -111,22 +112,9 @@
 (setq read-buffer-completion-ignore-case t)    ;バッファ
 
 
-;; splash-images directory
-(setq splash-image-dir (concat (getenv "HOME") "/.emacs.d/splash-images"))
-
-;; random-choose
-(defun random-elt (choices)
-  (elt choices (random (length choices))))
-(defun choose-image (image-dir)
-  (random-elt (directory-files image-dir t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)")))
-;; Wallpapers!!
-(setq fancy-splash-image
-      (choose-image splash-image-dir))
-
-(defun reroll-splash-screen ()
-  (setq fancy-splash-image
-      (choose-image splash-image-dir))
-  (display-startup-screen))
+(require 'random-splash-image)
+(setq random-splash-image-dir (concat (getenv "HOME") "/.emacs.d/splash-images"))
+(random-splash-image-set)
 
 ;;show [EOF] at EOF
 (defun set-buffer-end-mark()
@@ -379,24 +367,42 @@
 (setq-default save-place t)
 (run-at-time 600 600 'save-place-kill-emacs-hook)
 
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 2000)
-  (setq recentf-exclude '(".recentf"))
-  (setq recentf-auto-cleanup 10)
-  (setq recentf-auto-save-timer
-	(run-with-idle-timer 600 t 'recentf-save-list))
-  (recentf-mode 1))
+(require 'recentf nil t)
+(defvar my-recentf-list-prev nil )
+(defadvice recentf-save-list
+    (around no-message activate)
+  (unless (equal recentf-list my-recentf-list-prev)
+    (cl-flet ((message (format-string &rest &args)
+		       (eval `(format ,format-string ,@args)))
+	      (write-file (file &optional confirm)
+			  (let ((str (buffer-string)))
+			    (with-temp-file file (insert str)))))
+      ad-do-it
+      (setq my-recentf-list-prev recentf-list))))
+(defadvice recentf-cleanup
+    (around no-message activate)
+  (cl-flet ((message (format-string &rest args)
+		     (eval `(format ,format-string , @args))))
+    ad-do-it))
+(setq recentf-max-saved-items 2000)
+(setq recentf-exclude '(".recentf"))
+(setq recentf-auto-cleanup 10)
+(setq recentf-auto-save-timer
+      (run-with-idle-timer 600 t 'recentf-save-list))
+(recentf-mode 1)
 
 (require 'migemo nil t)
 (setq migemo-isearch-min-length 2)	;"Regular expression too big"
 
 (require 'helm-config)
 (helm-mode 1)
-(setq recentf-max-saved-items nil)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (define-key helm-map (kbd "C-h") 'delete-backward-char) ; helm C-h
 ;; (define-key helm-read-file-map (kbd "C-h") 'delete-backward-char) ;helm C-h
 (define-key helm-read-file-map (kbd "<tab>") 'helm-execute-persistent-action)
+(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(find-file-read-only . nil))
+(add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
 (when (require 'helm-gtags nil t)
   (add-hook 'go-mode-hook (lambda () (helm-gtags-mode)))
   (add-hook 'python-mode-hook (lambda () (helm-gtags-mode)))
@@ -409,6 +415,8 @@
               (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
               (local-set-key (kbd "M-s") 'helm-gtags-find-symbol))))
 
+(when (require 'helm-swoop nil t)
+  ())
 ;; ========== dired関連 ==========
 (require 'dired-x)		;diredを便利にする
 (require 'wdired)			;diredから"r"でファイル名をインライン編集
@@ -868,6 +876,13 @@
   (setq web-mode-engines-alist
 	'(("php"    . "\\.phtml\\'")
 	  ("blade"  . "\\.blade\\."))))
+
+(when (require 'hiwin nil t)
+  (hiwin-activate)
+  (set-face-background 'hiwin-face "grey14"))
+
+(when (require 'nurumacs nil t)
+  (setq nurumacs-map t))
 
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
