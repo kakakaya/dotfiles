@@ -376,7 +376,7 @@
 
 ;; ddskk
 (el-get-bundle! skk in ddskk
-;; (require 'ddskk)
+  (require 'skk)
 ;; (setq skk-use-act t)         ; This is right way but NOT WORKS, so...
   (require 'skk-act)         ; used this instead.
   (defun skk-j-mode-activate ()
@@ -454,14 +454,14 @@
   (setq ac-menu-height 10))
 
 ;; elpy
-(el-get-bundle elpy
+(el-get-bundle! elpy
   ;; https://github.com/jorgenschaefer/elpy
   ;; (package-initialize)
   (elpy-enable)
   (elpy-use-ipython))
 
 ;; LaTeX数式プレビュー
-(el-get-bundle latex-math-preview)
+(el-get-bundle! latex-math-preview)
 
 ;; twittering-mode
 (el-get-bundle! twittering-mode
@@ -478,11 +478,25 @@
   (with-eval-after-load-feature
    'zone-matrix
    (setq zone-programs [
-                        zone-pgm-jitter
-                        zone-pgm-putz-with-case
-                     ;; zone-pgm-dissolve  ; too blanky
-                     ;; zone-pgm-explode   ; too wide
-                        zone-pgm-whack-chars
+                        zone-pgm-jitter ; pan
+                        zone-pgm-putz-with-case ; case changes
+                        ;; zone-pgm-dissolve  ; too blanky
+                        ;; zone-pgm-explode   ; too wide
+                        zone-pgm-whack-chars ; become zzz
+                        zone-pgm-rotate      ; rotate random direction, variable speed
+                        ;; zone-pgm-rotate-LR-lockstep ; L to R only, same speed
+                        ;; zone-pgm-rotate-RL-lockstep ; R to L only, same speed
+                        ;; zone-pgm-rotate-LR-variable ; L to R only, variable speed
+                        ;; zone-pgm-rotate-RL-variable ; R to L only, variable speed
+                        zone-pgm-drip               ; drip
+                        ;; zone-pgm-drip-fretfully     ; drip, too slow
+                        ;; zone-pgm-five-oclock-swan-dive
+                        ;; zone-pgm-martini-swan-dive ; drip, become _ after fall
+                        ;; zone-pgm-rat-race ; rotate?
+                        ;; zone-pgm-paragraph-spaz ; rotate?
+                        ;; zone-pgm-stress          ; grrr
+                        ;; zone-pgm-stress-destress ; grrr buffer after grrr
+                        zone-pgm-random-life ; life game
                         ])
    (zone-when-idle 300)
    ))
@@ -492,6 +506,9 @@
   (require 'random-splash-image)
   (setq random-splash-image-dir (concat (getenv "HOME") "/.emacs.d/splash-images")) ; ランダムな画像のパス
   (random-splash-image-set))      ; ランダムな設定を実行
+
+;; tabbar
+(el-get-bundle! tabbar)
 
 ;; undohist
 (el-get-bundle! undohist
@@ -519,6 +536,7 @@
                     ?\\ ?!
                     (replace-regexp-in-string "!" "!!"  file)))
                   undohist-directory)))))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -812,59 +830,6 @@
 (require 'volatile-highlights nil t)
 (volatile-highlights-mode t)
 
-;; ========tabbar========
-(require 'tabbar)
-(tabbar-mode)
-(global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
-(global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
-(tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
-(setq tabbar-buffer-groups-function nil) ; グループを使わない
-;; 左側のボタンを消す
-(dolist (btn '(tabbar-buffer-home-button
-               tabbar-scroll-left-button
-               tabbar-scroll-right-button))
-  (set btn (cons (cons "" nil)
-                 (cons "" nil))))
-(defvar tabbar-displayed-buffers
-  '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*" "GNU Emacs")
-  "*Regexps matches buffer names always included tabs.")
-;; 作業バッファの一部を非表示
-(setq tabbar-buffer-list-function
-      (lambda ()
-        (let* ((hides (list ?\ ?\*))
-               (re (regexp-opt tabbar-displayed-buffers))
-               (cur-buf (current-buffer))
-               (tabs (delq
-                      nil
-                      (mapcar
-                       (lambda (buf)
-                         (let ((name (buffer-name buf)))
-                           (when (or (string-match re name)
-                                     (not (memq (aref name 0) hides)))
-                             buf)))
-                       (buffer-list)))))
-          (if (memq cur-buf tabs)
-              tabs
-            (cons cur-buf tabs)))))
-(setq tabbar-separator '(0.8))      ;; タブ同士の間隔
-;; ====外観変更====
-(set-face-attribute         ;バー自体の色
- 'tabbar-default nil
- :family (face-attribute 'default :family)
- :background (face-attribute 'mode-line-inactive :background)
- :height 0.9)
-(set-face-attribute         ;アクティブなタブ
- 'tabbar-unselected nil
- :background (face-attribute 'mode-line-inactive :background)
- :foreground (face-attribute 'mode-line-inactive :foreground)
- :box nil)
-(set-face-attribute         ;非アクティブなタブ
- 'tabbar-selected nil
- :background (face-attribute 'mode-line :background)
- :foreground (face-attribute 'mode-line :foreground)
- :box nil)
-;; ========tabbar end========
-
 (defun sublimity-toggle ()
   "Toggle sublimity for current buffer."
   (interactive)
@@ -959,6 +924,57 @@
   (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
   )
 
+(when (require 'tabbar nil t)
+  (if (null tabbar-mode)
+      (tabbar-mode))
+  (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
+  (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
+  (tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
+  (setq tabbar-buffer-groups-function nil) ; グループを使わない
+  ;; 左側のボタンを消す
+  (dolist (btn '(tabbar-buffer-home-button
+                 tabbar-scroll-left-button
+                 tabbar-scroll-right-button))
+    (set btn (cons (cons "" nil)
+                   (cons "" nil))))
+  (defvar tabbar-displayed-buffers
+    '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*" "GNU Emacs")
+    "*Regexps matches buffer names always included tabs.")
+  ;; 作業バッファの一部を非表示
+  (setq tabbar-buffer-list-function
+        (lambda ()
+          (let* ((hides (list ?\ ?\*))
+                 (re (regexp-opt tabbar-displayed-buffers))
+                 (cur-buf (current-buffer))
+                 (tabs (delq
+                        nil
+                        (mapcar
+                         (lambda (buf)
+                           (let ((name (buffer-name buf)))
+                             (when (or (string-match re name)
+                                       (not (memq (aref name 0) hides)))
+                               buf)))
+                         (buffer-list)))))
+            (if (memq cur-buf tabs)
+                tabs
+              (cons cur-buf tabs)))))
+  (setq tabbar-separator '(0.8))      ;; タブ同士の間隔
+  ;; ====外観変更====
+  (set-face-attribute         ;バー自体の色
+   'tabbar-default nil
+   :family (face-attribute 'default :family)
+   :background (face-attribute 'mode-line-inactive :background)
+   :height 0.9)
+  (set-face-attribute         ;アクティブなタブ
+   'tabbar-unselected nil
+   :background (face-attribute 'mode-line-inactive :background)
+   :foreground (face-attribute 'mode-line-inactive :foreground)
+   :box nil)
+  (set-face-attribute         ;非アクティブなタブ
+   'tabbar-selected nil
+   :background (face-attribute 'mode-line :background)
+   :foreground (face-attribute 'mode-line :foreground)
+   :box nil))
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
