@@ -14,7 +14,6 @@
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
                  '("/usr/share/emacs/site-lisp")
-                 '("/usr/share/emacs/site-lisp/howm")
                  ;; '("~/.emacs.d")
                  '("~/.emacs.d/elisp")
                  '("~/.emacs.d/elisp/twittering-mode")
@@ -106,11 +105,9 @@
 ;; (setq default-file-name-coding-system 'utf-8)
 
 ;;================== 複行 ==================
-
 ;; zenburn-emacs
 (add-to-list 'custom-theme-load-path  "~/.emacs.d/themes")
 (load-theme 'zenburn t)
-
 ;; 80x47 screen (good for azurite)
 (setq initial-frame-alist
       '((top . 0) (left . 0) (width . 80) (height . 47)))
@@ -341,6 +338,7 @@
   (setq auto-save-buffers-enhanced-exclude-regexps
         '("^/ssh" "^/scp" "/mnt/"))             ; ssh, scp, mnt以下のファイルは無視
   (auto-save-buffers-enhanced-include-only-checkout-path t) ; gitとかのディレクトリだけ
+  (setq auto-save-buffers-enhanced-quiet-save-p t)
   (auto-save-buffers-enhanced t))
 
 ;; フレーム左端にgitの状態表示
@@ -374,21 +372,6 @@
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save))
 
-;; ddskk
-(el-get-bundle! skk in ddskk
-  (require 'skk)
-;; (setq skk-use-act t)         ; This is right way but NOT WORKS, so...
-  (require 'skk-act)         ; used this instead.
-  (defun skk-j-mode-activate ()
-    (interactive)
-    (cond (skk-j-mode
-           (skk-toggle-kana nil))
-          (t
-           (skk-j-mode-on))))
-  (global-set-key (kbd "C-.") 'skk-j-mode-activate)
-  (global-set-key (kbd "C-,") 'skk-latin-mode)
-  (if (file-writable-p "~/Dropbox/config/.skk-jisyo")
-      (setq skk-jisyo "~/Dropbox/config/.skk-jisyo")))
 
 ;; emmet
 (el-get-bundle! emmet-mode
@@ -536,6 +519,19 @@
                     ?\\ ?!
                     (replace-regexp-in-string "!" "!!"  file)))
                   undohist-directory)))))
+
+;; pomodoro
+(el-get-bundle! baudtack/pomodoro
+  :type http
+  :url  "https://raw.githubusercontent.com/baudtack/pomodoro.el/master/pomodoro.el"
+  (setq pomodoro-show-number t)
+  (setq pomodoro-work-start-message "我に力を捧げよ!")
+  (setq pomodoro-break-start-message "やみのま!")
+  (setq pomodoro-long-break-start-message "闇に飲まれよ! (訳:お疲れ様です!)"))
+
+;; helm-swoop
+(el-get-bundle! helm-swoop
+  (global-set-key (kbd "M-s M-s") 'helm-swoop))
 
 ;; ========================================
 ;;             require 'package
@@ -796,17 +792,6 @@
 (require 'flex-autopair nil t)
 (flex-autopair-mode 1)
 
-;; nyan-mode (conflict with main-line)
-;; (when (require 'nyan-mode nil t)
-;;   (nyan-mode)
-;;   (nyan-start-animation))
-
-;; ========mainline (powerline not found)========
-
-;; ========modeline end========
-
-;; anzu http://qiita.com/syohex/items/56cf3b7f7d9943f7a7ba
-;; https://github.com/syohex/emacs-anzu
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -825,23 +810,10 @@
 (require 'f)
 
 (require 'hlinum)
-;(hlinum-activate)
+(hlinum-activate)
 
 (require 'volatile-highlights nil t)
 (volatile-highlights-mode t)
-
-(defun sublimity-toggle ()
-  "Toggle sublimity for current buffer."
-  (interactive)
-  (if sublimity-mode
-      (message "sublimity off")
-    (message "sublimity on"))
-  (if sublimity-mode
-      (setq sublimity-mode nil)
-    (setq sublimity-mode t)))
-(global-set-key [f7] 'sublimity-toggle)
-(setq sublimity-attractive-centering-width nil)
-;; ========== sublimity end ==========
 
 ;; https://github.com/gongo/emacs-realtime-markdown-viewer
 ;; (require 'realtime-markdown-viewer)
@@ -918,8 +890,8 @@
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (setq web-mode-engines-alist
-	'(("php"    . "\\.phtml\\'")
-	  ("blade"  . "\\.blade\\.")))
+        '(("php"    . "\\.phtml\\'")
+          ("blade"  . "\\.blade\\.")))
   (define-key web-mode-map (kbd "C-;") nil)
   (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
   )
@@ -977,8 +949,33 @@
    :box nil))
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
+
+;; ddskk
+(require 'skk nil t)
+;; (setq skk-use-act t)         ; This is right way but NOT WORKS, so...
+(require 'skk-act)         ; used this instead.
+;; (require 'skk-decor nil t)
+(defun skk-j-mode-activate ()
+  (interactive)
+  (cond (skk-j-mode
+         (skk-toggle-kana nil))
+        (t
+         (skk-j-mode-on))))
+(global-set-key (kbd "C-.") 'skk-j-mode-activate)
+(global-set-key (kbd "C-,") 'skk-latin-mode)
+(setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
+(setq skk-status-indicator 'minor-mode)
+(setq skk-status-indicator 'left)
+(setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
+(setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
+(setq skk-use-color-cursor t)
+  (if (file-writable-p "~/Dropbox/config/.skk-jisyo")
+      (setq skk-jisyo "~/Dropbox/config/.skk-jisyo"))
+
+
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
+
