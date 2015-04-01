@@ -11,7 +11,7 @@ sudo aptitude install\
      emacs ddskk skkdic-extra howm magit yatex\
      silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el
 
-sudo pip install elpy
+sudo pip install pip-tools elpy
 
 LANG=C xdg-user-dirs-gtk-update
 
@@ -24,33 +24,33 @@ mkdir ~/mnt
 dropbox start -i
 
 # ln -s Dropbox/Backups/config/.skk-jisyo .skk-jisyo
-# ln -s Dropbox/howm howm		# For later
+# ln -s Dropbox/howm howm         # For later
 
 ## ssh
 mkdir .ssh
-ssh-keygen -t rsa
+# ssh-keygen -t rsa
 
 #urxvt config
-mkdir -p ~/.urxvt/
-git clone htpps://muennich/urxvt-perls ~/.urxvt/
-cd ~/.urxvt/urxvt-perls/
-chmod u+x url-select
-chmod u+x keyboard-select
-chmod u+x clipboard
-cd
+# mkdir -p ~/.urxvt/
+# git clone htpps://muennich/urxvt-perls ~/.urxvt/
+# cd ~/.urxvt/urxvt-perls/
+# chmod u+x url-select
+# chmod u+x keyboard-select
+# chmod u+x clipboard
+# cd
 
 ## Emacs
-mkdir -p ~/.emacs.d/elisp
-wget http://www.emacswiki.org/emacs/download/auto-install.el ~/.emacs.d/elisp
-emacs --batch -Q -f batch-byte-compile ~/.emacs.d/elisp/auto-install.el
+# mkdir -p ~/.emacs.d/elisp
+# wget http://www.emacswiki.org/emacs/download/auto-install.el ~/.emacs.d/elisp
+# emacs --batch -Q -f batch-byte-compile ~/.emacs.d/elisp/auto-install.el
 
-git clone https://github.com/emacs-helm/helm ~/.emacs.d/
-cd ~/.emacs.d/helm && make && cd
+# git clone https://github.com/emacs-helm/helm ~/.emacs.d/
+# cd ~/.emacs.d/helm && make && cd
 
 
 ## Emacs memo
-cd ~/tmp && git clone https://github.com/zk-phi/sublimity && cd
-wget 'https://sites.google.com/site/rtfreesoft/font-drop/mona-izmg16.7z' # mona font
+# cd ~/tmp && git clone https://github.com/zk-phi/sublimity && cd
+# wget 'https://sites.google.com/site/rtfreesoft/font-drop/mona-izmg16.7z' # mona font
 
 # get catimg.sh
 
