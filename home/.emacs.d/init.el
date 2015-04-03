@@ -151,7 +151,7 @@
 (add-hook 'prog-mode-hook '(lambda ()
                              ;; (smart-newline-mode 1)
                              (setq indent-tabs-mode nil)
-                             (rainbow-mode)
+                             ;; (rainbow-mode)
                              (hs-minor-mode)
                              ))
 
@@ -521,6 +521,41 @@
 (el-get-bundle! helm-swoop
   (global-set-key (kbd "M-s M-s") 'helm-swoop))
 
+;; flex-autopair
+(el-get-bundle! flex-autopair
+  (flex-autopair-mode 1))
+
+;; f
+(el-get-bundle! f)
+
+;; hlinum
+(el-get-bundle! hlinum
+  (hlinum-activate))
+
+;; volatile-highlights
+(el-get-bundle! volatile-highlights
+  (volatile-highlights-mode t))
+
+;; lua
+(el-get-bundle! lua-mode)
+
+(el-get-bundle! hl-line+
+  (global-hl-line-mode t))
+
+(el-get-bundle! web-mode
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (setq web-mode-engines-alist
+        '(("php"    . "\\.phtml\\'")
+          ("blade"  . "\\.blade\\.")))
+  (define-key web-mode-map (kbd "C-;") nil)
+  (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment))
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -795,18 +830,6 @@
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t))
 
-(require 'f)
-
-(require 'hlinum)
-(hlinum-activate)
-
-(require 'volatile-highlights nil t)
-(volatile-highlights-mode t)
-
-;; https://github.com/gongo/emacs-realtime-markdown-viewer
-;; (require 'realtime-markdown-viewer)
-(require 'lua-mode)
-
 ;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
 (require 'yasnippet)
 (setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
@@ -868,21 +891,21 @@
    '(navi2ch-mona-ipa-mona-font-family-name "mona-izmg16"))
   (navi2ch-mona-setup))
 
-(when (require 'web-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (setq web-mode-engines-alist
-        '(("php"    . "\\.phtml\\'")
-          ("blade"  . "\\.blade\\.")))
-  (define-key web-mode-map (kbd "C-;") nil)
-  (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
-  )
+;; (when (require 'web-mode nil t)
+;;   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;;   (setq web-mode-engines-alist
+;;         '(("php"    . "\\.phtml\\'")
+;;           ("blade"  . "\\.blade\\.")))
+;;   (define-key web-mode-map (kbd "C-;") nil)
+;;   (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
+;;   )
 
 (when (require 'tabbar nil t)
   (if (null tabbar-mode)
