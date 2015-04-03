@@ -61,41 +61,41 @@ export COMP_WORDBREAKS
 
 if type complete &>/dev/null; then
     _npm_completion () {
-	local si="$IFS"
-	IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+        local si="$IFS"
+        IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
             COMP_LINE="$COMP_LINE" \
             COMP_POINT="$COMP_POINT" \
             npm completion -- "${COMP_WORDS[@]}" \
             2>/dev/null)) || return $?
-	IFS="$si"
+        IFS="$si"
     }
     complete -F _npm_completion npm
 elif type compdef &>/dev/null; then
     _npm_completion() {
-	si=$IFS
-	compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+        si=$IFS
+        compadd -- $(COMP_CWORD=$((CURRENT-1)) \
             COMP_LINE=$BUFFER \
             COMP_POINT=0 \
             npm completion -- "${words[@]}" \
             2>/dev/null)
-	IFS=$si
+        IFS=$si
     }
     compdef _npm_completion npm
 elif type compctl &>/dev/null; then
     _npm_completion () {
-	local cword line point words si
-	read -Ac words
-	read -cn cword
-	let cword-=1
-	read -l line
-	read -ln point
-	si="$IFS"
-	IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-            COMP_LINE="$line" \
-            COMP_POINT="$point" \
-            npm completion -- "${words[@]}" \
-            2>/dev/null)) || return $?
-	IFS="$si"
+        local cword line point words si
+        read -Ac words
+        read -cn cword
+        let cword-=1
+        read -l line
+        read -ln point
+        si="$IFS"
+        IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                                     COMP_LINE="$line" \
+                                     COMP_POINT="$point" \
+                                     npm completion -- "${words[@]}" \
+                                     2>/dev/null)) || return $?
+        IFS="$si"
     }
 fi
 compctl -K _npm_completion npm
@@ -126,19 +126,19 @@ function runjar() {java -jar $1}
 
 function notify-tw() {
     if [ ! hash tw 2>/dev/null ]; then
-	echo "tw not found"
+        echo "tw not found"
     elif [ $? = 0 ]; then
-	tw -yes "@kakakaya Successfully completed! at `date`"
+        tw -yes "@kakakaya Successfully completed! at `date`"
     else
-	tw -yes "@kakakaya Failed with Error code ${?} at `date`"
+        tw -yes "@kakakaya Failed with Error code ${?} at `date`"
     fi
 }
 # function exist () {
 #     if type $1 >/dev/null 2>&1;
 #     then
-# 	return 0
+#         return 0
 #     else
-# 	return 1
+#         return 1
 #     fi
 # }
 # function git-current-branch {
@@ -164,14 +164,14 @@ function notify-tw() {
 # }
 function current-battery {
     if [ -d /sys/class/power_supply/BAT0 ] ; then
-	local per
-	if [ ! -x /usr/bin/acpi ]; then return; fi
-	per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
-	if [ $(acpi -a | grep on | wc -l) -eq 0 ]; then
-	    echo "%F{red}$per%%f"
-	else
-	    echo "%F{green}$per%%f"
-	fi
+        local per
+        if [ ! -x /usr/bin/acpi ]; then return; fi
+        per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
+        if [ $(acpi -a | grep on | wc -l) -eq 0 ]; then
+            echo "%F{red}$per%%f"
+        else
+            echo "%F{green}$per%%f"
+        fi
     fi
 }
 
