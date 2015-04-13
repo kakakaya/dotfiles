@@ -1,8 +1,8 @@
 ## First
 sudo aptitude install\
-     rxvt-unicode-256color guake jed byobu\
+     terminator rxvt-unicode-256color guake jed byobu\
      chromium\
-     python-pip trash-cli wdiff\
+     python-pip trash-cli wdiff tig\
      colorgcc colortail colormake colordiff\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
      xinput xcape awesome-extra arandr\
