@@ -1,36 +1,41 @@
 [core]
-	excludesfile = ~/.gitignore
-	editor = $VISUAL
+    excludesfile = ~/.gitignore
+    editor = $VISUAL
 [user]
-        name = kakakaya
-        email = kakakaya+git@gmail.com
+    name = kakakaya
+    email = kakakaya+git@gmail.com
 [color]
-	ui = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	diff = auto
+    ui = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    diff = auto
 [push]
-        default = simple
+    default = simple
 [alias]
-	cm = commit -v
-	cma = commit -v -a
-	cmm = commit -v -m
-	cmam = commit -v -a -m
-	cmma = commit -v -a -m
+    cm = commit -v
+    cma = commit -v -a
+    cmm = commit -v -m
+    cmam = commit -v -a -m
+    cmma = commit -v -a -m
 
-	co = checkout
-	com = checkout master
-	cod = checkout develop
+    co = checkout
+    com = checkout master
+    cod = checkout develop
 
-	st = status
-	s = status -sb
-	sb = show-branch
-	df = diff
+    st = status
+    s = status -sb
+    sb = show-branch
+    df = diff
 
-	ps = push
-	pl = pull
+    ps = push
+    pl = pull
 [merge]
-	ff = false
+    ff = false
 [credential]
-	helper = cache
+    helper = cache
+[url "git@github.com:"]
+  pushInsteadOf = git://github.com/
+  pushInsteadOf = https://github.com/
+[url "git://github.com/"]
+  insteadOf = https://github.com/
