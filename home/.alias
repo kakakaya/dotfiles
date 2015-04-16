@@ -6,6 +6,7 @@ alias md=mkdir
 alias lh=ls
 alias la='ls -A'
 alias ll='ls -ltr'
+alias l='ll'                    # now easy to ll
 alias lla='ll -A'
 alias lli='ll -i'
 alias l.='ls -d .[a-zA-Z]*'
@@ -16,14 +17,14 @@ alias ecn='emacsclient -n'
 alias em='emacs -nw'
 alias emc='emacsclient -nw'
 alias strdate='date +%Y-%m-%d_%H-%M-%S'
-alias gpp='g++'			# ++ is hard to type
-alias sudo='sudo '		# makes aliased command to sudo
+alias gpp='g++'                 # ++ is hard to type
+alias sudo='sudo '              # makes aliased command to sudo
 alias rmi='rm -i'
-alias rmd='rm -r'		# rmdir
-alias cpd='cp -rv'
+alias rmd='rm -r'               # rmdir
+alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
-alias E='$EDITOR'		# It seems jed, or nano
+alias E='$EDITOR'                    # It seems jed, or nano
 alias V='emacsclient -nw -a $EDITOR' # emacsclient or EDITOR
 
 #Keyboard
@@ -68,64 +69,64 @@ if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 case $(ps --no-headers -p $$) in
     # shell based config
     *zsh)
-	alias sterm=simple-term
+        alias sterm=simple-term
 
-	# Global alias
-	alias -g L='| less'
-	alias -g LR='| less -R'
-	alias -g H='| head'
-	alias -g T='| tail'
-	alias -g G='| grep'
-	alias -g W='| wc'
-	alias -g S='| sed'
-	alias -g A='| awk'
-	alias -g C='| cut'
-	alias -g P='| $PAGER'
+        # Global alias
+        alias -g L='| less'
+        alias -g LR='| less -R'
+        alias -g H='| head'
+        alias -g T='| tail'
+        alias -g G='| grep'
+        alias -g W='| wc'
+        alias -g S='| sed'
+        alias -g A='| awk'
+        alias -g C='| cut'
+        alias -g P='| $PAGER'
 
-	alias -g LE='|& less'
-	alias -g LER='|& less -R'
-	alias -g CDF='| colordiff -c |& less -R'
-	alias -g HE='|& head'
-	alias -g TE='|& tail'
-	alias -g GE='|& grep'
-	alias -g WE='|& wc'
-	alias -g SE='|& sed'
-	alias -g AE='|& awk'
-	alias -g CE='|& cut'
-	alias -g PE='|& $PAGER'
+        alias -g LE='|& less'
+        alias -g LER='|& less -R'
+        alias -g CDF='| colordiff -c |& less -R'
+        alias -g HE='|& head'
+        alias -g TE='|& tail'
+        alias -g GE='|& grep'
+        alias -g WE='|& wc'
+        alias -g SE='|& sed'
+        alias -g AE='|& awk'
+        alias -g CE='|& cut'
+        alias -g PE='|& $PAGER'
 
-	# Suffix alias
-	alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
-	alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
-	alias -s pdf=$PDFVIEWER
-	alias -s mp3=mplayer
-	alias -s py=python
-	alias -s html=chrome
-	alias -s {c,cpp}=runcpp
-	alias -s java=runjavac
-	alias -s class=runjavaclass
-	alias -s jar=runjar
-	;;
+        # Suffix alias
+        alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
+        alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
+        alias -s pdf=$PDFVIEWER
+        alias -s mp3=mplayer
+        alias -s py=python
+        alias -s html=chrome
+        alias -s {c,cpp}=runcpp
+        alias -s java=runjavac
+        alias -s class=runjavaclass
+        alias -s jar=runjar
+        ;;
 esac
 
 case ${HOST} in
     # host based config
     *mma*)
-	# set PULSE_SERVER for remote audio
-	alias vlc='PULSE_SERVER=192.168.2.1 vlc'
-	alias totem='PULSE_SERVER=192.168.2.1 totem'
-	;;
+        # set PULSE_SERVER for remote audio
+        alias vlc='PULSE_SERVER=192.168.2.1 vlc'
+        alias totem='PULSE_SERVER=192.168.2.1 totem'
+        ;;
 esac
 
 case ${OSTYPE} in
     # OS based config
     darwin*)
-	alias ls='ls -h -GF'
-	alias IMGVIEWER='open -a Preview'
-	alias google-chrome='open -a Google\ Chrome'
-	;;
+        alias ls='ls -h -GF'
+        alias IMGVIEWER='open -a Preview'
+        alias google-chrome='open -a Google\ Chrome'
+        ;;
     linux*)
-	alias google-chrome=chromium
-	alias ls='ls -FGh --show-control-char --color=always'
-	;;
+        alias google-chrome=chromium
+        alias ls='ls -FGh --show-control-char --color=always'
+        ;;
 esac
