@@ -10,8 +10,6 @@ setkbmap dvorak
 xmodmap .Xmodmap
 ~/bin/SandS.sh
 
-xscreensaver -no-splash &
-
 if [ $(nmcli -t -f active,ssid dev wifi | grep "UECWireless" | wc -l) -gt 0 ]; then
     export http_proxy=http://proxy.uec.ac.jp:8080
     export https_proxy=http://proxy.uec.ac.jp:8080
@@ -27,10 +25,17 @@ elif [[ -x /usr/bin/urxvt ]]; then urxvt &
 fi
 
 if [[ -x /usr/bin/vmware-user ]]; then
+    # 仮想環境の場合
     /usr/bin/vmware-user
 else
+    # 仮想環境ならホストOSにスクリーンセーバを任せる、さもなくば自分で起動する
+    xscreensaver -no-splash &
+    # chromeを起動しておく
     if [[ -x /usr/bin/google-chrome ]]; then
-	google-chrome &
+        google-chrome &
+    else if [[ -x /usr/bin/chromium ]]; then
+             chromium &
+         fi
     fi
 fi
 emacs &

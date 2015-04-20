@@ -79,6 +79,8 @@
 (setq vc-follow-symlinks t)   ; auto-follow version controlled symlink
 (setq suggest-key-bindings t) ; suggest keybinding
 (fset 'yes-or-no-p 'y-or-n-p) ; y/n
+(setq tab-indent-width 2)
+(setq indent-tabs-mode nil)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
 (setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 (setq-default indicate-empty-lines t)   ; バッファの終端を表示
@@ -542,6 +544,7 @@
 (el-get-bundle! hl-line+
   (global-hl-line-mode t))
 
+;; web-mode
 (el-get-bundle! web-mode
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -555,7 +558,11 @@
         '(("php"    . "\\.phtml\\'")
           ("blade"  . "\\.blade\\.")))
   (define-key web-mode-map (kbd "C-;") nil)
-  (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment))
+  (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  )
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -905,6 +912,9 @@
 ;;           ("blade"  . "\\.blade\\.")))
 ;;   (define-key web-mode-map (kbd "C-;") nil)
 ;;   (define-key web-mode-map (kbd "C-c ;") 'web-mode-comment-or-uncomment)
+;;   (setq web-mode-markup-indent-offset 2)
+;;   (setq web-mode-css-indent-offset 2)
+;;   (setq web-mode-code-indent-offset 2)
 ;;   )
 
 (when (require 'tabbar nil t)
