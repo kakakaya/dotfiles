@@ -5,21 +5,21 @@
 userpath=(
     # 配列に候補を入れる
     $HOME/bin $HOME/.local/bin \
-    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+	      $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
-addpath=()			# 確定した候補を入れていく受け皿
-for i in "${userpath[@]}"; do	# 受け皿に追加していく
+addpath=()                      # 確定した候補を入れていく受け皿
+for i in "${userpath[@]}"; do   # 受け皿に追加していく
     chksame=0
     if [[ -d $i ]]; then		# システムにディレクトリが存在しなければ飛ばす
-	for j in "${path[@]}"; do
-	    if [[ $i = $j ]]; then # 重複しているなら重複フラグを立てておく
-		chksame=1
-		break
-	    fi
-	done
-	if [[ $chksame = 0 ]] ; then # 重複フラグが立ってなければ受け皿に追加
-	    addpath=( $addpath $i )
-	fi
+        for j in "${path[@]}"; do
+            if [[ $i = $j ]]; then # 重複しているなら重複フラグを立てておく
+                chksame=1
+                break
+            fi
+        done
+        if [[ $chksame = 0 ]] ; then # 重複フラグが立ってなければ受け皿に追加
+            addpath=( $addpath $i )
+        fi
     fi
 done
 path=( $path $addpath )
@@ -83,11 +83,11 @@ case "$TERM" in
     ct100*);	COLORTERM=1 ;;	# TeraTermPro
     kterm*);	COLORTERM=1 ; TERM='kterm-color';;
     rxvt*);     COLORTERM=1
-	  # export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
-	  # export LC_ALL=ja_JP.eucJP;;
-	  #vim は TERM='kterm' ではカラー化しない
-	  #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
-	  ;;
+          # export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
+          # export LC_ALL=ja_JP.eucJP;;
+          #vim は TERM='kterm' ではカラー化しない
+          #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
+          ;;
 esac
 if [[ $COLORTERM -eq 1 ]]; then
     export LC_ALL=ja_JP.UTF8
@@ -96,11 +96,10 @@ fi
 
 if hash jed >& /dev/null; then
     export EDITOR='jed'
-    export VISUAL='emacsclient -nw -a jed'
 else
     export EDITOR='nano'
-    export VISUAL='emacsclient -nw -a nano'
 fi
+export VISUAL='emacsclient -n -nw -a EDITOR' # Open Emacs Window by my hand!
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
