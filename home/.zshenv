@@ -101,11 +101,10 @@ fi
 
 if hash jed >& /dev/null; then
     export EDITOR='jed'
-    export VISUAL='emacsclient -nw -a jed'
 else
     export EDITOR='nano'
-    export VISUAL='emacsclient -nw -a nano'
 fi
+export VISUAL='emacsclient -n -nw -a EDITOR' # Open Emacs Window by my hand!
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X

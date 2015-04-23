@@ -107,6 +107,8 @@ case $(ps --no-headers -p $$) in
         alias -s class=runjavaclass
         alias -s jar=runjar
         alias -s go=rungo
+        alias -s tex=platex
+        alias -s dvi=dvipdfmx
         ;;
 esac
 
