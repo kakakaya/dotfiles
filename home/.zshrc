@@ -123,6 +123,7 @@ function runcpp () { g++ -O2 $1; ./a.out }
 function runjavac() {javac $1}
 function runjavaclass() {java $1}
 function runjar() {java -jar $1}
+function rungo() {go run $1}
 
 function notify-tw() {
     if [ ! hash tw 2>/dev/null ]; then

@@ -5,21 +5,21 @@
 userpath=(
     # 配列に候補を入れる
     $HOME/bin $HOME/.local/bin \
-    $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+              $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
-addpath=()			# 確定した候補を入れていく受け皿
+addpath=()                      # 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
     chksame=0
-    if [[ -d $i ]]; then		# システムにディレクトリが存在しなければ飛ばす
-	for j in "${path[@]}"; do
-	    if [[ $i = $j ]]; then # 重複しているなら重複フラグを立てておく
-		chksame=1
-		break
-	    fi
-	done
-	if [[ $chksame = 0 ]] ; then # 重複フラグが立ってなければ受け皿に追加
-	    addpath=( $addpath $i )
-	fi
+    if [[ -d $i ]]; then # システムにディレクトリが存在しなければ飛ばす
+        for j in "${path[@]}"; do
+            if [[ $i = $j ]]; then # 重複しているなら重複フラグを立てておく
+                chksame=1
+                break
+            fi
+        done
+        if [[ $chksame = 0 ]] ; then # 重複フラグが立ってなければ受け皿に追加
+            addpath=( $addpath $i )
+        fi
     fi
 done
 path=( $path $addpath )
@@ -47,6 +47,11 @@ export INFOPATH="$HOME/info:/usr/share/info:/usr/local/info"
 export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+
+# Golang is not GOD
+export GOROOT="/usr/lib/go"
+export GOPATH=$GOROOT:"$HOME/.local/lib/go"
+export PATH=$PATH:"$GOPATH/bin"
 
 # export LC_ALL="ja_JP.UTF-8"
 
@@ -83,11 +88,11 @@ case "$TERM" in
     ct100*);	COLORTERM=1 ;;	# TeraTermPro
     kterm*);	COLORTERM=1 ; TERM='kterm-color';;
     rxvt*);     COLORTERM=1
-	  # export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
-	  # export LC_ALL=ja_JP.eucJP;;
-	  #vim は TERM='kterm' ではカラー化しない
-	  #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
-	  ;;
+          # export LANG=ja_JP.eucJP;   #w3m とか mutt とかに必要
+          # export LC_ALL=ja_JP.eucJP;;
+          #vim は TERM='kterm' ではカラー化しない
+          #screen は TERM='kterm-color' ではタイトルバーに情報表示できない
+          ;;
 esac
 if [[ $COLORTERM -eq 1 ]]; then
     export LC_ALL=ja_JP.UTF8
@@ -105,21 +110,21 @@ fi
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
     case ${HOST} in
-	Azurite*)
-	    #ThinkpadX200 setting
-	    xset m 4 2
-	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
-	    xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
-	    ;;
-	akari)
-	    synclient TapButton1=1
-	    synclient TapButton2=2
-	    synclient TapButton3=3
-	    synclient CircularScrolling=1
-	    synclient CircScrollTrigger=0
-	    ;;
+        Azurite*)
+            #ThinkpadX200 setting
+            xset m 4 2
+            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+            ;;
+        akari)
+            synclient TapButton1=1
+            synclient TapButton2=2
+            synclient TapButton3=3
+            synclient CircularScrolling=1
+            synclient CircScrollTrigger=0
+            ;;
     esac
 else
     # This is in console
@@ -127,19 +132,19 @@ else
 fi
 case ${HOST} in
     nest*|rise*|debian*)
-	#alias
-	alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
-	case ${HOST} in
-	    nest*)
-		alias kagitail='tail -1 /var/log/kagisys.log'
-		;;
-	esac
-	#export
-	export http_proxy='http://proxy.uec.ac.jp:8080'
-	export ftp_proxy='http://proxy.uec.ac.jp:8080'
-	export https_proxy='http://proxy.uec.ac.jp:8080'
+        #alias
+        alias ayase='mplayer -quiet ~/bin/Chime/voice/ImAyase.wav'
+        case ${HOST} in
+            nest*)
+                alias kagitail='tail -1 /var/log/kagisys.log'
+                ;;
+        esac
+        #export
+        export http_proxy='http://proxy.uec.ac.jp:8080'
+        export ftp_proxy='http://proxy.uec.ac.jp:8080'
+        export https_proxy='http://proxy.uec.ac.jp:8080'
 
-	;;
+        ;;
     # purple*)
     # 	#JED
     # 	export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin

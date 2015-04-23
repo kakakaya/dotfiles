@@ -106,6 +106,7 @@ case $(ps --no-headers -p $$) in
         alias -s java=runjavac
         alias -s class=runjavaclass
         alias -s jar=runjar
+        alias -s go=rungo
         ;;
 esac
 
