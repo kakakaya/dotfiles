@@ -185,6 +185,11 @@
                             (hs-minor-mode 1)
                             ))
 
+(add-hook 'go-mode-hook '(lambda ()
+                           (setq c-basic-offset 2)
+                           (setq indent-tabs-mode nil)
+                           ))
+
 (autoload 'coffee-mode "coffee-mode" nil t)
 
 ;; need?
