@@ -12,6 +12,10 @@ wget-log
 *~
 \#*
 
+# log, tmp files under log, tmp directory
+log/**/*
+tmp/**/*
+
 # gnu global
 GPATH
 GRTAGS
