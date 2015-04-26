@@ -988,7 +988,9 @@
         (t
          (skk-j-mode-on))))
 (global-set-key (kbd "C-.") 'skk-j-mode-activate)
+(global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
 (global-set-key (kbd "C-,") 'skk-latin-mode)
+(global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
 (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
 (setq skk-status-indicator 'minor-mode)
 (setq skk-status-indicator 'left)
