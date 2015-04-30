@@ -1,4 +1,8 @@
-## First
+#!/bin/sh
+
+# Enable contrib/non-free
+sudo sed -e "s/main$/main contrib non-free" /etc/apt/sources.list
+# Install Required? packages
 sudo aptitude install\
      terminator rxvt-unicode-256color guake jed byobu\
      chromium\
@@ -13,12 +17,14 @@ sudo aptitude install\
 
 sudo pip install pip-tools elpy
 
-LANG=C xdg-user-dirs-gtk-update
+LC_ALL=C xdg-user-dirs-gtk-update --force
 
 #making dir
 mkdir ~/.fonts
 mkdir ~/tmp
 mkdir ~/mnt
+
+exit 0
 
 # Dropbox init
 dropbox start -i
