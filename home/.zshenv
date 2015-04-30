@@ -1,6 +1,4 @@
 # -*- Mode: shell-script;coding:utf-8 -*- #
-# almost from https://github.com/shin3900/dotfiles/blob/master/.zshenv
-
 
 userpath=(
     # 配列に候補を入れる
