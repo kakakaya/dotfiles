@@ -977,10 +977,11 @@
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
 
-;; ddskk
-(require 'skk nil t)
-;; (setq skk-use-act t)         ; This is right way but NOT WORKS, so...
-(require 'skk-act)         ; used this instead.
+;; skk関連
+(if (file-exists-p "~/Dropbox/config/skk")
+    (progn
+      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+      (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")))
 ;; (require 'skk-decor nil t)
 (defun skk-j-mode-activate ()
   (interactive)
@@ -992,15 +993,18 @@
 (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
 (global-set-key (kbd "C-,") 'skk-latin-mode)
 (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
+
 (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
 (setq skk-status-indicator 'minor-mode)
 (setq skk-status-indicator 'left)
 (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
-(if (file-exists-p "~/Dropbox/config/skk")
-    (setq skk-user-directory "~/Dropbox/config/skk"))
+(setq skk-keep-record t)                ;統計を取る
 
+(require 'skk nil t)
+;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+(require 'skk-act)                      ; used this instead.
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
