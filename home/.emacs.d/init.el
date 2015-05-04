@@ -367,7 +367,6 @@
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save))
 
-
 ;; emmet
 (el-get-bundle! emmet-mode
   (require 'emmet-mode nil t)
@@ -568,6 +567,12 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   )
+
+;; undo-tree
+(el-get-bundle! undo-tree
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "M-/") 'undo-tree-redo))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -819,10 +824,6 @@
 
 ;; ========YaTeXここまで========
 
-(require 'undo-tree nil t)
-(global-undo-tree-mode t)
-(global-set-key (kbd "M-/") 'undo-tree-redo)
-
 ;; d.hatena.ne.jp/uk-ar/20120401/1333282805
 (require 'flex-autopair nil t)
 (flex-autopair-mode 1)
@@ -997,8 +998,8 @@
 (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
-  (if (file-writable-p "~/Dropbox/config/.skk-jisyo")
-      (setq skk-jisyo "~/Dropbox/config/.skk-jisyo"))
+(if (file-exists-p "~/Dropbox/config/skk")
+    (setq skk-user-directory "~/Dropbox/config/skk"))
 
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
