@@ -1,33 +1,35 @@
 #!/bin/sh
 
 # Enable contrib/non-free
-sudo sed -e "s/main$/main contrib non-free" /etc/apt/sources.list
+sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
+sudo aptitude update && sudo aptitude full-upgrade
+
 # Install Required? packages
 sudo aptitude install\
-     terminator rxvt-unicode-256color guake jed byobu\
+     zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
-     python-pip trash-cli wdiff tig\
+     htop python-pip trash-cli wdiff tig\
      colorgcc colortail colormake colordiff\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
      xinput xcape awesome-extra arandr\
-     apt-spy ipython arp-scan autojump gnuplot-qt\
+     ipython arp-scan autojump gnuplot-qt\
      nyancat sl tty-clock oneko figlet\
      emacs ddskk skkdic-extra howm magit yatex\
      silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el
 
+sudo easy_install -U pip
 sudo pip install pip-tools elpy
+sudo pip-tools --auto
 
-LC_ALL=C xdg-user-dirs-gtk-update --force
+LC_ALL=C xdg-user-dirs-update --force
 
 #making dir
-mkdir ~/.fonts
-mkdir ~/tmp
-mkdir ~/mnt
-
-exit 0
+mkdir -p ~/.fonts ~/tmp ~/mnt ~/git
 
 # Dropbox init
 dropbox start -i
+
+exit 0
 
 # ln -s Dropbox/Backups/config/.skk-jisyo .skk-jisyo
 # ln -s Dropbox/howm howm         # For later
@@ -36,7 +38,7 @@ dropbox start -i
 mkdir .ssh
 # ssh-keygen -t rsa
 
-#urxvt config
+# urxvt config
 # mkdir -p ~/.urxvt/
 # git clone htpps://muennich/urxvt-perls ~/.urxvt/
 # cd ~/.urxvt/urxvt-perls/
@@ -78,11 +80,7 @@ mkdir .ssh
 # elpy
 # emmet-mode
 
-
 ## emacswiki:
-
-
-
 
 # Unknown
 # (require 'dired-x )		;diredを便利にする
