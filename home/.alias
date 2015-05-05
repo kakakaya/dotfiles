@@ -25,7 +25,8 @@ alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
 alias E='$EDITOR'                    # It seems jed, or nano
-alias V='emacsclient -nw -a $EDITOR' # emacsclient or EDITOR
+alias V='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
+alias emsudo='SUDO_EDITOR=$VISUAL sudoedit'
 
 #Keyboard
 alias aoeu='setxkbmap us'
