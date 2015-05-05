@@ -25,17 +25,19 @@ elif [[ -x /usr/bin/urxvt ]]; then urxvt &
 fi
 
 if [[ -x /usr/bin/vmware-user ]]; then
-    # 仮想環境の場合
+    # VMware環境の場合
     /usr/bin/vmware-user
+elif [[ -x /usr/bin/VBoxClient ]]; then
+    # VirtualBox環境の場合(pass)
+    :
 else
     # 仮想環境ならホストOSにスクリーンセーバを任せる、さもなくば自分で起動する
     xscreensaver -no-splash &
     # chromeを起動しておく
     if [[ -x /usr/bin/google-chrome ]]; then
         google-chrome &
-    else if [[ -x /usr/bin/chromium ]]; then
-             chromium &
-         fi
+    elif [[ -x /usr/bin/chromium ]]; then
+        chromium &
     fi
 fi
 emacs &
