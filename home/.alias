@@ -50,6 +50,10 @@ alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 
+if [[ -x $HOME/bin/pecokill.sh ]]; then
+    alias pk=pecokill.sh
+fi
+
 if hash trans 2>/dev/null; then
     alias trans-en='trans ja:en'
     alias trans-ja='trans :ja'
