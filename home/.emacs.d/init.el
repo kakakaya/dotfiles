@@ -664,7 +664,10 @@
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 (require 'wgrep-helm nil t)      ;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
 (setq dired-listing-switches "-AFGhlrt")
-(require 'flyspell nil t) ;スペルチェック、要設定重点
+(when (require 'flyspell nil t)         ;スペルチェック、要設定重点
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+    (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check))
 
 (require 'markdown-mode nil t)
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
