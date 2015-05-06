@@ -2,8 +2,10 @@
 
 userpath=(
     # 配列に候補を入れる
-    $HOME/bin $HOME/.local/bin \
-              $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+    $HOME/bin \
+        $HOME/usr/bin \
+        $HOME/.local/bin \
+        $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
 addpath=()                      # 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
