@@ -430,6 +430,8 @@ awful.rules.rules = {
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium" },
      properties = { tag = tags[1][2]} },
+   { rule = { class = "Chromium" },
+     properties = { tag = tags[1][2]} },
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
    -- Terminal is Window 3

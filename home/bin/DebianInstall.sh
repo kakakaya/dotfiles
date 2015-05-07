@@ -1,28 +1,36 @@
 #!/bin/sh
+# DO NOT RUN AS ROOT!
 
 # Enable contrib/non-free
-sudo sed -e "s/main$/main contrib non-free" /etc/apt/sources.list
+sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
+
 # Install Required? packages
+sudo aptitude update
+sudo aptitude full-upgrade
 sudo aptitude install\
-     terminator rxvt-unicode-256color guake jed byobu\
+     zsh git ruby terminator rxvt-unicode-256color guake byobu\
+     most jed\
+     viewnior\
      chromium\
      python-pip trash-cli wdiff tig\
      colorgcc colortail colormake colordiff\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
      xinput xcape awesome-extra arandr\
-     apt-spy ipython arp-scan autojump gnuplot-qt\
+     htop apt-spy ipython arp-scan autojump gnuplot-qt\
      nyancat sl tty-clock oneko figlet\
      emacs ddskk skkdic-extra howm magit yatex\
      silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el
 
 sudo pip install pip-tools elpy
 
+# configure
 LC_ALL=C xdg-user-dirs-gtk-update --force
+chsh -s /bin/zsh kakakaya
 
 #making dir
-mkdir ~/.fonts
-mkdir ~/tmp
-mkdir ~/mnt
+mkdir -p ~/.fonts
+mkdir -p ~/tmp
+mkdir -p ~/mnt
 
 exit 0
 
