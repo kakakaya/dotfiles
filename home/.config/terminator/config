@@ -1,4 +1,5 @@
 [global_config]
+  enabled_plugins = APTURLHandler, LaunchpadCodeURLHandler, LaunchpadBugURLHandler
   title_transmit_bg_color = "#3f3f3f"
   inactive_color_offset = 0.5
   title_transmit_fg_color = "#8faf9f"
@@ -14,11 +15,12 @@
     foreground_color = "#ffffff"
     font = Ricty 10
   [[View]]
-    background_darkness = 0.78
     use_system_font = False
-    font = Ricty 20
-    background_type = transparent
     visible_bell = True
+    background_darkness = 0.78
+    background_type = transparent
+    background_image = None
+    font = Ricty 20
 [layouts]
   [[default]]
     [[[child1]]]

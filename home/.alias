@@ -25,7 +25,8 @@ alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
 alias E='$EDITOR'                    # It seems jed, or nano
-alias V='emacsclient -nw -a $EDITOR' # emacsclient or EDITOR
+alias V='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
+alias emsudo='SUDO_EDITOR=$VISUAL sudoedit'
 
 #Keyboard
 alias aoeu='setxkbmap us'
@@ -48,6 +49,10 @@ alias ttyclock='tty-clock -stc' # Nomal clock
 alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
+
+if [[ -x $HOME/bin/pecokill.sh ]]; then
+    alias pk=pecokill.sh
+fi
 
 if hash trans 2>/dev/null; then
     alias trans-en='trans ja:en'

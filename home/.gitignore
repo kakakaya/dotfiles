@@ -21,3 +21,5 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+*.db
+*.class

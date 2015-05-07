@@ -2,8 +2,10 @@
 
 userpath=(
     # 配列に候補を入れる
-    $HOME/bin $HOME/.local/bin \
-              $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+    $HOME/bin \
+        $HOME/usr/bin \
+        $HOME/.local/bin \
+        $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
 addpath=()                      # 確定した候補を入れていく受け皿
 for i in "${userpath[@]}"; do	# 受け皿に追加していく
@@ -38,13 +40,14 @@ if [[ -x /bin/hostname ]]; then
 fi;
 export host=`echo $HOST | sed -e 's/\..*//'`
 
-export UID
+# export UID
 export SHELL=`which zsh`
 export JLESSCHARSET="japanese"
 export INFOPATH="$HOME/info:/usr/share/info:/usr/local/info"
 export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+export REPORTTIME=3             # 3秒以上かかったら時間表示をする
 
 # Golang is not GOD
 export GOROOT="/usr/lib/go"
@@ -102,7 +105,7 @@ if hash jed >& /dev/null; then
 else
     export EDITOR='nano'
 fi
-export VISUAL='emacsclient -n -nw -a EDITOR' # Open Emacs Window by my hand!
+export VISUAL='emacsclient -c -nw -a $EDITOR' # Open Emacs Window by my hand!
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
@@ -127,6 +130,7 @@ else
     # This is in console
     LANG=C
 fi
+
 case ${HOST} in
     nest*|rise*|debian*)
         #alias

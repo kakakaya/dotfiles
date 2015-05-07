@@ -367,7 +367,6 @@
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save))
 
-
 ;; emmet
 (el-get-bundle! emmet-mode
   (require 'emmet-mode nil t)
@@ -568,6 +567,12 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   )
+
+;; undo-tree
+(el-get-bundle! undo-tree
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "M-/") 'undo-tree-redo))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -659,7 +664,10 @@
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 (require 'wgrep-helm nil t)      ;M-x grepする、*grep*バッファでC-c C-pすると書き換わる
 (setq dired-listing-switches "-AFGhlrt")
-(require 'flyspell nil t) ;スペルチェック、要設定重点
+(when (require 'flyspell nil t)         ;スペルチェック、要設定重点
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+    (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check))
 
 (require 'markdown-mode nil t)
 (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
@@ -819,10 +827,6 @@
 
 ;; ========YaTeXここまで========
 
-(require 'undo-tree nil t)
-(global-undo-tree-mode t)
-(global-set-key (kbd "M-/") 'undo-tree-redo)
-
 ;; d.hatena.ne.jp/uk-ar/20120401/1333282805
 (require 'flex-autopair nil t)
 (flex-autopair-mode 1)
@@ -976,10 +980,11 @@
 ;; ================ EVAL AT LAST ================
 ;; ================ BELOW  FILES ================
 
-;; ddskk
-(require 'skk nil t)
-;; (setq skk-use-act t)         ; This is right way but NOT WORKS, so...
-(require 'skk-act)         ; used this instead.
+;; skk関連
+(if (file-exists-p "~/Dropbox/config/skk")
+    (progn
+      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+      (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")))
 ;; (require 'skk-decor nil t)
 (defun skk-j-mode-activate ()
   (interactive)
@@ -991,15 +996,18 @@
 (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
 (global-set-key (kbd "C-,") 'skk-latin-mode)
 (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
+
 (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
 (setq skk-status-indicator 'minor-mode)
 (setq skk-status-indicator 'left)
 (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
-  (if (file-writable-p "~/Dropbox/config/.skk-jisyo")
-      (setq skk-jisyo "~/Dropbox/config/.skk-jisyo"))
+(setq skk-keep-record t)                ;統計を取る
 
+(require 'skk nil t)
+;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+(require 'skk-act)                      ; used this instead.
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
