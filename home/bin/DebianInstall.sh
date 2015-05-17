@@ -1,10 +1,13 @@
 #!/bin/sh
+# DO NOT RUN AS ROOT!
 
 # Enable contrib/non-free
 sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 sudo aptitude update && sudo aptitude full-upgrade
 
 # Install Required? packages
+sudo aptitude update
+sudo aptitude full-upgrade
 sudo aptitude install\
      zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
@@ -25,6 +28,8 @@ LC_ALL=C xdg-user-dirs-update --force
 
 #making dir
 mkdir -p ~/.fonts ~/tmp ~/mnt ~/git
+
+chsh -s /bin/zsh kakakaya
 
 # Dropbox init
 dropbox start -i
