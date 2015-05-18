@@ -575,7 +575,8 @@
 
 ;; magit
 (el-get-bundle! magit
-  (global-set-key (kbd "M-g t") 'magit-status))
+  (global-set-key (kbd "M-g t") 'magit-status)
+  (setq magit-last-seen-setup-instructions "1.4.0"))
 ;; ========================================
 ;;             require 'package
 ;; ========================================
