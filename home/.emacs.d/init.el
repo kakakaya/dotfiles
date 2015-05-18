@@ -573,6 +573,9 @@
   (global-undo-tree-mode t)
   (global-set-key (kbd "M-/") 'undo-tree-redo))
 
+;; magit
+(el-get-bundle! magit
+  (global-set-key (kbd "M-g t") 'magit-status))
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -724,8 +727,6 @@
   (goto-char (point-max))
   (message "done."))
 (add-hook 'find-file-not-found-hooks 'auto-insert)
-
-(require 'magit nil t)
 
 ;;======== YaTeX ========
 (add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
@@ -984,7 +985,8 @@
 (if (file-exists-p "~/Dropbox/config/skk")
     (progn
       (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-      (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")))
+      ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
+      ))
 ;; (require 'skk-decor nil t)
 (defun skk-j-mode-activate ()
   (interactive)
@@ -992,6 +994,13 @@
          (skk-toggle-kana nil))
         (t
          (skk-j-mode-on))))
+;; Google IME SKK変換 (Buggyなので使わないことにする)
+;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
+;;     (progn
+;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
+;;       (setq skk-server-host "0.0.0.0")
+;;       (setq skk-server-portnum 55100)
+;;       ))
 (global-set-key (kbd "C-.") 'skk-j-mode-activate)
 (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
 (global-set-key (kbd "C-,") 'skk-latin-mode)
