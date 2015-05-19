@@ -332,7 +332,7 @@
   (setq auto-save-buffers-enhanced-include-regexps '(".+"))
   (setq auto-save-buffers-enhanced-exclude-regexps
         '("^/ssh" "^/scp" "/mnt/"))             ; ssh, scp, mnt以下のファイルは無視
-  (auto-save-buffers-enhanced-include-only-checkout-path t) ; gitとかのディレクトリだけ
+  ;; (auto-save-buffers-enhanced-include-only-checkout-path t) ; gitとかのディレクトリだけ
   (setq auto-save-buffers-enhanced-quiet-save-p t)
   (auto-save-buffers-enhanced t))
 
