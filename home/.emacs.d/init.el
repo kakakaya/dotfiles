@@ -381,45 +381,72 @@
   )
 
 ;; main-line
-(el-get-bundle! main-line
-  (setq main-line-separator-style 'arrow14)
-  (defmain-line row "%p %4l")
+;; (el-get-bundle! main-line
+;;   (setq main-line-separator-style 'arrow14)
+;;   (defmain-line row "%p %4l"))
 
-  ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
-  (defvar mode-line-cleaner-alist
-    '( ;; For minor-mode, first char is 'space'
-      (yas-minor-mode . " Ys")
-      (paredit-mode . " Pe")
-      (eldoc-mode . "")
-      (abbrev-mode . "")
-      (undo-tree-mode . "")
-      (git-gutter-mode . "")
-      (elisp-slime-nav-mode . " EN")
-      (helm-gtags-mode . " HG")
-      (flymake-mode . " Fm")
-      (smooth-scroll-mode . "")
-      ;; Major modes
-      (lisp-interaction-mode . "Li")
-      (python-mode . "Py")
-      (ruby-mode   . "Rb")
-      (emacs-lisp-mode . "El")
-      (markdown-mode . "Md")
-      (matlab-mode . "Mlab")
-                                        ;(fundamental-mode . "Fd")
-      ))
+(el-get-bundle! powerline
+  (powerline-default-theme)
+  (set-face-attribute 'mode-line nil
+                      :foreground "#fff"
+                      :background "#009966"
+                      :box nil)
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground "#000"
+                      :background "#00B666"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground "#000"
+                      :background "#00FC66"
+                      :inherit 'mode-line)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground "#FFF"
+                      :background "#004444"
+                      :box nil)
+  (set-face-attribute 'powerline-inactive1 nil
+                      :foreground "#000"
+                      :background "#00AAAA"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-inactive2 nil
+                      :foreground "#000"
+                      :background "#00FFFF"
+                      :inherit 'mode-line))
 
-  (defun clean-mode-line ()
-    (interactive)
-    (loop for (mode . mode-str) in mode-line-cleaner-alist
-          do
-          (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-            (when old-mode-str
-              (setcar old-mode-str mode-str))
-            ;; major mode
-            (when (eq mode major-mode)
-              (setq mode-name mode-str)))))
+;;http://d.hatena.ne.jp/syohex/20130131/1359646452
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Ys")
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (git-gutter-mode . "")
+    (elisp-slime-nav-mode . " EN")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    (smooth-scroll-mode . "")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")
+    (matlab-mode . "Mlab")
+    (fundamental-mode . "Fd")           ; Why comment outed?
+    ))
 
-  (add-hook 'after-change-major-mode-hook 'clean-mode-line))
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 ;;auto-complete
 (el-get-bundle! auto-complete-config in auto-complete
