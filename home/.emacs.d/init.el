@@ -323,9 +323,10 @@
   (setq nurumacs-map nil))      ; 俯瞰表示させない
 
 ;; inactiveバッファを暗くする
-(el-get-bundle! hiwin
-  (hiwin-activate)
-  (set-face-background 'hiwin-face "grey14"))
+;; 色付けした部分が見辛くなってしまう
+;; (el-get-bundle! hiwin
+;;   (hiwin-activate)
+;;   (set-face-background 'hiwin-face "grey14"))
 
 ;; 自動保存
 (el-get-bundle! auto-save-buffers-enhanced
