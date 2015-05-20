@@ -448,36 +448,37 @@
   (setq twittering-use-master-password t)
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive))
 
-
-(el-get-bundle! zone-matrix
-  :features (zone-matrix
-             zone-matrix-settings
-             zone-settings)
-  (with-eval-after-load-feature
-   'zone-matrix
-   (setq zone-programs [
-                        zone-pgm-jitter ; pan
-                        zone-pgm-putz-with-case ; case changes
-                        ;; zone-pgm-dissolve  ; too blanky
-                        ;; zone-pgm-explode   ; too wide
-                        zone-pgm-whack-chars ; become zzz
-                        zone-pgm-rotate      ; rotate random direction, variable speed
-                        ;; zone-pgm-rotate-LR-lockstep ; L to R only, same speed
-                        ;; zone-pgm-rotate-RL-lockstep ; R to L only, same speed
-                        ;; zone-pgm-rotate-LR-variable ; L to R only, variable speed
-                        ;; zone-pgm-rotate-RL-variable ; R to L only, variable speed
-                        zone-pgm-drip               ; drip
-                        ;; zone-pgm-drip-fretfully     ; drip, too slow
-                        ;; zone-pgm-five-oclock-swan-dive
-                        ;; zone-pgm-martini-swan-dive ; drip, become _ after fall
-                        ;; zone-pgm-rat-race ; rotate?
-                        ;; zone-pgm-paragraph-spaz ; rotate?
-                        ;; zone-pgm-stress          ; grrr
-                        ;; zone-pgm-stress-destress ; grrr buffer after grrr
-                        zone-pgm-random-life ; life game
-                        ])
-   (zone-when-idle 300)
-   ))
+;; zone
+;; スクリーンセーバーっぽいのは良いが、CPU食うし表示場所がズレるし不便
+;; (el-get-bundle! zone-matrix
+;;   :features (zone-matrix
+;;              zone-matrix-settings
+;;              zone-settings)
+;;   (with-eval-after-load-feature
+;;    'zone-matrix
+;;    (setq zone-programs [
+;;                         zone-pgm-jitter ; pan
+;;                         zone-pgm-putz-with-case ; case changes
+;;                         ;; zone-pgm-dissolve  ; too blanky
+;;                         ;; zone-pgm-explode   ; too wide
+;;                         zone-pgm-whack-chars ; become zzz
+;;                         zone-pgm-rotate      ; rotate random direction, variable speed
+;;                         ;; zone-pgm-rotate-LR-lockstep ; L to R only, same speed
+;;                         ;; zone-pgm-rotate-RL-lockstep ; R to L only, same speed
+;;                         ;; zone-pgm-rotate-LR-variable ; L to R only, variable speed
+;;                         ;; zone-pgm-rotate-RL-variable ; R to L only, variable speed
+;;                         zone-pgm-drip               ; drip
+;;                         ;; zone-pgm-drip-fretfully     ; drip, too slow
+;;                         ;; zone-pgm-five-oclock-swan-dive
+;;                         ;; zone-pgm-martini-swan-dive ; drip, become _ after fall
+;;                         ;; zone-pgm-rat-race ; rotate?
+;;                         ;; zone-pgm-paragraph-spaz ; rotate?
+;;                         ;; zone-pgm-stress          ; grrr
+;;                         ;; zone-pgm-stress-destress ; grrr buffer after grrr
+;;                         zone-pgm-random-life ; life game
+;;                         ])
+;;    (zone-when-idle 300)
+;;    ))
 
 ;; random-splash-image
 (el-get-bundle random-splash-image
@@ -578,6 +579,9 @@
 (el-get-bundle! magit
   (global-set-key (kbd "M-g t") 'magit-status)
   (setq magit-last-seen-setup-instructions "1.4.0"))
+
+;; 色名に色を付ける
+(el-get-bundle! rainbow-mode)
 ;; ========================================
 ;;             require 'package
 ;; ========================================
