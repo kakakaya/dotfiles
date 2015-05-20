@@ -439,7 +439,7 @@
   (elpy-use-ipython))
 
 ;; LaTeX数式プレビュー
-(el-get-bundle! latex-math-preview)
+;;(el-get-bundle! latex-math-preview)
 
 ;; twittering-mode
 (el-get-bundle! twittering-mode
