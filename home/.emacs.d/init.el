@@ -421,6 +421,7 @@
     (undo-tree-mode . "")
     (git-gutter-mode . "")
     (elisp-slime-nav-mode . " EN")
+    (helm-mode . "")
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
     (smooth-scroll-mode . "")
