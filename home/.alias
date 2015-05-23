@@ -11,7 +11,7 @@ alias lla='ll -A'
 alias lli='ll -i'
 alias l.='ls -d .[a-zA-Z]*'
 alias ll.='l. -ltr'
-alias less='less -MN -gj10'
+alias less='less -giMRS -j5' # show last, ignore case, show % and lineno at prompt, raw-control-char, no return at end of screen, 5 blanks
 alias ec='emacsclient'
 alias ecn='emacsclient -n'
 alias em='emacs -nw'
@@ -79,7 +79,7 @@ case $(ps --no-headers -p $$) in
 
         # Global alias
         alias -g L='| less'
-        alias -g LR='| less -R'
+        # alias -g LR='| less -R'
         alias -g H='| head'
         alias -g T='| tail'
         alias -g G='| grep'
@@ -91,7 +91,7 @@ case $(ps --no-headers -p $$) in
         alias -g N='| nkf'
 
         alias -g LE='|& less'
-        alias -g LER='|& less -R'
+        # alias -g LER='|& less -R'
         alias -g CDF='| colordiff -c |& less -R'
         alias -g HE='|& head'
         alias -g TE='|& tail'
