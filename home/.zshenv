@@ -23,7 +23,12 @@ for i in "${userpath[@]}"; do	# 受け皿に追加していく
     fi
 done
 path=( $path $addpath )
+
 unset userpath addpath i chksame # 後始末
+
+if [[ -d $HOME/Dropbox/bin ]]; then
+    PATH=$PATH:"$HOME/Dropbox/bin"
+fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
     case "`uname -sr`" in
