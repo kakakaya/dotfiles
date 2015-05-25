@@ -264,7 +264,6 @@
 # 進捗
 * 
 # 今日の単語
-# 学び
 # 得点
 * 
  * 
@@ -323,9 +322,10 @@
   (setq nurumacs-map nil))      ; 俯瞰表示させない
 
 ;; inactiveバッファを暗くする
-(el-get-bundle! hiwin
-  (hiwin-activate)
-  (set-face-background 'hiwin-face "grey14"))
+;; 色付けした部分が見辛くなってしまう
+;; (el-get-bundle! hiwin
+;;   (hiwin-activate)
+;;   (set-face-background 'hiwin-face "grey14"))
 
 ;; 自動保存
 (el-get-bundle! auto-save-buffers-enhanced
@@ -380,45 +380,73 @@
   )
 
 ;; main-line
-(el-get-bundle! main-line
-  (setq main-line-separator-style 'arrow14)
-  (defmain-line row "%p %4l")
+;; (el-get-bundle! main-line
+;;   (setq main-line-separator-style 'arrow14)
+;;   (defmain-line row "%p %4l"))
 
-  ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
-  (defvar mode-line-cleaner-alist
-    '( ;; For minor-mode, first char is 'space'
-      (yas-minor-mode . " Ys")
-      (paredit-mode . " Pe")
-      (eldoc-mode . "")
-      (abbrev-mode . "")
-      (undo-tree-mode . "")
-      (git-gutter-mode . "")
-      (elisp-slime-nav-mode . " EN")
-      (helm-gtags-mode . " HG")
-      (flymake-mode . " Fm")
-      (smooth-scroll-mode . "")
-      ;; Major modes
-      (lisp-interaction-mode . "Li")
-      (python-mode . "Py")
-      (ruby-mode   . "Rb")
-      (emacs-lisp-mode . "El")
-      (markdown-mode . "Md")
-      (matlab-mode . "Mlab")
-                                        ;(fundamental-mode . "Fd")
-      ))
+(el-get-bundle! powerline
+  (powerline-default-theme)
+  (set-face-attribute 'mode-line nil
+                      :foreground "#fff"
+                      :background "#009966"
+                      :box nil)
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground "#000"
+                      :background "#00B666"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground "#000"
+                      :background "#00FC66"
+                      :inherit 'mode-line)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground "#FFF"
+                      :background "#004444"
+                      :box nil)
+  (set-face-attribute 'powerline-inactive1 nil
+                      :foreground "#000"
+                      :background "#00AAAA"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-inactive2 nil
+                      :foreground "#000"
+                      :background "#00FFFF"
+                      :inherit 'mode-line))
 
-  (defun clean-mode-line ()
-    (interactive)
-    (loop for (mode . mode-str) in mode-line-cleaner-alist
-          do
-          (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-            (when old-mode-str
-              (setcar old-mode-str mode-str))
-            ;; major mode
-            (when (eq mode major-mode)
-              (setq mode-name mode-str)))))
+;;http://d.hatena.ne.jp/syohex/20130131/1359646452
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Ys")
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (git-gutter-mode . "")
+    (elisp-slime-nav-mode . " EN")
+    (helm-mode . "")
+    (helm-gtags-mode . " HG")
+    (flymake-mode . " Fm")
+    (smooth-scroll-mode . "")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")
+    (matlab-mode . "Mlab")
+    (fundamental-mode . "Fd")           ; Why comment outed?
+    ))
 
-  (add-hook 'after-change-major-mode-hook 'clean-mode-line))
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 ;;auto-complete
 (el-get-bundle! auto-complete-config in auto-complete
@@ -438,7 +466,7 @@
   (elpy-use-ipython))
 
 ;; LaTeX数式プレビュー
-(el-get-bundle! latex-math-preview)
+;;(el-get-bundle! latex-math-preview)
 
 ;; twittering-mode
 (el-get-bundle! twittering-mode
@@ -447,36 +475,37 @@
   (setq twittering-use-master-password t)
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive))
 
-
-(el-get-bundle! zone-matrix
-  :features (zone-matrix
-             zone-matrix-settings
-             zone-settings)
-  (with-eval-after-load-feature
-   'zone-matrix
-   (setq zone-programs [
-                        zone-pgm-jitter ; pan
-                        zone-pgm-putz-with-case ; case changes
-                        ;; zone-pgm-dissolve  ; too blanky
-                        ;; zone-pgm-explode   ; too wide
-                        zone-pgm-whack-chars ; become zzz
-                        zone-pgm-rotate      ; rotate random direction, variable speed
-                        ;; zone-pgm-rotate-LR-lockstep ; L to R only, same speed
-                        ;; zone-pgm-rotate-RL-lockstep ; R to L only, same speed
-                        ;; zone-pgm-rotate-LR-variable ; L to R only, variable speed
-                        ;; zone-pgm-rotate-RL-variable ; R to L only, variable speed
-                        zone-pgm-drip               ; drip
-                        ;; zone-pgm-drip-fretfully     ; drip, too slow
-                        ;; zone-pgm-five-oclock-swan-dive
-                        ;; zone-pgm-martini-swan-dive ; drip, become _ after fall
-                        ;; zone-pgm-rat-race ; rotate?
-                        ;; zone-pgm-paragraph-spaz ; rotate?
-                        ;; zone-pgm-stress          ; grrr
-                        ;; zone-pgm-stress-destress ; grrr buffer after grrr
-                        zone-pgm-random-life ; life game
-                        ])
-   (zone-when-idle 300)
-   ))
+;; zone
+;; スクリーンセーバーっぽいのは良いが、CPU食うし表示場所がズレるし不便
+;; (el-get-bundle! zone-matrix
+;;   :features (zone-matrix
+;;              zone-matrix-settings
+;;              zone-settings)
+;;   (with-eval-after-load-feature
+;;    'zone-matrix
+;;    (setq zone-programs [
+;;                         zone-pgm-jitter ; pan
+;;                         zone-pgm-putz-with-case ; case changes
+;;                         ;; zone-pgm-dissolve  ; too blanky
+;;                         ;; zone-pgm-explode   ; too wide
+;;                         zone-pgm-whack-chars ; become zzz
+;;                         zone-pgm-rotate      ; rotate random direction, variable speed
+;;                         ;; zone-pgm-rotate-LR-lockstep ; L to R only, same speed
+;;                         ;; zone-pgm-rotate-RL-lockstep ; R to L only, same speed
+;;                         ;; zone-pgm-rotate-LR-variable ; L to R only, variable speed
+;;                         ;; zone-pgm-rotate-RL-variable ; R to L only, variable speed
+;;                         zone-pgm-drip               ; drip
+;;                         ;; zone-pgm-drip-fretfully     ; drip, too slow
+;;                         ;; zone-pgm-five-oclock-swan-dive
+;;                         ;; zone-pgm-martini-swan-dive ; drip, become _ after fall
+;;                         ;; zone-pgm-rat-race ; rotate?
+;;                         ;; zone-pgm-paragraph-spaz ; rotate?
+;;                         ;; zone-pgm-stress          ; grrr
+;;                         ;; zone-pgm-stress-destress ; grrr buffer after grrr
+;;                         zone-pgm-random-life ; life game
+;;                         ])
+;;    (zone-when-idle 300)
+;;    ))
 
 ;; random-splash-image
 (el-get-bundle random-splash-image
@@ -577,6 +606,9 @@
 (el-get-bundle! magit
   (global-set-key (kbd "M-g t") 'magit-status)
   (setq magit-last-seen-setup-instructions "1.4.0"))
+
+;; 色名に色を付ける
+(el-get-bundle! rainbow-mode)
 ;; ========================================
 ;;             require 'package
 ;; ========================================
