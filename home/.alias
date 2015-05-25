@@ -70,6 +70,7 @@ if hash colordiff 2>/dev/null; then alias diff='colordiff'; fi
 if hash colorgcc 2>/dev/null; then alias gcc='colorgcc'; fi
 if hash colormake 2>/dev/null; then alias make='colormake'; fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put'; fi
+if hash htop 2>/dev/null; then alias top='htop'; fi
 if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 
 case $(ps --no-headers -p $$) in
