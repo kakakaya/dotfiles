@@ -59,6 +59,12 @@ if hash trans 2>/dev/null; then
     alias trans-ja='trans :ja'
 fi
 
+if hash pygmentize 2>/dev/null; then
+    alias p='pygmentize'
+else
+    alias p='cat -n'
+fi
+
 if hash aptitude 2>/dev/null; then
     # for Debian, "aptitude" is hard to type
     alias apt-search='aptitude search'
