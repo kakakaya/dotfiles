@@ -404,6 +404,7 @@
       (emacs-lisp-mode . "El")
       (markdown-mode . "Md")
       (matlab-mode . "Mlab")
+      (js2-mode . "Js2")
                                         ;(fundamental-mode . "Fd")
       ))
 
