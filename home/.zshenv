@@ -63,8 +63,8 @@ export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 export REPORTTIME=3             # 3秒以上かかったら時間表示をする
 
 # Golang is not GOD
-export GOROOT="/usr/lib/go"
-export GOPATH=$GOROOT:"$HOME/.local/lib/go"
+# export GOROOT="/usr/lib/go"
+export GOPATH="$HOME/.local/go"
 export PATH=$PATH:"$GOPATH/bin"
 
 # export LC_ALL="ja_JP.UTF-8"
