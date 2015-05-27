@@ -23,7 +23,20 @@ for i in "${userpath[@]}"; do	# 受け皿に追加していく
     fi
 done
 path=( $path $addpath )
+
 unset userpath addpath i chksame # 後始末
+
+# ディレクトリの存在に応じたパスなどの設定
+if [[ -d $HOME/Dropbox/bin ]]; then
+    PATH=$PATH:"$HOME/Dropbox/bin"
+fi
+
+if [[ -d /opt/gurobi ]]; then
+    # 離散最適化ツールgurobi
+    export GUROBI_HOME="/opt/gurobi/linux64"
+    export PATH="${PATH}:${GUROBI_HOME}/bin"
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
     case "`uname -sr`" in
