@@ -521,7 +521,7 @@
 ;; undohist
 (el-get-bundle! undohist
   (undohist-initialize)
-  (setq undohist-ignored-files '("/tmp/")) ; 永続化を無視するファイル名の正規表現
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_.*")) ; 永続化を無視するファイル名の正規表現
   ;; NTEmacsだと動かないらしいので再定義
   ;; http://d.hatena.ne.jp/Lian/20120420/1334856445
   (when (eq system-type 'windows-nt)
@@ -611,6 +611,9 @@
 
 ;; 色名に色を付ける
 (el-get-bundle! rainbow-mode)
+
+;; go
+(el-get-bundle! go-mode)
 ;; ========================================
 ;;             require 'package
 ;; ========================================
