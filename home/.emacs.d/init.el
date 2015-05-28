@@ -614,6 +614,20 @@
 
 ;; go
 (el-get-bundle! go-mode)
+
+;; pushbullet
+(el-get-bundle! pushbullet
+  ;; ~/Dropbox/config/pushbullet_token.keyがreadableならpushbullet-api-keyとして読み込む
+  (cond ((file-readable-p "~/Dropbox/config/pushbullet_token.key")
+         (setq pushbullet-api-key
+               (with-temp-buffer
+                 (insert-file-contents "~/Dropbox/config/pushbullet_token.key")
+                 (buffer-string)))))
+  ;; ゴミ対策
+  (when (string-match "\n$" pushbullet-api-key)
+    (setq pushbullet-api-key (replace-match "" nil nil pushbullet-api-key)))
+  )
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
