@@ -384,6 +384,7 @@
 ;;   (setq main-line-separator-style 'arrow14)
 ;;   (defmain-line row "%p %4l"))
 
+;; power-line
 (el-get-bundle! powerline
   (powerline-default-theme)
   (set-face-attribute 'mode-line nil
@@ -433,6 +434,7 @@
     (markdown-mode . "Md")
     (matlab-mode . "Mlab")
     (fundamental-mode . "Fd")           ; Why comment outed?
+    (js2-mode . "JS2")
     ))
 
 (defun clean-mode-line ()
@@ -519,7 +521,7 @@
 ;; undohist
 (el-get-bundle! undohist
   (undohist-initialize)
-  (setq undohist-ignored-files '("/tmp/")) ; 永続化を無視するファイル名の正規表現
+  (setq undohist-ignored-files '("/tmp/" "COMMIT_.*")) ; 永続化を無視するファイル名の正規表現
   ;; NTEmacsだと動かないらしいので再定義
   ;; http://d.hatena.ne.jp/Lian/20120420/1334856445
   (when (eq system-type 'windows-nt)
@@ -609,6 +611,23 @@
 
 ;; 色名に色を付ける
 (el-get-bundle! rainbow-mode)
+
+;; go
+(el-get-bundle! go-mode)
+
+;; pushbullet
+(el-get-bundle! pushbullet
+  ;; ~/Dropbox/config/pushbullet_token.keyがreadableならpushbullet-api-keyとして読み込む
+  (cond ((file-readable-p "~/Dropbox/config/pushbullet_token.key")
+         (setq pushbullet-api-key
+               (with-temp-buffer
+                 (insert-file-contents "~/Dropbox/config/pushbullet_token.key")
+                 (buffer-string)))))
+  ;; ゴミ対策
+  (when (string-match "\n$" pushbullet-api-key)
+    (setq pushbullet-api-key (replace-match "" nil nil pushbullet-api-key)))
+  )
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================

@@ -26,8 +26,16 @@ path=( $path $addpath )
 
 unset userpath addpath i chksame # 後始末
 
+# ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
     PATH=$PATH:"$HOME/Dropbox/bin"
+fi
+
+if [[ -d /opt/gurobi ]]; then
+    # 離散最適化ツールgurobi
+    export GUROBI_HOME="/opt/gurobi/linux64"
+    export PATH="${PATH}:${GUROBI_HOME}/bin"
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
 fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
@@ -55,8 +63,8 @@ export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 export REPORTTIME=3             # 3秒以上かかったら時間表示をする
 
 # Golang is not GOD
-export GOROOT="/usr/lib/go"
-export GOPATH=$GOROOT:"$HOME/.local/lib/go"
+# export GOROOT="/usr/lib/go"
+export GOPATH="$HOME/.local/go"
 export PATH=$PATH:"$GOPATH/bin"
 
 # export LC_ALL="ja_JP.UTF-8"

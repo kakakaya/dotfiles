@@ -59,6 +59,12 @@ if hash trans 2>/dev/null; then
     alias trans-ja='trans :ja'
 fi
 
+if hash pygmentize 2>/dev/null; then
+    alias p='pygmentize'
+else
+    alias p='cat -n'
+fi
+
 if hash aptitude 2>/dev/null; then
     # for Debian, "aptitude" is hard to type
     alias apt-search='aptitude search'
@@ -70,6 +76,7 @@ if hash colordiff 2>/dev/null; then alias diff='colordiff'; fi
 if hash colorgcc 2>/dev/null; then alias gcc='colorgcc'; fi
 if hash colormake 2>/dev/null; then alias make='colormake'; fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put'; fi
+if hash htop 2>/dev/null; then alias top='htop'; fi
 if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
 
 case $(ps --no-headers -p $$) in
