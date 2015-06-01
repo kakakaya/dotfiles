@@ -8,7 +8,8 @@
 
 -- {{{ Main
 theme = {}
-theme.wallpaper_cmd = { "awsetbg -f /home/kakakaya/Pictures/Wallpapers/429325.jpg" }
+-- theme.wallpaper_cmd = { "awsetbg -f /home/kakakaya/Pictures/Wallpapers/429325.jpg" } -- old way
+-- theme.wallpaper_cmd = { "$HOME/.config/awesome/themes/my-zenburn/set_bg.sh" } -- not works well
 -- }}}
 
 -- {{{ Styles

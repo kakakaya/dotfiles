@@ -46,4 +46,6 @@ if [[ -x /usr/bin/dropbox ]]; then
     dropbox start
 fi
 
+# Setup X
+feh --recursive --randomize --bg-fill $HOME/Pictures/Wallpapers/*
 exec awesome
