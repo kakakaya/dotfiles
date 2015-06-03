@@ -189,6 +189,9 @@
                            (setq c-basic-offset 2)
                            (setq indent-tabs-mode nil)
                            ))
+(add-hook 'web-mode-hook '(lambda ()
+                            (setq web-mode-markup-indent-offset 2)
+                            ))
 
 (autoload 'coffee-mode "coffee-mode" nil t)
 
