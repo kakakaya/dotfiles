@@ -760,7 +760,12 @@
       (nconc '(
                ("\\.rst$" . ["template.rst" my-template])
                ("\\.py$" . ["template.py" my-template])
+               ("\\.c$" . ["template.c" my-template])
+               ("\\.sh$" . ["template.sh" my-template])
+               ("\\.gas$" . ["template.gas" my-template])
                ) auto-insert-alist))
+(setq auto-insert-query nil)            ; Always inserts template.
+
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
