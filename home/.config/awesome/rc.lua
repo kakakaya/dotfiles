@@ -43,7 +43,7 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/kakakaya/.config/awesome/themes/my-zenburn/theme.lua")
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
--- TODO:Wallpaper
+
 -- local wallpaper_path = os.getenv("HOME") .. "/Pictures/Wallpapers/429325.jpg"
 -- theme = beautiful.get()
 -- theme.wallpaper_cmd = { "awsetbg " .. wallpaper_path }
