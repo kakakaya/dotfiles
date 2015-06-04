@@ -6,7 +6,7 @@
 # import sys
 # from math import sin, cos, tan, log, e
 # import matplotlib.pyplot as plt
-# from pprint import pprint
+# from pprint import pprint as pp
 
 
 def main():
