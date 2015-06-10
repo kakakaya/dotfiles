@@ -191,6 +191,7 @@
                            ))
 (add-hook 'web-mode-hook '(lambda ()
                             (setq web-mode-markup-indent-offset 2)
+                            (local-set-key (kbd "C-<return>") 'emmet-expand-line)
                             ))
 
 (autoload 'coffee-mode "coffee-mode" nil t)
