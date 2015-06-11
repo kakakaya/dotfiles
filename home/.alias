@@ -21,6 +21,7 @@ alias gpp='g++'                 # ++ is hard to type
 alias sudo='sudo '              # makes aliased command to sudo
 alias rmi='rm -i'
 alias rmd='rm -r'               # rmdir
+alias rmtilda='rm *~'
 alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
