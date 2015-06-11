@@ -3,4 +3,4 @@
 # key: LL
 # binding: direct-keybinding
 # --
-Logger.log($0)
+Logger.log($0);
