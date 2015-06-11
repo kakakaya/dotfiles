@@ -632,6 +632,9 @@
     (setq pushbullet-api-key (replace-match "" nil nil pushbullet-api-key)))
   )
 
+;; emoji-cheat-sheet
+(el-get-bundle! emoji-cheat-sheet-plus)
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
