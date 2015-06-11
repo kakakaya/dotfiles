@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Logger.log
+# key: LL
+# binding: direct-keybinding
+# --
+Logger.log($0)
