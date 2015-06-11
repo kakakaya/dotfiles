@@ -1076,8 +1076,12 @@
 (setq skk-keep-record t)                ;統計を取る
 
 (require 'skk nil t)
-;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
-(require 'skk-act)                      ; used this instead.
+;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+;; (require 'skk-act)                      ; used this instead.
+(setq skk-aquamarine-use-normal-y nil)
+(el-get-bundle! skk-aquamarine
+  :url "https://raw.githubusercontent.com/kakakaya/aquamarine-layout/master/ddskk/skk-aquamarine.el")
+;"https://github.com/kakakaya/aquamarine-layout/ddskk/skk-aquamarine.el")
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
