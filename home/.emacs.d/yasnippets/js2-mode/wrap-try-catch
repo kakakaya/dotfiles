@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: wrap-try-catch
+# key: wrap-try-catch
+# binding: direct-keybinding
+# --
+try {
+  `yas-selected-text`
+}
+catch (e) {
+  $0
+}
