@@ -641,6 +641,9 @@
 ;; emoji-cheat-sheet
 (el-get-bundle! emoji-cheat-sheet-plus)
 
+;; js2-mode
+(el-get-bundle! js2-mode)
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
