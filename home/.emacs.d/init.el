@@ -178,7 +178,8 @@
 
 ;; Javascript coding style
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
 (add-hook 'js2-mode-hook '(lambda ()
                             (setq js2-basic-offset 2)
                                         ; indent-tabs-mode nil
@@ -191,6 +192,7 @@
                            ))
 (add-hook 'web-mode-hook '(lambda ()
                             (setq web-mode-markup-indent-offset 2)
+                            (local-set-key (kbd "C-<return>") 'emmet-expand-line)
                             ))
 
 (autoload 'coffee-mode "coffee-mode" nil t)
@@ -618,6 +620,11 @@
 ;; go
 (el-get-bundle! go-mode)
 
+;; markdown-mode (gfm-mode)
+(el-get-bundle! markdown-mode
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
+
 ;; pushbullet
 (el-get-bundle! pushbullet
   ;; ~/Dropbox/config/pushbullet_token.keyがreadableならpushbullet-api-keyとして読み込む
@@ -630,6 +637,9 @@
   (when (string-match "\n$" pushbullet-api-key)
     (setq pushbullet-api-key (replace-match "" nil nil pushbullet-api-key)))
   )
+
+;; emoji-cheat-sheet
+(el-get-bundle! emoji-cheat-sheet-plus)
 
 ;; ========================================
 ;;             require 'package
@@ -727,10 +737,6 @@
     (setq flymake-check-was-interrupted t))
   (ad-activate 'flymake-post-syntax-check))
 
-(require 'markdown-mode nil t)
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -761,11 +767,11 @@
 (setq auto-insert-directory "~/.emacs.d/templates")
 (setq auto-insert-alist
       (nconc '(
-               ("\\.rst$" . ["template.rst" my-template])
-               ("\\.py$" . ["template.py" my-template])
-               ("\\.c$" . ["template.c" my-template])
-               ("\\.sh$" . ["template.sh" my-template])
-               ("\\.gas$" . ["template.gas" my-template])
+               ("\\.rst\\'" . ["template.rst" my-template])
+               ("\\.py\\'" . ["template.py" my-template])
+               ("\\.c\\'" . ["template.c" my-template])
+               ("\\.sh\\'" . ["template.sh" my-template])
+               ("\\.gas\\'" . ["template.gas" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
@@ -792,12 +798,12 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq auto-mode-alist
-      (append '(("\\.tex$" . yatex-mode)
-                ("\\.ltx$" . yatex-mode)
-                ("\\.cls$" . yatex-mode)
-                ("\\.sty$" . yatex-mode)
-                ("\\.clo$" . yatex-mode)
-                ("\\.bbl$" . yatex-mode)) auto-mode-alist))
+      (append '(("\\.tex\\'" . yatex-mode)
+                ("\\.ltx\\'" . yatex-mode)
+                ("\\.cls\\'" . yatex-mode)
+                ("\\.sty\\'" . yatex-mode)
+                ("\\.clo\\'" . yatex-mode)
+                ("\\.bbl\\'" . yatex-mode)) auto-mode-alist))
 (setq YaTeX-inhibit-prefix-letter t)
 (setq YaTeX-kanji-code nil)
 (setq YaTeX-latex-message-code 'utf-8)
@@ -1075,8 +1081,12 @@
 (setq skk-keep-record t)                ;統計を取る
 
 (require 'skk nil t)
-;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
-(require 'skk-act)                      ; used this instead.
+;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+;; (require 'skk-act)                      ; used this instead.
+(setq skk-aquamarine-use-normal-y nil)
+(el-get-bundle! skk-aquamarine
+  :url "https://raw.githubusercontent.com/kakakaya/aquamarine-layout/master/ddskk/skk-aquamarine.el")
+;"https://github.com/kakakaya/aquamarine-layout/ddskk/skk-aquamarine.el")
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))

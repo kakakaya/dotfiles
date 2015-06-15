@@ -3,11 +3,9 @@
 
 # Enable contrib/non-free
 sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
-sudo aptitude update && sudo aptitude full-upgrade
 
 # Install Required? packages
 sudo aptitude update
-sudo aptitude full-upgrade
 sudo aptitude install\
      zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
@@ -18,13 +16,20 @@ sudo aptitude install\
      ipython arp-scan autojump gnuplot-qt\
      nyancat sl tty-clock oneko figlet\
      emacs ddskk skkdic-extra howm magit yatex\
-     silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el
+     silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el\
+     node
+sudo aptitude full-upgrade
 
+# Install with other package management systems.
 sudo easy_install -U pip
 sudo pip install pip-tools elpy
 sudo pip-tools --auto
+sudo npm install marked
 
 LC_ALL=C xdg-user-dirs-update --force
+
+# create links
+sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 
 #making dir
 mkdir -p ~/.fonts ~/tmp ~/mnt ~/git
