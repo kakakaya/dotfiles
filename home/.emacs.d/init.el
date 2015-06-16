@@ -1082,7 +1082,8 @@
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
 (setq skk-keep-record t)                ;統計を取る
-
+(setq skk-auto-save-timer
+      (run-with-idle-timer 600 t 'skk-save-jisyo))
 (require 'skk nil t)
 ;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
 ;; (require 'skk-act)                      ; used this instead.
