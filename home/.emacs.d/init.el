@@ -642,6 +642,9 @@
 ;; emoji-cheat-sheet
 (el-get-bundle! emoji-cheat-sheet-plus)
 
+;; js2-mode
+(el-get-bundle! js2-mode)
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -757,8 +760,6 @@
 ;; (require 'auto-highlight-symbol nil t)
 ;; (global-auto-highlight-symbol-mode t)
 
-
-
 ;; =================
 ;; autoinsert
 ;; =================
@@ -773,12 +774,14 @@
                ("\\.c\\'" . ["template.c" my-template])
                ("\\.sh\\'" . ["template.sh" my-template])
                ("\\.gas\\'" . ["template.gas" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%directory%" . (lambda () (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name)))))
     ("%date%" . (lambda() (current-time-string)))
     ("%id%" . (lambda () (identity user-id-string)))
     ("%mail%" . (lambda () (identity user-mail-address)))
@@ -1080,7 +1083,8 @@
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
 (setq skk-keep-record t)                ;統計を取る
-
+(setq skk-auto-save-timer
+      (run-with-idle-timer 600 t 'skk-save-jisyo))
 (require 'skk nil t)
 ;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
 ;; (require 'skk-act)                      ; used this instead.
