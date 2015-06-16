@@ -623,7 +623,8 @@
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+  (setq markdown-command "marked"))
 
 ;; pushbullet
 (el-get-bundle! pushbullet
