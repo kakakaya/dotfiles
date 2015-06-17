@@ -189,6 +189,13 @@ function simple-term {
     RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
 }
 
+function howm-check {
+    tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
+}
+
+function howm-count {
+    awk '{s+=$1} END {print s}' <(tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-")
+}
 #================ function end ================
 # Alias config
 if [ -f ~/.alias ]; then

@@ -178,8 +178,8 @@
 
 ;; Javascript coding style
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\.gas$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
 (add-hook 'js2-mode-hook '(lambda ()
                             (setq js2-basic-offset 2)
                                         ; indent-tabs-mode nil
@@ -620,6 +620,12 @@
 ;; go
 (el-get-bundle! go-mode)
 
+;; markdown-mode (gfm-mode)
+(el-get-bundle! markdown-mode
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+  (setq markdown-command "marked"))
+
 ;; pushbullet
 (el-get-bundle! pushbullet
   ;; ~/Dropbox/config/pushbullet_token.keyがreadableならpushbullet-api-keyとして読み込む
@@ -635,6 +641,9 @@
 
 ;; emoji-cheat-sheet
 (el-get-bundle! emoji-cheat-sheet-plus)
+
+;; js2-mode
+(el-get-bundle! js2-mode)
 
 ;; ========================================
 ;;             require 'package
@@ -732,10 +741,6 @@
     (setq flymake-check-was-interrupted t))
   (ad-activate 'flymake-post-syntax-check))
 
-(require 'markdown-mode nil t)
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -755,8 +760,6 @@
 ;; (require 'auto-highlight-symbol nil t)
 ;; (global-auto-highlight-symbol-mode t)
 
-
-
 ;; =================
 ;; autoinsert
 ;; =================
@@ -766,17 +769,19 @@
 (setq auto-insert-directory "~/.emacs.d/templates")
 (setq auto-insert-alist
       (nconc '(
-               ("\\.rst$" . ["template.rst" my-template])
-               ("\\.py$" . ["template.py" my-template])
-               ("\\.c$" . ["template.c" my-template])
-               ("\\.sh$" . ["template.sh" my-template])
-               ("\\.gas$" . ["template.gas" my-template])
+               ("\\.rst\\'" . ["template.rst" my-template])
+               ("\\.py\\'" . ["template.py" my-template])
+               ("\\.c\\'" . ["template.c" my-template])
+               ("\\.sh\\'" . ["template.sh" my-template])
+               ("\\.gas\\'" . ["template.gas" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%directory%" . (lambda () (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name)))))
     ("%date%" . (lambda() (current-time-string)))
     ("%id%" . (lambda () (identity user-id-string)))
     ("%mail%" . (lambda () (identity user-mail-address)))
@@ -797,12 +802,12 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq auto-mode-alist
-      (append '(("\\.tex$" . yatex-mode)
-                ("\\.ltx$" . yatex-mode)
-                ("\\.cls$" . yatex-mode)
-                ("\\.sty$" . yatex-mode)
-                ("\\.clo$" . yatex-mode)
-                ("\\.bbl$" . yatex-mode)) auto-mode-alist))
+      (append '(("\\.tex\\'" . yatex-mode)
+                ("\\.ltx\\'" . yatex-mode)
+                ("\\.cls\\'" . yatex-mode)
+                ("\\.sty\\'" . yatex-mode)
+                ("\\.clo\\'" . yatex-mode)
+                ("\\.bbl\\'" . yatex-mode)) auto-mode-alist))
 (setq YaTeX-inhibit-prefix-letter t)
 (setq YaTeX-kanji-code nil)
 (setq YaTeX-latex-message-code 'utf-8)
@@ -1078,7 +1083,8 @@
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
 (setq skk-keep-record t)                ;統計を取る
-
+(setq skk-auto-save-timer
+      (run-with-idle-timer 600 t 'skk-save-jisyo))
 (require 'skk nil t)
 ;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
 ;; (require 'skk-act)                      ; used this instead.
