@@ -623,7 +623,8 @@
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+  (setq markdown-command "marked"))
 
 ;; pushbullet
 (el-get-bundle! pushbullet
@@ -918,7 +919,7 @@
 
 ;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
 (require 'yasnippet)
-(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
+;; (setq yas-snippet-dirs '("~/.emacs.d/yasnippets")) ;デフォルトが("~/.emacs.d/snippets" yas-installed-snippets-dir)
 (yas-global-mode 1)
 
 ;; emms
