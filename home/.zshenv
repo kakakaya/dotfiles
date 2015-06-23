@@ -62,6 +62,8 @@ export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 export REPORTTIME=3             # 3秒以上かかったら時間表示をする
 
+# Python works well with nohup
+export PYTHONIOENCODING='UTF-8'
 # Golang is not GOD
 # export GOROOT="/usr/lib/go"
 export GOPATH="$HOME/.local/go"
