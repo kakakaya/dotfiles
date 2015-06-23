@@ -13,13 +13,13 @@
 ;; ================パス・変数関連================
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
-                 '("/usr/share/emacs/site-lisp")
-                 ;; '("~/.emacs.d")
-                 '("~/.emacs.d/elisp")
-                 '("~/.emacs.d/elisp/twittering-mode")
                  '("~/.emacs.d/elpa")
-                 '("~/.emacs.d/helm")
-                 '("~/.emacs.d/ajc-java-complete")
+                 ;; '("/usr/share/emacs/site-lisp")
+                 ;; '("~/.emacs.d")
+                 ;; '("~/.emacs.d/elisp")
+                 ;; '("~/.emacs.d/elisp/twittering-mode")
+                 ;; '("~/.emacs.d/helm")
+                 ;; '("~/.emacs.d/ajc-java-complete")
                  load-path))
 
 ;; ========================================
