@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: def
+# key: def
+# binding: direct-keybinding
+# --
+def $1($2):
+    $3
+$0
