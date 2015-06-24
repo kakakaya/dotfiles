@@ -17,7 +17,7 @@ sudo aptitude install\
      nyancat sl tty-clock oneko figlet\
      emacs ddskk skkdic-extra howm magit yatex\
      silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el\
-     node
+     node npm
 sudo aptitude full-upgrade
 
 # Install with other package management systems.

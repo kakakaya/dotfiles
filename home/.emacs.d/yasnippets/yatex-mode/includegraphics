@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: includegraphics
+# key: includegraphics
+# binding: direct-keybinding
+# --
+\begin{figure}[h]
+ \begin{minipage}{\hsize}
+  \begin{center}
+   \includegraphics[width=0.5\hsize]{$1}
+   \caption{$2}
+  \end{center}
+ \end{minipage}
+\end{figure}
