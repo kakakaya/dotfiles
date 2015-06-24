@@ -364,6 +364,7 @@
 
 ;; 終了時に自動で状態保存
 (el-get-bundle! desktop
+  (setq desktop-load-locked-desktop t)
   (desktop-save-mode 1)
   (defun my-desktop-save ()
     (interactive)
