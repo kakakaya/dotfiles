@@ -40,6 +40,13 @@ else
         chromium &
     fi
 fi
+
+# 前回異常終了していた場合、ロックファイルを削除してEmacsを起動
+if [ -f $HOME/.emacs.desktop.lock ]; then
+    if [ ! $(ps -p $(cat $HOME/.emacs.desktop.lock) -o comm=) = "emacs" ]; then
+        rm $HOME/.emacs.desktop.lock
+    fi
+fi
 emacs &
 
 if [[ -x /usr/bin/dropbox ]]; then
