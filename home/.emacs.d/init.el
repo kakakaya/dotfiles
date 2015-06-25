@@ -85,6 +85,7 @@
 (setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 (setq-default indicate-empty-lines t)   ; バッファの終端を表示
 (setq gc-cons-threshold 268435456)      ; no GC until 256 MiB
+(setq make-backup-files nil)            ; no ~
 
 (set-face-attribute 'show-paren-match-face nil
                     :background nil :foreground nil
