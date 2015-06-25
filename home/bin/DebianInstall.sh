@@ -4,6 +4,18 @@
 # Enable contrib/non-free
 sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 
+# Add testing repository
+sudo cat <<EOF >/etc/apt/sources.list
+deb http://ftp.jp.debian.org/debian/ testing main contrib non-free
+deb-src http://ftp.jp.debian.org/debian/ testing main contrib non-free
+
+deb http://ftp.jp.debian.org/debian/ testing-updates main contrib non-free
+deb-src http://ftp.jp.debian.org/debian/ testing-updates main contrib non-free
+
+deb http://security.debian.org/ testing/updates main contrib non-free
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+EOF
+
 # Install Required? packages
 sudo aptitude update
 sudo aptitude install\
