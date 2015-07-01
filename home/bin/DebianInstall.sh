@@ -4,6 +4,21 @@
 # Enable contrib/non-free
 sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 
+# Add testing repository
+cat <<EOF | sudo tee -a /etc/apt/sources.list >/dev/null
+
+# ================Installed by DebianInstall.sh================
+deb http://ftp.jp.debian.org/debian/ testing main contrib non-free
+deb-src http://ftp.jp.debian.org/debian/ testing main contrib non-free
+
+deb http://ftp.jp.debian.org/debian/ testing-updates main contrib non-free
+deb-src http://ftp.jp.debian.org/debian/ testing-updates main contrib non-free
+
+deb http://security.debian.org/ testing/updates main contrib non-free
+deb-src http://security.debian.org/ testing/updates main contrib non-free
+# ================Installed by DebianInstall.sh================
+EOF
+
 # Install Required? packages
 sudo aptitude update
 sudo aptitude install\
@@ -22,8 +37,8 @@ sudo aptitude full-upgrade
 
 # Install with other package management systems.
 sudo easy_install -U pip
-sudo pip install pip-tools elpy
-sudo pip-tools --auto
+sudo pip install --upgrade pip-tools elpy
+sudo pip-review --auto
 sudo npm install marked
 
 LC_ALL=C xdg-user-dirs-update --force
