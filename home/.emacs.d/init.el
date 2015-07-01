@@ -647,6 +647,8 @@
 ;; js2-mode
 (el-get-bundle! js2-mode)
 
+;; php-mode
+(el-get-bundle! php-mode)
 ;; ========================================
 ;;             require 'package
 ;; ========================================
