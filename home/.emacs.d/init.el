@@ -649,7 +649,12 @@
 (el-get-bundle! js2-mode)
 
 ;; php-mode
-(el-get-bundle! php-mode)
+(el-get-bundle! php-mode
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (setq indent-tabs-mode t)
+               (whitespace-mode nil))))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
