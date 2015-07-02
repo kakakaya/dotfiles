@@ -590,6 +590,7 @@
 (el-get-bundle! web-mode
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -646,6 +647,13 @@
 
 ;; js2-mode
 (el-get-bundle! js2-mode)
+
+;; php-mode
+(el-get-bundle! php-mode
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (setq indent-tabs-mode t)
+               (whitespace-mode nil))))
 
 ;; ========================================
 ;;             require 'package
@@ -776,6 +784,7 @@
                ("\\.c\\'" . ["template.c" my-template])
                ("\\.sh\\'" . ["template.sh" my-template])
                ("\\.gas\\'" . ["template.gas" my-template])
+               ("\\.php\\'" . ["template.php" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
