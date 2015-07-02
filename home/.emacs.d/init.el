@@ -778,6 +778,7 @@
                ("\\.c\\'" . ["template.c" my-template])
                ("\\.sh\\'" . ["template.sh" my-template])
                ("\\.gas\\'" . ["template.gas" my-template])
+               ("\\.php\\'" . ["template.php" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
