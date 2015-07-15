@@ -656,6 +656,10 @@
                (setq indent-tabs-mode t)
                (whitespace-mode nil))))
 
+;; indent-guide
+(el-get-bundle! indent-guide
+  (setq indent-guide-delay 0))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
