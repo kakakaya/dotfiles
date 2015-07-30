@@ -112,7 +112,8 @@ case "$TERM" in
 esac
 if [[ $COLORTERM -eq 1 ]]; then
     export LC_ALL=ja_JP.UTF8
-    TERM='rxvt-unicode-256color'
+    # TERM='rxvt-unicode-256color' # 多くの環境で文句言われる、
+    TERM='xterm-256color'       # これでも問題無さそう
 fi
 
 if hash jed >& /dev/null; then
