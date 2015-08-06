@@ -48,7 +48,7 @@ setopt notify            # バックグラウンドジョブの状態変化を�
 export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 export LISTMAX=1000 #補完リストが多いときに尋ねない
 
-if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
+if [[ -e /usr/share/autojump/autojump.sh ]];then . /usr/share/autojump/autojump.sh ;fi
 
 #================ npm ================
 # Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
