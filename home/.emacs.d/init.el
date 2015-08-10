@@ -333,6 +333,7 @@
 
 ;; 自動保存
 (el-get-bundle! auto-save-buffers-enhanced
+  (setq auto-save-buffers-enhanced-interval 5)
   (setq auto-save-buffers-enhanced-include-regexps '(".+"))
   (setq auto-save-buffers-enhanced-exclude-regexps
         '("^/ssh" "^/scp" "/mnt/"))             ; ssh, scp, mnt以下のファイルは無視
@@ -595,6 +596,7 @@
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
   (setq web-mode-engines-alist
         '(("php"    . "\\.phtml\\'")
           ("blade"  . "\\.blade\\.")))
