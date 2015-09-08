@@ -196,8 +196,6 @@
                             (local-set-key (kbd "C-<return>") 'emmet-expand-line)
                             ))
 
-(autoload 'coffee-mode "coffee-mode" nil t)
-
 ;; need?
 ;; (require 'python)
 
@@ -660,6 +658,9 @@
 ;; indent-guide
 (el-get-bundle! indent-guide
   (setq indent-guide-delay 0))
+
+;; coffee
+(el-get-bundle! coffee-mode)
 
 ;; ========================================
 ;;             require 'package
