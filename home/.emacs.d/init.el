@@ -660,7 +660,8 @@
   (setq indent-guide-delay 0))
 
 ;; coffee
-(el-get-bundle! coffee-mode)
+(el-get-bundle! coffee-mode
+  (setq coffee-tab-width 2))
 
 ;; ========================================
 ;;             require 'package
