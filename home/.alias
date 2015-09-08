@@ -117,7 +117,7 @@ case $(ps --no-headers -p $$) in
         alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
         alias -s pdf=$PDFVIEWER
         alias -s mp3=mplayer
-        alias -s py=python
+        # alias -s py=python      # Python3が直接叩けなくなる
         alias -s html=chrome
         alias -s {c,cpp}=runcpp
         alias -s java=runjavac
