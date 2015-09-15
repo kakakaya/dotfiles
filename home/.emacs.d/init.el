@@ -625,6 +625,7 @@
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
+  :url "git://jblevins.org/git/markdown-mode"
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
   (setq markdown-command "marked"))
