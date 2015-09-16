@@ -625,6 +625,7 @@
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
+  :url "git://jblevins.org/git/markdown-mode"
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
   (setq markdown-command "marked"))
@@ -660,7 +661,8 @@
   (setq indent-guide-delay 0))
 
 ;; coffee
-(el-get-bundle! coffee-mode)
+(el-get-bundle! coffee-mode
+  (setq coffee-tab-width 2))
 
 ;; ========================================
 ;;             require 'package
