@@ -189,6 +189,10 @@ function simple-term {
     RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
 }
 
+function howm-cd {
+    cd `date "+$HOME/howm/%Y/%m"`
+}
+
 function howm-check {
     tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
 }
