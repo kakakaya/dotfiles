@@ -187,10 +187,6 @@
                             (hs-minor-mode 1)
                             ))
 
-(add-hook 'go-mode-hook '(lambda ()
-                           (setq c-basic-offset 2)
-                           (setq indent-tabs-mode nil)
-                           ))
 (add-hook 'web-mode-hook '(lambda ()
                             (setq web-mode-markup-indent-offset 2)
                             (local-set-key (kbd "C-<return>") 'emmet-expand-line)
@@ -621,7 +617,8 @@
 (el-get-bundle! rainbow-mode)
 
 ;; go
-(el-get-bundle! go-mode)
+(el-get-bundle! go-mode
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
@@ -795,6 +792,7 @@
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
+               ("\\.go\\'" . ["template.go" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
