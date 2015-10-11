@@ -10,6 +10,10 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+
+(el-get-bundle! setup
+ (setup-initialize))
+
 ;; ================パス・変数関連================
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
