@@ -10,6 +10,10 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+
+(el-get-bundle! setup
+ (setup-initialize))
+
 ;; ================パス・変数関連================
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
@@ -187,10 +191,6 @@
                             (hs-minor-mode 1)
                             ))
 
-(add-hook 'go-mode-hook '(lambda ()
-                           (setq c-basic-offset 2)
-                           (setq indent-tabs-mode nil)
-                           ))
 (add-hook 'web-mode-hook '(lambda ()
                             (setq web-mode-markup-indent-offset 2)
                             (local-set-key (kbd "C-<return>") 'emmet-expand-line)
@@ -392,7 +392,76 @@
 
 ;; power-line
 (el-get-bundle! powerline
-  (powerline-default-theme)
+  (defun shorten-directory (dir max-length)
+    "Show up to `max-length' characters of a directory name `dir'."
+    (let ((path (reverse (split-string (abbreviate-file-name dir) "/")))
+          (output ""))
+      (when (and path (equal "" (car path)))
+        (setq path (cdr path)))
+      (while (and path (< (length output) (- max-length 4)))
+        (setq output (concat (car path) "/" output))
+        (setq path (cdr path)))
+      (when path
+        (setq output (concat ".../" output)))
+      output))
+  (defun powerline-kakakaya-theme ()
+    "Setup the default mode-line."
+    (interactive)
+    (setq-default mode-line-format
+                  '("%e"
+                    (:eval
+                     (let* ((active (powerline-selected-window-active))
+                            (mode-line (if active 'mode-line 'mode-line-inactive))
+                            (face1 (if active 'powerline-active1 'powerline-inactive1))
+                            (face2 (if active 'powerline-active2 'powerline-inactive2))
+                            (separator-left (intern (format "powerline-%s-%s"
+                                                            (powerline-current-separator)
+                                                            (car powerline-default-separator-dir))))
+                            (separator-right (intern (format "powerline-%s-%s"
+                                                             (powerline-current-separator)
+                                                             (cdr powerline-default-separator-dir))))
+                            (lhs (list (powerline-raw "%*" nil 'l)
+                                       (when powerline-display-buffer-size
+                                         (powerline-buffer-size nil 'l))
+                                       (when powerline-display-mule-info
+                                         (powerline-raw mode-line-mule-info nil 'l))
+                                       (powerline-raw
+                                        (shorten-directory default-directory 15)
+                                        nil 'l)
+                                       (powerline-buffer-id nil 'l)
+                                       (when (and (boundp 'which-func-mode) which-func-mode)
+                                         (powerline-raw which-func-format nil 'l))
+                                       (powerline-raw " ")
+                                       (funcall separator-left mode-line face1)
+                                       (when (and (boundp 'erc-track-minor-mode) erc-track-minor-mode)
+                                         (powerline-raw erc-modified-channels-object face1 'l))
+                                       (powerline-major-mode face1 'l)
+                                       (powerline-process face1)
+                                       (powerline-minor-modes face1 'l)
+                                       (powerline-narrow face1 'l)
+                                       (powerline-raw " " face1)
+                                       (funcall separator-left face1 face2)
+                                       (powerline-vc face2 'r)
+                                       (when (bound-and-true-p nyan-mode)
+                                         (powerline-raw (list (nyan-create)) face2 'l))))
+                            (rhs (list (powerline-raw global-mode-string face2 'r)
+                                       (funcall separator-right face2 face1)
+                                       (unless window-system
+                                         (powerline-raw (char-to-string #xe0a1) face1 'l))
+                                       (powerline-raw "%4l" face1 'l)
+                                       (powerline-raw ":" face1 'l)
+                                       (powerline-raw "%3c" face1 'r)
+                                       (funcall separator-right face1 mode-line)
+                                       (powerline-raw " ")
+                                       (powerline-raw "%6p" nil 'r)
+                                       (when powerline-display-hud
+                                         (powerline-hud face2 face1)))))
+                       (concat (powerline-render lhs)
+                               (powerline-fill face2 (powerline-width rhs))
+                               (powerline-render rhs)))))))
+  (setq powerline-display-mule-info nil)
+  ;; (setq powerline-display-parent-directory 15)
+  (powerline-kakakaya-theme)
   (set-face-attribute 'mode-line nil
                       :foreground "#fff"
                       :background "#009966"
@@ -420,8 +489,9 @@
 
 ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
 (defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (yas-minor-mode . " Ys")
+  '(
+    ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Yas")
     (paredit-mode . " Pe")
     (eldoc-mode . "")
     (abbrev-mode . "")
@@ -432,6 +502,11 @@
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
     (smooth-scroll-mode . "")
+    (volatile-highlights-mode "")
+    (flex-autopair-mode "")
+    (global-whitespace-mode "")
+    (magit-auto-revert-mode "")
+    (hs-minor-mode " hs")
     ;; Major modes
     (lisp-interaction-mode . "Li")
     (python-mode . "Py")
@@ -440,7 +515,7 @@
     (markdown-mode . "Md")
     (matlab-mode . "Mlab")
     (fundamental-mode . "Fd")           ; Why comment outed?
-    (js2-mode . "JS2")
+    (js2-mode . "Js")
     ))
 
 (defun clean-mode-line ()
@@ -621,7 +696,8 @@
 (el-get-bundle! rainbow-mode)
 
 ;; go
-(el-get-bundle! go-mode)
+(el-get-bundle! go-mode
+  (add-hook 'before-save-hook 'gofmt-before-save))
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
@@ -795,6 +871,7 @@
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
+               ("\\.go\\'" . ["template.go" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
@@ -1118,4 +1195,3 @@
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
-
