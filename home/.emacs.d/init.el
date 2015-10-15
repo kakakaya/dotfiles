@@ -320,10 +320,10 @@
                       :underline t))
 
 ;; 違和感の無いぬるぬるスクロール
-(el-get-bundle nurumacs
-  :type elpa
-  (require 'nurumacs)
-  (setq nurumacs-map nil))      ; 俯瞰表示させない
+;; (el-get-bundle nurumacs
+;;   :type elpa
+;;   (require 'nurumacs)
+;;   (setq nurumacs-map nil))      ; 俯瞰表示させない
 
 ;; inactiveバッファを暗くする
 ;; 色付けした部分が見辛くなってしまう
