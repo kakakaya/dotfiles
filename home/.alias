@@ -21,6 +21,7 @@ alias gpp='g++'                 # ++ is hard to type
 alias sudo='sudo '              # makes aliased command to sudo
 alias rmi='rm -i'
 alias rmd='rm -r'               # rmdir
+alias rmtilda='rm *~'
 alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
@@ -41,13 +42,15 @@ alias sl='sl -e'
 alias tiglog='git log --graph --pretty=oneline --abbrev-commit | tig'
 alias psauxG='ps aux | grep'
 alias chistory='history 1-'
-alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
+# alias howmCount='echo `tree -f ~/howm | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-"` | bc'
+# alias howmCheck='tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3'
 alias screenshot='import ~/Pictures/`strdate`.png'
 alias getWindowID="xwininfo |grep '^xwininfo: Window id:' | awk '{print $4}'"
 alias chrome='google-chrome'
 alias ttyclock='tty-clock -stc' # Nomal clock
 alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
+alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 
 if [[ -x $HOME/bin/pecokill.sh ]]; then
@@ -115,7 +118,7 @@ case $(ps --no-headers -p $$) in
         alias -s {png,jpg,bmp,PNG,JPG,BMP}=$IMGVIEWER
         alias -s pdf=$PDFVIEWER
         alias -s mp3=mplayer
-        alias -s py=python
+        # alias -s py=python      # Python3が直接叩けなくなる
         alias -s html=chrome
         alias -s {c,cpp}=runcpp
         alias -s java=runjavac

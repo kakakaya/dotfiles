@@ -48,7 +48,7 @@ setopt notify            # バックグラウンドジョブの状態変化を�
 export HISTTIMEFORMAT="[%Y/%M/%D %H:%M:%S] " #ヒストリの一覧を読みやすい形に変更
 export LISTMAX=1000 #補完リストが多いときに尋ねない
 
-if [[ -e /usr/share/autojump/autojump.zsh ]];then source /usr/share/autojump/autojump.zsh;fi
+if [[ -e /usr/share/autojump/autojump.sh ]];then . /usr/share/autojump/autojump.sh ;fi
 
 #================ npm ================
 # Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
@@ -189,6 +189,17 @@ function simple-term {
     RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
 }
 
+function howm-cd {
+    cd `date "+$HOME/howm/%Y/%m"`
+}
+
+function howm-check {
+    tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
+}
+
+function howm-count {
+    awk '{s+=$1} END {print s}' <(tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-")
+}
 #================ function end ================
 # Alias config
 if [ -f ~/.alias ]; then

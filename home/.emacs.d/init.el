@@ -10,16 +10,20 @@
     (goto-char (point-max))
     (eval-print-last-sexp)))
 
+
+(el-get-bundle! setup
+ (setup-initialize))
+
 ;; ================パス・変数関連================
 ;; (require 'packageName nil t)にすると空気を読む
 (setq load-path (append
-                 '("/usr/share/emacs/site-lisp")
-                 ;; '("~/.emacs.d")
-                 '("~/.emacs.d/elisp")
-                 '("~/.emacs.d/elisp/twittering-mode")
                  '("~/.emacs.d/elpa")
-                 '("~/.emacs.d/helm")
-                 '("~/.emacs.d/ajc-java-complete")
+                 ;; '("/usr/share/emacs/site-lisp")
+                 ;; '("~/.emacs.d")
+                 ;; '("~/.emacs.d/elisp")
+                 ;; '("~/.emacs.d/elisp/twittering-mode")
+                 ;; '("~/.emacs.d/helm")
+                 ;; '("~/.emacs.d/ajc-java-complete")
                  load-path))
 
 ;; ========================================
@@ -85,6 +89,7 @@
 (setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
 (setq-default indicate-empty-lines t)   ; バッファの終端を表示
 (setq gc-cons-threshold 268435456)      ; no GC until 256 MiB
+(setq make-backup-files nil)            ; no ~
 
 (set-face-attribute 'show-paren-match-face nil
                     :background nil :foreground nil
@@ -178,23 +183,18 @@
 
 ;; Javascript coding style
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
 (add-hook 'js2-mode-hook '(lambda ()
                             (setq js2-basic-offset 2)
                                         ; indent-tabs-mode nil
                             (hs-minor-mode 1)
                             ))
 
-(add-hook 'go-mode-hook '(lambda ()
-                           (setq c-basic-offset 2)
-                           (setq indent-tabs-mode nil)
-                           ))
 (add-hook 'web-mode-hook '(lambda ()
                             (setq web-mode-markup-indent-offset 2)
                             (local-set-key (kbd "C-<return>") 'emmet-expand-line)
                             ))
-
-(autoload 'coffee-mode "coffee-mode" nil t)
 
 ;; need?
 ;; (require 'python)
@@ -320,10 +320,10 @@
                       :underline t))
 
 ;; 違和感の無いぬるぬるスクロール
-(el-get-bundle nurumacs
-  :type elpa
-  (require 'nurumacs)
-  (setq nurumacs-map nil))      ; 俯瞰表示させない
+;; (el-get-bundle nurumacs
+;;   :type elpa
+;;   (require 'nurumacs)
+;;   (setq nurumacs-map nil))      ; 俯瞰表示させない
 
 ;; inactiveバッファを暗くする
 ;; 色付けした部分が見辛くなってしまう
@@ -333,6 +333,7 @@
 
 ;; 自動保存
 (el-get-bundle! auto-save-buffers-enhanced
+  (setq auto-save-buffers-enhanced-interval 5)
   (setq auto-save-buffers-enhanced-include-regexps '(".+"))
   (setq auto-save-buffers-enhanced-exclude-regexps
         '("^/ssh" "^/scp" "/mnt/"))             ; ssh, scp, mnt以下のファイルは無視
@@ -363,6 +364,7 @@
 
 ;; 終了時に自動で状態保存
 (el-get-bundle! desktop
+  (setq desktop-load-locked-desktop t)
   (desktop-save-mode 1)
   (defun my-desktop-save ()
     (interactive)
@@ -390,7 +392,76 @@
 
 ;; power-line
 (el-get-bundle! powerline
-  (powerline-default-theme)
+  (defun shorten-directory (dir max-length)
+    "Show up to `max-length' characters of a directory name `dir'."
+    (let ((path (reverse (split-string (abbreviate-file-name dir) "/")))
+          (output ""))
+      (when (and path (equal "" (car path)))
+        (setq path (cdr path)))
+      (while (and path (< (length output) (- max-length 4)))
+        (setq output (concat (car path) "/" output))
+        (setq path (cdr path)))
+      (when path
+        (setq output (concat ".../" output)))
+      output))
+  (defun powerline-kakakaya-theme ()
+    "Setup the default mode-line."
+    (interactive)
+    (setq-default mode-line-format
+                  '("%e"
+                    (:eval
+                     (let* ((active (powerline-selected-window-active))
+                            (mode-line (if active 'mode-line 'mode-line-inactive))
+                            (face1 (if active 'powerline-active1 'powerline-inactive1))
+                            (face2 (if active 'powerline-active2 'powerline-inactive2))
+                            (separator-left (intern (format "powerline-%s-%s"
+                                                            (powerline-current-separator)
+                                                            (car powerline-default-separator-dir))))
+                            (separator-right (intern (format "powerline-%s-%s"
+                                                             (powerline-current-separator)
+                                                             (cdr powerline-default-separator-dir))))
+                            (lhs (list (powerline-raw "%*" nil 'l)
+                                       (when powerline-display-buffer-size
+                                         (powerline-buffer-size nil 'l))
+                                       (when powerline-display-mule-info
+                                         (powerline-raw mode-line-mule-info nil 'l))
+                                       (powerline-raw
+                                        (shorten-directory default-directory 15)
+                                        nil 'l)
+                                       (powerline-buffer-id nil 'l)
+                                       (when (and (boundp 'which-func-mode) which-func-mode)
+                                         (powerline-raw which-func-format nil 'l))
+                                       (powerline-raw " ")
+                                       (funcall separator-left mode-line face1)
+                                       (when (and (boundp 'erc-track-minor-mode) erc-track-minor-mode)
+                                         (powerline-raw erc-modified-channels-object face1 'l))
+                                       (powerline-major-mode face1 'l)
+                                       (powerline-process face1)
+                                       (powerline-minor-modes face1 'l)
+                                       (powerline-narrow face1 'l)
+                                       (powerline-raw " " face1)
+                                       (funcall separator-left face1 face2)
+                                       (powerline-vc face2 'r)
+                                       (when (bound-and-true-p nyan-mode)
+                                         (powerline-raw (list (nyan-create)) face2 'l))))
+                            (rhs (list (powerline-raw global-mode-string face2 'r)
+                                       (funcall separator-right face2 face1)
+                                       (unless window-system
+                                         (powerline-raw (char-to-string #xe0a1) face1 'l))
+                                       (powerline-raw "%4l" face1 'l)
+                                       (powerline-raw ":" face1 'l)
+                                       (powerline-raw "%3c" face1 'r)
+                                       (funcall separator-right face1 mode-line)
+                                       (powerline-raw " ")
+                                       (powerline-raw "%6p" nil 'r)
+                                       (when powerline-display-hud
+                                         (powerline-hud face2 face1)))))
+                       (concat (powerline-render lhs)
+                               (powerline-fill face2 (powerline-width rhs))
+                               (powerline-render rhs)))))))
+  (setq powerline-display-mule-info nil)
+  ;; (setq powerline-display-parent-directory 15)
+  (powerline-kakakaya-theme)
   (set-face-attribute 'mode-line nil
                       :foreground "#fff"
                       :background "#009966"
@@ -418,8 +489,9 @@
 
 ;;http://d.hatena.ne.jp/syohex/20130131/1359646452
 (defvar mode-line-cleaner-alist
-  '( ;; For minor-mode, first char is 'space'
-    (yas-minor-mode . " Ys")
+  '(
+    ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Yas")
     (paredit-mode . " Pe")
     (eldoc-mode . "")
     (abbrev-mode . "")
@@ -430,6 +502,11 @@
     (helm-gtags-mode . " HG")
     (flymake-mode . " Fm")
     (smooth-scroll-mode . "")
+    (volatile-highlights-mode "")
+    (flex-autopair-mode "")
+    (global-whitespace-mode "")
+    (magit-auto-revert-mode "")
+    (hs-minor-mode " hs")
     ;; Major modes
     (lisp-interaction-mode . "Li")
     (python-mode . "Py")
@@ -438,7 +515,7 @@
     (markdown-mode . "Md")
     (matlab-mode . "Mlab")
     (fundamental-mode . "Fd")           ; Why comment outed?
-    (js2-mode . "JS2")
+    (js2-mode . "Js")
     ))
 
 (defun clean-mode-line ()
@@ -587,12 +664,14 @@
 (el-get-bundle! web-mode
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
   (setq web-mode-engines-alist
         '(("php"    . "\\.phtml\\'")
           ("blade"  . "\\.blade\\.")))
@@ -617,7 +696,15 @@
 (el-get-bundle! rainbow-mode)
 
 ;; go
-(el-get-bundle! go-mode)
+(el-get-bundle! go-mode
+  (add-hook 'before-save-hook 'gofmt-before-save))
+
+;; markdown-mode (gfm-mode)
+(el-get-bundle! markdown-mode
+  :url "git://jblevins.org/git/markdown-mode"
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+  (setq markdown-command "marked"))
 
 ;; pushbullet
 (el-get-bundle! pushbullet
@@ -631,6 +718,27 @@
   (when (string-match "\n$" pushbullet-api-key)
     (setq pushbullet-api-key (replace-match "" nil nil pushbullet-api-key)))
   )
+
+;; emoji-cheat-sheet
+(el-get-bundle! emoji-cheat-sheet-plus)
+
+;; js2-mode
+(el-get-bundle! js2-mode)
+
+;; php-mode
+(el-get-bundle! php-mode
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (setq indent-tabs-mode t)
+               (whitespace-mode nil))))
+
+;; indent-guide
+(el-get-bundle! indent-guide
+  (setq indent-guide-delay 0))
+
+;; coffee
+(el-get-bundle! coffee-mode
+  (setq coffee-tab-width 2))
 
 ;; ========================================
 ;;             require 'package
@@ -728,10 +836,6 @@
     (setq flymake-check-was-interrupted t))
   (ad-activate 'flymake-post-syntax-check))
 
-(require 'markdown-mode nil t)
-(setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
-
 ;; http://qiita.com/rysk-t/items/62bb0eef4d581d9eba82
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -751,8 +855,6 @@
 ;; (require 'auto-highlight-symbol nil t)
 ;; (global-auto-highlight-symbol-mode t)
 
-
-
 ;; =================
 ;; autoinsert
 ;; =================
@@ -762,17 +864,21 @@
 (setq auto-insert-directory "~/.emacs.d/templates")
 (setq auto-insert-alist
       (nconc '(
-               ("\\.rst$" . ["template.rst" my-template])
-               ("\\.py$" . ["template.py" my-template])
-               ("\\.c$" . ["template.c" my-template])
-               ("\\.sh$" . ["template.sh" my-template])
-               ("\\.gas$" . ["template.gas" my-template])
+               ("\\.rst\\'" . ["template.rst" my-template])
+               ("\\.py\\'" . ["template.py" my-template])
+               ("\\.c\\'" . ["template.c" my-template])
+               ("\\.sh\\'" . ["template.sh" my-template])
+               ("\\.gas\\'" . ["template.gas" my-template])
+               ("\\.php\\'" . ["template.php" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
+               ("\\.go\\'" . ["template.go" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%directory%" . (lambda () (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name)))))
     ("%date%" . (lambda() (current-time-string)))
     ("%id%" . (lambda () (identity user-id-string)))
     ("%mail%" . (lambda () (identity user-mail-address)))
@@ -793,12 +899,12 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/yatex")
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq auto-mode-alist
-      (append '(("\\.tex$" . yatex-mode)
-                ("\\.ltx$" . yatex-mode)
-                ("\\.cls$" . yatex-mode)
-                ("\\.sty$" . yatex-mode)
-                ("\\.clo$" . yatex-mode)
-                ("\\.bbl$" . yatex-mode)) auto-mode-alist))
+      (append '(("\\.tex\\'" . yatex-mode)
+                ("\\.ltx\\'" . yatex-mode)
+                ("\\.cls\\'" . yatex-mode)
+                ("\\.sty\\'" . yatex-mode)
+                ("\\.clo\\'" . yatex-mode)
+                ("\\.bbl\\'" . yatex-mode)) auto-mode-alist))
 (setq YaTeX-inhibit-prefix-letter t)
 (setq YaTeX-kanji-code nil)
 (setq YaTeX-latex-message-code 'utf-8)
@@ -910,7 +1016,7 @@
 
 ;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
 (require 'yasnippet)
-(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
+;; (setq yas-snippet-dirs '("~/.emacs.d/yasnippets")) ;デフォルトが("~/.emacs.d/snippets" yas-installed-snippets-dir)
 (yas-global-mode 1)
 
 ;; emms
@@ -1074,14 +1180,18 @@
 (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
 (setq skk-use-color-cursor t)
 (setq skk-keep-record t)                ;統計を取る
-
+(setq skk-auto-save-timer
+      (run-with-idle-timer 600 t 'skk-save-jisyo))
 (require 'skk nil t)
-;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
-(require 'skk-act)                      ; used this instead.
+;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+;; (require 'skk-act)                      ; used this instead.
+(setq skk-aquamarine-use-normal-y nil)
+(el-get-bundle! skk-aquamarine
+  :url "https://raw.githubusercontent.com/kakakaya/aquamarine-layout/master/ddskk/skk-aquamarine.el")
+;"https://github.com/kakakaya/aquamarine-layout/ddskk/skk-aquamarine.el")
 
 (cond ((file-readable-p "~/.emacs.d/init-local.el")
        (load "~/.emacs.d/init-local.el")))
 
 ;; Someone changes coding
 (prefer-coding-system 'utf-8)
-
