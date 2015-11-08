@@ -194,7 +194,7 @@ function howm-cd {
 }
 
 function howm-check {
-    tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
+    tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | awk '{print $1, $3}'
 }
 
 function howm-count {
