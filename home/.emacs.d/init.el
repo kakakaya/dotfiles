@@ -266,13 +266,14 @@
 # 夕食
 # 天気
 # 進捗
-* 
+    * 
+
 # 今日の単語
 # 得点
 * 
- * 
+    * 
 * 合計
- * 
+    * 
 -
 ")))))
   (defun howm-current-date-lazy ()
@@ -701,7 +702,7 @@
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
-  :url "git://jblevins.org/git/markdown-mode"
+  ;; :url "git://jblevins.org/git/markdown-mode" ; 色が付かなくなるし、普通の2.0でもGFMは使えるはず？
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
   (setq markdown-command "marked"))
