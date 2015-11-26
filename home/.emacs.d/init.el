@@ -690,6 +690,7 @@
 ;; magit
 (el-get-bundle! magit
   (global-set-key (kbd "M-g t") 'magit-status)
+  (global-set-key (kbd "M-g d") 'magit-diff-unstaged)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 ;; 色名に色を付ける
