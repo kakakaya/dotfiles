@@ -267,6 +267,7 @@
 # 天気
 # 進捗
 * 
+
 # 今日の単語
 # 得点
 * 
@@ -871,8 +872,9 @@
                ("\\.sh\\'" . ["template.sh" my-template])
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
-               ("README\\.md\\'" . ["template.README.md" my-template])
                ("\\.go\\'" . ["template.go" my-template])
+               ("setup\\.py\\'" . ["template.setup.py" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
