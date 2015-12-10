@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ifpyv
+# key: ifpyv
+# binding: direct-keybinding
+# --
+if sys.version_info > (3, 0):
+    $1
+else:
+    $2
+$0
