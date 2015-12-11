@@ -691,6 +691,7 @@
 ;; magit
 (el-get-bundle! magit
   (global-set-key (kbd "M-g t") 'magit-status)
+  (global-set-key (kbd "M-g d") 'magit-diff-unstaged)
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 ;; 色名に色を付ける
@@ -702,7 +703,7 @@
 
 ;; markdown-mode (gfm-mode)
 (el-get-bundle! markdown-mode
-  ;; :url "git://jblevins.org/git/markdown-mode" ; 色が付かなくなるし、普通の2.0でもGFMは使えるはず？
+  :url "git://jblevins.org/git/markdown-mode"
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
   (setq markdown-command "marked"))
@@ -871,8 +872,9 @@
                ("\\.sh\\'" . ["template.sh" my-template])
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
-               ("README\\.md\\'" . ["template.README.md" my-template])
                ("\\.go\\'" . ["template.go" my-template])
+               ("setup\\.py\\'" . ["template.setup.py" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
