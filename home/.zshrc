@@ -235,5 +235,7 @@ if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     source '/home/kakakaya/.local/google-cloud-sdk/path.zsh.inc'
 
     # The next line enables shell command completion for gcloud.
-    source '/home/kakakaya/.local/google-cloud-sdk/completion.zsh.inc'
+    # source '/home/kakakaya/.local/google-cloud-sdk/completion.zsh.inc'
+
+    # bashcompinit raises parse error
 fi
