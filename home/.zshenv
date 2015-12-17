@@ -32,10 +32,15 @@ if [[ -d $HOME/Dropbox/bin ]]; then
 fi
 
 if [[ -d /opt/gurobi ]]; then
-    # 離散最適化ツールgurobi
+    # 離散最適化ツールgurobiがインストールされていたらPATHを通す
     export GUROBI_HOME="/opt/gurobi/linux64"
     export PATH="${PATH}:${GUROBI_HOME}/bin"
     export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+fi
+
+if [[ -d $HOME/.local/google_appengine ]]; then
+    # Google App Engine SDK がインストールされていたらPATHを通す
+    PATH=$PATH:$HOME/.local/google_appengine/
 fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
