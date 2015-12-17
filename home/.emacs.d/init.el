@@ -861,7 +861,8 @@
 ;; autoinsert
 ;; =================
 (require 'autoinsert)
-(setq user-id-string "kakakaya")
+(setq user-id-string (getenv "USER"))
+(setq user-name-string (getenv "USERNAME"))
 (setq user-mail-address "kakakaya AT gmail.com")
 (setq auto-insert-directory "~/.emacs.d/templates")
 (setq auto-insert-alist
@@ -884,6 +885,7 @@
     ("%directory%" . (lambda () (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name)))))
     ("%date%" . (lambda() (current-time-string)))
     ("%id%" . (lambda () (identity user-id-string)))
+    ("%name%" . (lambda () (identity user-name-string)))
     ("%mail%" . (lambda () (identity user-mail-address)))
     ))
 
