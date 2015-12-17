@@ -61,6 +61,8 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 export REPORTTIME=3             # 3秒以上かかったら時間表示をする
+export LESS='-giMRN -j10' # show last, ignore case, show % and lineno at prompt, raw-control-char, no return at end of screen, 10 blanks
+[[ -x /usr/share/source-highlight/src-hilite-lesspipe.sh ]] && export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 
 # Python works well with nohup
 export PYTHONIOENCODING='UTF-8'
@@ -75,14 +77,6 @@ if hash colorgcc >& /dev/null ; then
     export CC=`which colorgcc`
 else
     export CC=`which gcc`
-fi
-
-if hash most >& /dev/null; then
-    export PAGER="most"
-elif hash lv >& /dev/null ; then
-    export PAGER="lv"
-else
-    export PAGER="less -RM --quiet -x2"
 fi
 
 if hash mupdf >& /dev/null ; then
