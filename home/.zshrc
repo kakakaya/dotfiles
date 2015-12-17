@@ -63,10 +63,10 @@ if type complete &>/dev/null; then
     _npm_completion () {
         local si="$IFS"
         IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-            COMP_LINE="$COMP_LINE" \
-            COMP_POINT="$COMP_POINT" \
-            npm completion -- "${COMP_WORDS[@]}" \
-            2>/dev/null)) || return $?
+                                         COMP_LINE="$COMP_LINE" \
+                                         COMP_POINT="$COMP_POINT" \
+                                         npm completion -- "${COMP_WORDS[@]}" \
+                                         2>/dev/null)) || return $?
         IFS="$si"
     }
     complete -F _npm_completion npm
@@ -74,10 +74,10 @@ elif type compdef &>/dev/null; then
     _npm_completion() {
         si=$IFS
         compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-            COMP_LINE=$BUFFER \
-            COMP_POINT=0 \
-            npm completion -- "${words[@]}" \
-            2>/dev/null)
+                               COMP_LINE=$BUFFER \
+                               COMP_POINT=0 \
+                               npm completion -- "${words[@]}" \
+                               2>/dev/null)
         IFS=$si
     }
     compdef _npm_completion npm
@@ -103,20 +103,20 @@ compctl -K _npm_completion npm
 
 #================ function ================
 function extract() {
-  case $1 in
-    *.tar.gz|*.tgz) tar xzvf $1;;
-    *.tar.xz) tar Jxvf $1;;
-    *.zip) unzip $1;;
-    *.lzh) lha e $1;;
-    *.tar.bz2|*.tbz) tar xjvf $1;;
-    *.tar.Z) tar zxvf $1;;
-    *.gz) gzip -dc $1;;
-    *.bz2) bzip2 -dc $1;;
-    *.Z) uncompress $1;;
-    *.tar) tar xvf $1;;
-    *.arj) unarj $1;;
-    *.7z) 7z x $1;;
-  esac
+    case $1 in
+        *.tar.gz|*.tgz) tar xzvf $1;;
+        *.tar.xz) tar Jxvf $1;;
+        *.zip) unzip $1;;
+        *.lzh) lha e $1;;
+        *.tar.bz2|*.tbz) tar xjvf $1;;
+        *.tar.Z) tar zxvf $1;;
+        *.gz) gzip -dc $1;;
+        *.bz2) bzip2 -dc $1;;
+        *.Z) uncompress $1;;
+        *.tar) tar xvf $1;;
+        *.arj) unarj $1;;
+        *.7z) 7z x $1;;
+    esac
 }
 
 function runcpp () { g++ -O2 $1; ./a.out }
@@ -229,3 +229,11 @@ PROMPT2="%_%%>"
 
 # start zsh with status 0
 true
+
+if [[ -d $HOME/.local/google-cloud-sdk ]]; then
+    # The next line updates PATH for the Google Cloud SDK.
+    source '/home/kakakaya/.local/google-cloud-sdk/path.zsh.inc'
+
+    # The next line enables shell command completion for gcloud.
+    source '/home/kakakaya/.local/google-cloud-sdk/completion.zsh.inc'
+fi
