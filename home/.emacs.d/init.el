@@ -867,6 +867,10 @@
 (setq auto-insert-directory "~/.emacs.d/templates")
 (setq auto-insert-alist
       (nconc '(
+               ;; ファイル名で決定されるもの
+               ("setup\\.py\\'" . ["template.setup.py" my-template])
+               ("README\\.md\\'" . ["template.README.md" my-template])
+               ;; 拡張子で決定されるもの
                ("\\.rst\\'" . ["template.rst" my-template])
                ("\\.py\\'" . ["template.py" my-template])
                ("\\.c\\'" . ["template.c" my-template])
@@ -874,8 +878,6 @@
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
                ("\\.go\\'" . ["template.go" my-template])
-               ("setup\\.py\\'" . ["template.setup.py" my-template])
-               ("README\\.md\\'" . ["template.README.md" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
