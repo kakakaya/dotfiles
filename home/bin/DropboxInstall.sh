@@ -2,7 +2,7 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 # Author: kakakaya, Date: Tue Oct 20 17:08:36 2015
 
-if ![ -d $HOME/Dropbox/bin ]; then
+if [[ ! -d $HOME/Dropbox/bin ]]; then
     echo "Run this script after Dropbox's sync end!"
     exit 1;
 fi
