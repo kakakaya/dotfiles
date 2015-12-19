@@ -10,7 +10,7 @@ sudo aptitude install\
      zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
      htop python-pip trash-cli wdiff tig\
-     colorgcc colortail colormake colordiff\
+     colorgcc colortail colormake colordiff source-highlight\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
      xinput xcape awesome-extra arandr\
      ipython ipython3 arp-scan autojump gnuplot-qt\
