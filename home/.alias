@@ -28,13 +28,13 @@ alias history='history -iD'
 alias g='git'
 alias E='$EDITOR'                    # It seems jed, or nano
 alias V='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
-alias emsudo='SUDO_EDITOR=$VISUAL sudoedit'
 
 #Keyboard
 alias aoeu='setxkbmap us'
 alias ueoa='setxkbmap us'
 alias asdf='setxkbmap dvorak'
 alias fdsa='setxkbmap dvorak'
+
 alias lxmodmap='xmodmap ~/.Xmodmap'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'

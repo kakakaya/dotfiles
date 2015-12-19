@@ -115,12 +115,14 @@ if [[ $COLORTERM -eq 1 ]]; then
     TERM='xterm-256color'       # これでも問題無さそう
 fi
 
+# エディタ関連の環境変数
 if hash jed >& /dev/null; then
     export EDITOR='jed'
 else
     export EDITOR='nano'
 fi
 export VISUAL='emacsclient -c -nw -a $EDITOR' # Open Emacs Window by my hand!
+export SUDO_EDITOR='$VISUAL'
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
