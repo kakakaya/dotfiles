@@ -27,8 +27,9 @@ alias rmtilda='rm *~'
 alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
-alias E='$EDITOR'                    # It seems jed, or nano
-alias V='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
+alias p='$PAGER'
+alias e='$EDITOR'                    # It seems jed, or nano
+alias v='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
 
 #Keyboard
 alias aoeu='setxkbmap us'
@@ -62,12 +63,6 @@ fi
 if hash trans 2>/dev/null; then
     alias trans-en='trans ja:en'
     alias trans-ja='trans :ja'
-fi
-
-if hash pygmentize 2>/dev/null; then
-    alias p='pygmentize'
-else
-    alias p='cat -n'
 fi
 
 if hash aptitude 2>/dev/null; then
