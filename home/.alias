@@ -11,6 +11,7 @@ alias lla='ll -A'
 alias lli='ll -i'
 alias l.='ls -d .[a-zA-Z]*'
 alias ll.='l. -ltr'
+alias le='less'
 alias ec='emacsclient'
 alias ecn='emacsclient -n'
 alias em='emacs -nw'
@@ -26,15 +27,16 @@ alias rmtilda='rm *~'
 alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
-alias E='$EDITOR'                    # It seems jed, or nano
-alias V='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
-alias emsudo='SUDO_EDITOR=$VISUAL sudoedit'
+alias p='$PAGER'
+alias e='$EDITOR'                    # It seems jed, or nano
+alias v='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
 
 #Keyboard
 alias aoeu='setxkbmap us'
 alias ueoa='setxkbmap us'
 alias asdf='setxkbmap dvorak'
 alias fdsa='setxkbmap dvorak'
+
 alias lxmodmap='xmodmap ~/.Xmodmap'
 alias mkgitignore='git status -s | grep -e "^\?\?" | cut -c 4- >> .gitignore'
 alias postbox='tw -pipe'
@@ -61,12 +63,6 @@ fi
 if hash trans 2>/dev/null; then
     alias trans-en='trans ja:en'
     alias trans-ja='trans :ja'
-fi
-
-if hash pygmentize 2>/dev/null; then
-    alias p='pygmentize'
-else
-    alias p='cat -n'
 fi
 
 if hash aptitude 2>/dev/null; then
