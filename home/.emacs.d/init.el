@@ -742,6 +742,30 @@
 (el-get-bundle! coffee-mode
   (setq coffee-tab-width 2))
 
+;; 日本語を選択して英語に変換する
+(el-get-bundle! 'google-translate
+  (custom-set-variables
+   '(google-translate-default-source-language "ja")
+   '(google-translate-default-target-language "en"))
+  (global-set-key (kbd "C-x t") 'google-translate-at-point)
+
+  ;; 翻訳結果をkill-ringに保存するアドバイス
+  (defadvice google-translate-paragraph
+      (before google-translate-paragraph-before)
+    (when (equal 'google-translate-translation-face (ad-get-arg 1))
+      (let ((text (ad-get-arg 0)))
+        (kill-new text nil nil))))
+
+  (ad-activate 'google-translate-paragraph)
+
+  ;; letで翻訳先の言語を一時的に切り替える
+  (global-set-key (kbd "C-x T") '(lambda ()
+                                   (interactive)
+                                   (let ((google-translate-default-source-language "en")
+                                         (google-translate-default-target-language "ja"))
+                                     (google-translate-at-point))
+                                   )))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================

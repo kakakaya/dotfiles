@@ -1,37 +1,26 @@
-!home/Pictures/SmallTsunErio
-!home/.emacs.d/init.el
+# Emacsのパッケージ再配布を防ぎ、キャッシュなどを無視する
 *.el
 *.elc
-home/.emacs.d/ac-comphist.dat
-home/.emacs.d/elpa
-home/.emacs.d/elisp
+
 home/.emacs.d/el-get
+home/.emacs.d/elpa
+home/.emacs.d/history
+home/.emacs.d/elisp
 home/.emacs.d/history
 home/.emacs.d/url/cookies
-home/.emacs.d/url/cookies~
+
 home/.emacs.d/ac-comphist.dat
-home/.emacs.d/init.elc
-home/.emacs.d/history
 home/.emacs.d/image-dired/
 home/.emacs.d/session*
 home/.emacs.d/tramp
 home/.emacs.d/.emacs.desktop*
 home/.navi2ch
-home/Pictures
 *.rcp
 home/.emacs.d/elpa/*
 home/.emacs.d/ajc-java-complete/
 home/.emacs.d/bookmarks
 home/.emacs.d/helm
 home/.emacs.d/%backup%~
-
-.config/awesome/rc.lua
-.config/awesome/themes/my-zenburn/theme.lua
-.config/awesome/themes/my-zenburn/awesome-icon.png
-.config/awesome/themes/my-zenburn/layouts/
-.config/awesome/themes/my-zenburn/taglist/
-.config/awesome/themes/my-zenburn/titlebar/
-.config/awesome/themes/my-zenburn/zenburn-background.png
 home/.emacs.d/emms/
 home/.emacs.d/places
 home/.emacs.d/recentf
@@ -40,4 +29,12 @@ home/.emacs.d/url/
 home/.emacs.d/tutorial/
 home/.emacs.d/undohist/
 home/.emacs.d/kkcrc
-/home/.emacs.d/request/
+home/.emacs.d/request/
+
+# .config/awesome/rc.lua
+# .config/awesome/themes/my-zenburn/theme.lua
+# .config/awesome/themes/my-zenburn/awesome-icon.png
+# .config/awesome/themes/my-zenburn/layouts/
+# .config/awesome/themes/my-zenburn/taglist/
+# .config/awesome/themes/my-zenburn/titlebar/
+# .config/awesome/themes/my-zenburn/zenburn-background.png

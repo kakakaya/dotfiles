@@ -66,6 +66,16 @@ export FTP_PASSIVE_MODE="NO"
 export LANG="ja_JP.UTF-8" # or ja_JP.UTF8
 export WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 export REPORTTIME=3             # 3秒以上かかったら時間表示をする
+
+# エディタ関連の環境変数
+export PAGER='less'
+if hash jed >& /dev/null; then
+    export EDITOR='jed'
+else
+    export EDITOR='nano'
+fi
+export VISUAL='emacsclient -c -nw -a $EDITOR' # Open Emacs Window by my hand!
+export SUDO_EDITOR='$VISUAL'
 export LESS='-giMRN -j10' # show last, ignore case, show % and lineno at prompt, raw-control-char, no return at end of screen, 10 blanks
 [[ -x /usr/share/source-highlight/src-hilite-lesspipe.sh ]] && export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 
@@ -114,13 +124,6 @@ if [[ $COLORTERM -eq 1 ]]; then
     # TERM='rxvt-unicode-256color' # 多くの環境で文句言われる、
     TERM='xterm-256color'       # これでも問題無さそう
 fi
-
-if hash jed >& /dev/null; then
-    export EDITOR='jed'
-else
-    export EDITOR='nano'
-fi
-export VISUAL='emacsclient -c -nw -a $EDITOR' # Open Emacs Window by my hand!
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X

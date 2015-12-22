@@ -129,9 +129,9 @@ function notify-tw() {
     if [ ! hash tw 2>/dev/null ]; then
         echo "tw not found"
     elif [ $? = 0 ]; then
-        tw -yes "@kakakaya Successfully completed! at `date`"
+        tw -yes "@kakakaya Successfully completed! at `datetime`"
     else
-        tw -yes "@kakakaya Failed with Error code ${?} at `date`"
+        tw -yes "@kakakaya Failed with Error code ${?} at `datetime`"
     fi
 }
 # function exist () {
