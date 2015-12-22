@@ -356,6 +356,10 @@
 
 ;; シンボルに色を付ける
 (el-get-bundle! highlight-symbol
+  ;; 2秒後自動ハイライトされるようになる
+  (setq highlight-symbol-idle-delay 2.0)
+  ;; prog-modeならば自動ハイライトをする
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
   (global-set-key (kbd "C-<f3>") 'highlight-symbol-at-point)
   (global-set-key (kbd "C-M-<f3>") 'highlight-symbol-remove-all)
   (global-set-key [f3] 'highlight-symbol-next)
