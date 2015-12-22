@@ -722,7 +722,11 @@
   )
 
 ;; emoji-cheat-sheet
-(el-get-bundle! emoji-cheat-sheet-plus)
+;; 現在ダウンロードに失敗してエラーが出る
+;; (el-get-bundle! emoji-cheat-sheet-plus)
+
+;; emojify
+(el-get-bundle! emojify)
 
 ;; js2-mode
 (el-get-bundle! js2-mode)
