@@ -921,6 +921,7 @@
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
                ("\\.go\\'" . ["template.go" my-template])
+               ("\\.html\\'" . ["template.html" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
