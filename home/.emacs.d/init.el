@@ -774,6 +774,17 @@
                                      (google-translate-at-point))
                                    )))
 
+;; yasnippet
+(el-get-bundle! yasnippet
+  (yas-global-mode 1))
+;; の、helm化
+(el-get-bundle! helm-c-yasnippet
+  :type elpa
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-c y") 'helm-yas-complete)
+  (yas-load-directory (concat (getenv "HOME") "/.emacs.d/snippets")))
+
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
@@ -1052,11 +1063,6 @@
  '(inhibit-startup-echo-area-message "")
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t))
-
-;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
-(require 'yasnippet)
-;; (setq yas-snippet-dirs '("~/.emacs.d/yasnippets")) ;デフォルトが("~/.emacs.d/snippets" yas-installed-snippets-dir)
-(yas-global-mode 1)
 
 ;; emms
 (when (require 'emms-setup nil t)
