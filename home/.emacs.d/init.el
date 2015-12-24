@@ -912,6 +912,7 @@
       (nconc '(
                ;; ファイル名で決定されるもの
                ("setup\\.py\\'" . ["template.setup.py" my-template])
+               ("urls\\.py\\'" . ["template.urls.py" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
                ;; 拡張子で決定されるもの
                ("\\.rst\\'" . ["template.rst" my-template])
