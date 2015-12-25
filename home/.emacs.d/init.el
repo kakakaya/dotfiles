@@ -356,6 +356,10 @@
 
 ;; シンボルに色を付ける
 (el-get-bundle! highlight-symbol
+  ;; 2秒後自動ハイライトされるようになる
+  (setq highlight-symbol-idle-delay 2.0)
+  ;; prog-modeならば自動ハイライトをする
+  (add-hook 'prog-mode-hook 'highlight-symbol-mode)
   (global-set-key (kbd "C-<f3>") 'highlight-symbol-at-point)
   (global-set-key (kbd "C-M-<f3>") 'highlight-symbol-remove-all)
   (global-set-key [f3] 'highlight-symbol-next)
@@ -722,7 +726,11 @@
   )
 
 ;; emoji-cheat-sheet
-(el-get-bundle! emoji-cheat-sheet-plus)
+;; 現在ダウンロードに失敗してエラーが出る
+;; (el-get-bundle! emoji-cheat-sheet-plus)
+
+;; emojify
+(el-get-bundle! emojify)
 
 ;; js2-mode
 (el-get-bundle! js2-mode)
@@ -765,6 +773,17 @@
                                          (google-translate-default-target-language "ja"))
                                      (google-translate-at-point))
                                    )))
+
+;; yasnippet
+(el-get-bundle! yasnippet
+  (yas-global-mode 1))
+;; の、helm化
+(el-get-bundle! helm-c-yasnippet
+  :type elpa
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-c y") 'helm-yas-complete)
+  (yas-load-directory (concat (getenv "HOME") "/.emacs.d/snippets")))
+
 
 ;; ========================================
 ;;             require 'package
@@ -902,6 +921,7 @@
                ("\\.gas\\'" . ["template.gas" my-template])
                ("\\.php\\'" . ["template.php" my-template])
                ("\\.go\\'" . ["template.go" my-template])
+               ("\\.html\\'" . ["template.html" my-template])
                ) auto-insert-alist))
 (setq auto-insert-query nil)            ; Always inserts template.
 
@@ -1044,11 +1064,6 @@
  '(inhibit-startup-echo-area-message "")
  '(send-mail-function (quote smtpmail-send-it))
  '(show-paren-mode t))
-
-;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
-(require 'yasnippet)
-;; (setq yas-snippet-dirs '("~/.emacs.d/yasnippets")) ;デフォルトが("~/.emacs.d/snippets" yas-installed-snippets-dir)
-(yas-global-mode 1)
 
 ;; emms
 (when (require 'emms-setup nil t)
