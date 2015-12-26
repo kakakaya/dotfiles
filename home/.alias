@@ -145,5 +145,6 @@ case ${OSTYPE} in
         ;;
     linux*)
         alias google-chrome=chromium
+        alias ls='ls -FGh --show-control-char --color=always'
         ;;
 esac
