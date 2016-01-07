@@ -27,9 +27,9 @@ alias rmtilda='rm *~'
 alias cpd='cp -r'               # no longer verbose output, use carefully
 alias history='history -iD'
 alias g='git'
-alias p='$PAGER'
-alias e='$EDITOR'                    # It seems jed, or nano
-alias v='$VISUAL'                    # 'emacsclient -n -nw -a EDITOR'
+alias p="$PAGER"
+alias e="$EDITOR"                    # It seems jed, or nano
+alias v="$VISUAL"                    # 'emacsclient -n -nw -a EDITOR'
 
 #Keyboard
 alias aoeu='setxkbmap us'

@@ -1155,7 +1155,19 @@
     (set btn (cons (cons "" nil)
                    (cons "" nil))))
   (defvar tabbar-displayed-buffers
-    '("*scratch*" "*Messages*" "*Backtrace*" "*Colors*" "*Faces*" "*Apropos*" "*Customize*" "*shell*" "*Help*" "*minimap/**scratch*" "GNU Emacs")
+    '(
+      "*scratch*"
+      ;; "*Messages*"
+      "*Backtrace*"
+      "*Colors*"
+      "*Faces*"
+      "*Apropos*"
+      "*Customize*"
+      "*shell*"
+      ;; "*Help*"
+      "*minimap/**scratch*"
+      "GNU Emacs"
+      )
     "*Regexps matches buffer names always included tabs.")
   ;; 作業バッファの一部を非表示
   (setq tabbar-buffer-list-function
