@@ -784,6 +784,9 @@
   (global-set-key (kbd "C-c y") 'helm-yas-complete)
   (yas-load-directory (concat (getenv "HOME") "/.emacs.d/snippets")))
 
+;; yaml-mode
+(el-get-bundle! yaml-mode
+  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
 ;; ========================================
 ;;             require 'package
