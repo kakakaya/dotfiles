@@ -147,9 +147,11 @@
 ;; browser
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "hv3")
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program
-      (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m"))
+;; chrome重い
+;; browse-url-browser-function 'browse-url-generic
+;; browse-url-generic-program
+;; (if (file-exists-p "/usr/bin/chromium") "chromium" "w3m")
+(setq browse-url-browser-function 'eww-browse-url)
 
 ;; ================
 ;; 言語ごとの設定
