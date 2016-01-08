@@ -788,6 +788,14 @@
 (el-get-bundle! yaml-mode
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
+;; google-this
+(el-get-bundle google-this
+  (google-this-mode 1)
+  (require 'google-this)
+  ;; (setq google-this-keybind (kbd "C-c g")) ;上手く動かない
+  (global-set-key (kbd "C-c g") 'google-this)
+  (setq google-this-location-suffix "co.jp"))
+
 ;; ========================================
 ;;             require 'package
 ;; ========================================
