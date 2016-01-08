@@ -784,6 +784,9 @@
   (global-set-key (kbd "C-c y") 'helm-yas-complete)
   (yas-load-directory (concat (getenv "HOME") "/.emacs.d/snippets")))
 
+;; yaml-mode
+(el-get-bundle! yaml-mode
+  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
 ;; ========================================
 ;;             require 'package
@@ -912,6 +915,7 @@
       (nconc '(
                ;; ファイル名で決定されるもの
                ("setup\\.py\\'" . ["template.setup.py" my-template])
+               ("urls\\.py\\'" . ["template.urls.py" my-template])
                ("README\\.md\\'" . ["template.README.md" my-template])
                ;; 拡張子で決定されるもの
                ("\\.rst\\'" . ["template.rst" my-template])
