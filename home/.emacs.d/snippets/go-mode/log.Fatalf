@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: log.Fatalf
+# key: lf
+# binding: direct-keybinding
+# --
+log.Fatalf("${1:panic reason}: %v", err)
+$0
