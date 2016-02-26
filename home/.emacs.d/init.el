@@ -790,6 +790,9 @@
 (el-get-bundle! yaml-mode
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
+;; toml-mode
+(el-get-bundle! toml-mode)
+
 ;; google-this
 (el-get-bundle google-this
   (google-this-mode 1)
