@@ -798,6 +798,7 @@
   (global-set-key (kbd "C-c g") 'google-this)
   (setq google-this-location-suffix "co.jp"))
 
+(el-get-bundle! haskell-mode)
 ;; ========================================
 ;;             require 'package
 ;; ========================================
