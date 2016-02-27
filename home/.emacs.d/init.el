@@ -336,7 +336,7 @@
 
 ;; 自動保存
 (el-get-bundle! auto-save-buffers-enhanced
-  (setq auto-save-buffers-enhanced-interval 5)
+  (setq auto-save-buffers-enhanced-interval 30)
   (setq auto-save-buffers-enhanced-include-regexps '(".+"))
   (setq auto-save-buffers-enhanced-exclude-regexps
         '("^/ssh" "^/scp" "/mnt/"))             ; ssh, scp, mnt以下のファイルは無視
@@ -789,6 +789,9 @@
 ;; yaml-mode
 (el-get-bundle! yaml-mode
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
+
+;; toml-mode
+(el-get-bundle! toml-mode)
 
 ;; google-this
 (el-get-bundle google-this
