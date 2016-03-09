@@ -47,6 +47,7 @@ values."
    dotspacemacs-additional-packages '(
                                       autoinsert
                                       tabbar
+                                      ddskk
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -324,7 +325,49 @@ in `dotspacemacs/user-config'."
                         :family "Inconsolata"
                         :height 100)
     (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
+  (when (require 'skk nil t)
+    (if (file-exists-p "~/Dropbox/config/skk")
+        (progn
+          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
+          ))
+    ;; (require 'skk-decor nil t)
+    (defun skk-j-mode-activate ()
+      (interactive)
+      (cond (skk-j-mode
+             (skk-toggle-kana nil))
+            (t
+             (skk-activate nil))))
+    ;; Google IME SKK変換 (Buggyなので使わないことにする)
+    ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
+    ;;     (progn
+    ;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
+    ;;       (setq skk-server-host "0.0.0.0")
+    ;;       (setq skk-server-portnum 55100)
+    ;;       ))
+    (global-set-key (kbd "C-.") 'skk-j-mode-activate)
+    (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
+    (global-set-key (kbd "C-,") 'skk-latin-mode)
+    (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
 
+    (setq skk-cursor-hiragana-color "PaleGreen")
+    (setq skk-cursor-katakana-color "LimeGreen")
+    (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
+    (setq skk-status-indicator 'minor-mode)
+    (setq skk-status-indicator 'left)
+    (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
+    (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
+    (setq skk-use-color-cursor t)
+    (setq skk-keep-record t)                ;統計を取る
+    (setq skk-auto-save-timer
+          (run-with-idle-timer 600 t 'skk-save-jisyo))
+    ;; (require 'skk nil t)
+    ;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
+    ;; (require 'skk-act)                      ; used this instead.
+    ;; (el-get-bundle! skk-aquamarine
+    ;;                 :url "https://raw.githubusercontent.com/kakakaya/aquamarine-layout/master/ddskk/skk-aquamarine.el")
+    ;;                                       ;"https://github.com/kakakaya/aquamarine-layout/ddskk/skk-aquamarine.el")
+    )
   )
 
 (defun dotspacemacs/user-config ()
@@ -445,10 +488,6 @@ layers configuration. You are free to put any user code."
                 tabs
               (cons cur-buf tabs)))))
   (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
-
-
-
-
 
   )
 ;; Do not write anything past this comment. This is where Emacs will
