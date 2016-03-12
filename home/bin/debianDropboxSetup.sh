@@ -2,17 +2,16 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 # Author: kakakaya, Date: Tue Oct 20 17:08:36 2015
 
-if [[ ! -d $HOME/Dropbox/bin ]]; then
+if [ ! $(dropbox status) = 最新の状態 ]; then
     echo "Run this script after Dropbox's sync end!"
     exit 1;
 fi
 
 # Make symbolic link
-ln -s $HOME/Dropbox/howm $HOME/howm         # For later
-ln -s $HOME/Dropbox/Workspace $HOME/Workspace
-ln -s $HOME/Dropbox/Study $HOME/Study
-ln -s $HOME/Dropbox/Work $HOME/Work
-# ln -s $HOME/Dropbox/ $HOME/
+ln -s $HOME/Dropbox/howm $HOME         # For later
+ln -s $HOME/Dropbox/Workspace $HOME
+ln -s $HOME/Dropbox/Study $HOME
+ln -s $HOME/Dropbox/Work $HOME
 
 # Install fonts
 if [ -d $HOME/.fonts ] ; then

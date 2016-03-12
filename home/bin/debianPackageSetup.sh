@@ -23,7 +23,7 @@ sudo aptitude full-upgrade
 # Install with other package management systems.
 sudo easy_install -U pip
 sudo pip install --upgrade pip-tools elpy
-sudo pip-review --auto
+# sudo pip-review --auto          # no longer available
 sudo npm install marked
 
 LC_ALL=C xdg-user-dirs-update --force
