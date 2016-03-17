@@ -48,6 +48,7 @@ values."
                                       autoinsert
                                       tabbar
                                       ddskk
+                                      nginx-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -253,7 +254,7 @@ in `dotspacemacs/user-config'."
   (global-set-key (kbd "C-h") 'delete-backward-char)
   (global-set-key (kbd "C-z") 'undo)                ; undo
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
-  (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
+  ;; (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
   (global-set-key (kbd "C-c ;") 'comment-dwim)         ; コメントアウト
   (global-set-key (kbd "M-C-g") 'grep)            ; grep
   ;; (global-set-key (kbd "C-[ M-C-g") 'goto-line)         ; 指定行へ移動
@@ -337,7 +338,7 @@ in `dotspacemacs/user-config'."
       (cond (skk-j-mode
              (skk-toggle-kana nil))
             (t
-             (skk-activate nil))))
+             (skk-activate))))
     ;; Google IME SKK変換 (Buggyなので使わないことにする)
     ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
     ;;     (progn
@@ -351,7 +352,7 @@ in `dotspacemacs/user-config'."
     (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
 
     (setq skk-cursor-hiragana-color "PaleGreen")
-    (setq skk-cursor-katakana-color "LimeGreen")
+    (setq skk-cursor-katakana-color "HotPink1")
     (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
     (setq skk-status-indicator 'minor-mode)
     (setq skk-status-indicator 'left)

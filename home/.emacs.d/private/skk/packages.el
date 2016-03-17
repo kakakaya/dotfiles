@@ -73,7 +73,6 @@ Each entry is either:
         (message "invoked yet")
         (t
          (message "not invoked")))
-       
        )
       (setq skk-aquamarine-use-normal-y nil)
       ))
