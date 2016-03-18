@@ -49,6 +49,9 @@ values."
                                       tabbar
                                       ddskk
                                       nginx-mode
+                                      rainbow-mode
+                                      git-gutter
+                                      desktop
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -109,6 +112,7 @@ values."
                          spacemacs-dark
                          ;; spacemacs-light
                          ;; solarized-light
+
                          ;; solarized-dark
                          ;; leuven
                          monokai
@@ -308,8 +312,9 @@ in `dotspacemacs/user-config'."
   (setq ediff-window-setup-function 'ediff-setup-windows-plain) ; コントロール用のバッファを同一フレーム内に表示
   (setq ediff-split-window-function 'split-window-horizontally) ; diffのバッファを上下ではなく左右に並べる
   (setq-default indicate-empty-lines t)   ; バッファの終端を表示
-  (setq gc-cons-threshold 268435456)      ; no GC until 256 MiB
+  ;; (setq gc-cons-threshold 268435456)      ; no GC until 256 MiB
   (setq make-backup-files nil)            ; no ~
+  (global-linum-mode)
 
   ;;show [EOF] at EOF
   (defun set-buffer-end-mark()
@@ -326,6 +331,11 @@ in `dotspacemacs/user-config'."
                         :family "Inconsolata"
                         :height 100)
     (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
+
+  (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
+  (setq js2-basic-offset 2)
+
+  ;; skk
   (when (require 'skk nil t)
     (if (file-exists-p "~/Dropbox/config/skk")
         (progn
@@ -362,24 +372,24 @@ in `dotspacemacs/user-config'."
     (setq skk-keep-record t)                ;統計を取る
     (setq skk-auto-save-timer
           (run-with-idle-timer 600 t 'skk-save-jisyo))
-    ;; (require 'skk nil t)
-    ;; ;; (setq skk-use-act t)          ; This is right way but NOT WORKS, so...
-    ;; (require 'skk-act)                      ; used this instead.
-    ;; (el-get-bundle! skk-aquamarine
-    ;;                 :url "https://raw.githubusercontent.com/kakakaya/aquamarine-layout/master/ddskk/skk-aquamarine.el")
-    ;;                                       ;"https://github.com/kakakaya/aquamarine-layout/ddskk/skk-aquamarine.el")
     )
   )
+
+
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-
-
-
-
+  (setq desktop-load-locked-desktop t)
+  (desktop-save-mode 1)
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
 
 
   ;; =================
@@ -489,6 +499,12 @@ layers configuration. You are free to put any user code."
                 tabs
               (cons cur-buf tabs)))))
   (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
+
+  ;; git-gutter
+  (global-git-gutter-mode)
+  (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
+  (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
+
 
   )
 ;; Do not write anything past this comment. This is where Emacs will
