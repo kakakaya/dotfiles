@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Logger.log
+# key: LL
+# --
+Logger.log(${1:variable})${2:;}
