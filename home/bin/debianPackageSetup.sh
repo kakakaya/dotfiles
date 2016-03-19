@@ -10,6 +10,7 @@ sudo aptitude install\
      zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
      htop python-pip trash-cli wdiff tig\
+     golang\
      colorgcc colortail colormake colordiff source-highlight\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
      xinput xcape awesome-extra arandr\
@@ -26,13 +27,17 @@ sudo pip install --upgrade pip-tools elpy
 # sudo pip-review --auto          # no longer available
 sudo npm install marked
 
+# set directory names from japanese to C
 LC_ALL=C xdg-user-dirs-update --force
 
 # create links
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
 
 #making dir
-mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh
+mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
+
+# install peco
+GOPATH="$HOME/.local/go" go get github.com/peco/peco/cmd/peco
 
 chsh -s /bin/zsh kakakaya
 

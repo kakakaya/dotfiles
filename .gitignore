@@ -31,6 +31,8 @@ home/.emacs.d/undohist/
 home/.emacs.d/kkcrc
 home/.emacs.d/request/
 
+!home/.emacs.d/private/**/*
+
 # .config/awesome/rc.lua
 # .config/awesome/themes/my-zenburn/theme.lua
 # .config/awesome/themes/my-zenburn/awesome-icon.png
