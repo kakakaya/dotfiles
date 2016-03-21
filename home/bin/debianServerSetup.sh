@@ -7,7 +7,7 @@ sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 # Install Required? packages
 sudo aptitude update
 sudo aptitude install\
-     zsh ruby terminator rxvt-unicode-256color jed byobu most\
+     zsh ruby jed byobu most\
      htop python-pip trash-cli wdiff tig\
      golang\
      colorgcc colortail colormake colordiff source-highlight\
