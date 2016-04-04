@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: google.script.run
+# key: gsr
+# --
+google.script.run
+  .withSuccessHandler(
+    function(msg, element) {
+      // Respond to success conditions here.
+      ${1:some_code();}
+    })
+  .withFailureHandler(
+    function(msg, element) {
+      // Respond to failure conditions here.
+      ${2:some_code();}
+    })
+  .withUserObject(this)
+  .${3:myFunction}()
