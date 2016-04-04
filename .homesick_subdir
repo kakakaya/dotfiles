@@ -1,4 +1,5 @@
 bin
 .config
 Pictures/Wallpapers
-.emacs.d/private
+.emacs.d/private/snippets
+.emacs.d/private/local
