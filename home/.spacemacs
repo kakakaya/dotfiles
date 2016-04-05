@@ -52,6 +52,7 @@ values."
                                       rainbow-mode
                                       git-gutter
                                       desktop
+                                      nginx-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -337,11 +338,6 @@ in `dotspacemacs/user-config'."
 
   ;; skk
   (when (require 'skk nil t)
-    (if (file-exists-p "~/Dropbox/config/skk")
-        (progn
-          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
-          ))
     ;; (require 'skk-decor nil t)
     (defun skk-j-mode-activate ()
       (interactive)
@@ -505,7 +501,12 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
   (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
 
-
+  ;; skk post init
+  (if (file-exists-p "~/Dropbox/config/skk")
+      (progn
+        (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+        ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
+        ))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
