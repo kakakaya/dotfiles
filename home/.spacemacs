@@ -507,6 +507,68 @@ layers configuration. You are free to put any user code."
         (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
         ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
         ))
+
+  ;; howm
+  ;; http://howm.sourceforge.jp/uu/
+  (setq howm-prefix "\C-c,")
+  (setq howm-menu-lang 'ja)
+  (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+  (setq howm-keyword-case-fold-search t) ; <<< で大文字小文字を区別しない
+  (setq howm-keyword-file "~/howm/.howm-keys") ;; デフォルトは ~/.howm-keys
+  (setq howm-history-file "~/howm/.howm-keys")
+  (setq howm-view-use-grep t)      ; 高速化される？ http://www.naney.org/diki/d/2014-03-17-howm-Markdown-Plack.html
+  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
+  (global-set-key (concat howm-prefix "n") #'howm-create-nikki)
+
+  ;; howm日記関連
+  (setq howm-template
+        #'(lambda (n buf)
+            (interactive "p")
+            (cond
+             ((= 1 n)
+              "= %title%cursor
+%date %file
+")
+             ((= 2 n)
+              (concat
+               "= 日記" (format-time-string "%Y/%m/%d")
+               "
+%date
+# 睡眠%cursor
+# 朝食
+# 昼食
+# 夕食
+# 天気
+# 進捗
+*
+
+# 今日の単語
+# 得点
+*
+ *
+* 合計
+ *
+-
+")))))
+
+  (defun howm-current-date-lazy ()
+    "6時前なら昨日の日付、それ以降なら今日の日付でemacs内部時間形式で返す(時分秒とか気にしない)"
+    (let ((time (decode-time (current-time))))
+      (when (< (nth 2 (decode-time (current-time)))
+               6)            ;←6時
+        (setf (nth 3 time) (- (nth 3 time) 1)))
+      (apply #'encode-time time)))
+  (defun howm-nikki-file-name ()
+    (concat howm-directory (format-time-string "%Y/%m/")
+            "diary-" (format-time-string howm-date-format (howm-current-date-lazy)) ".md"))
+  (defun howm-create-nikki ()
+    (interactive)
+    (if (file-exists-p (howm-nikki-file-name))
+        (progn (find-file (howm-nikki-file-name))
+               (howm-set-mode))
+      (progn
+        (howm-create 2 nil)
+        (set-visited-file-name (howm-nikki-file-name)))))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
