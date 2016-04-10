@@ -28,7 +28,7 @@ sudo pip install --upgrade pip-tools elpy
 sudo npm install marked
 
 # set directory names from japanese to C
-LC_ALL=C xdg-user-dirs-update --force
+LC_ALL=C xdg-user-dirs-update   # --force
 
 # create links
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
