@@ -4,6 +4,7 @@
 [user]
     name = kakakaya
     email = kakakaya+git@gmail.com
+	signingkey = B7000393
 [color]
     ui = auto
     status = auto
