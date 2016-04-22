@@ -336,6 +336,16 @@ in `dotspacemacs/user-config'."
   (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
   (setq js2-basic-offset 2)
 
+  ;; desktop-mode
+  (setq desktop-load-locked-desktop t)
+  (desktop-save-mode 1)
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
+
   ;; skk
   (when (require 'skk nil t)
     ;; (require 'skk-decor nil t)
@@ -377,16 +387,6 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-
-  (setq desktop-load-locked-desktop t)
-  (desktop-save-mode 1)
-  (defun my-desktop-save ()
-    (interactive)
-    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
-    (if (eq (desktop-owner) (emacs-pid))
-        (desktop-save desktop-dirname)))
-  (add-hook 'auto-save-hook 'my-desktop-save)
-
 
   ;; =================
   ;; autoinsert
