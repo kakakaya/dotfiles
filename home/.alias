@@ -57,7 +57,7 @@ alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 
 # docker
-alias docker-cremation="sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm"
+alias docker-cremation="docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs docker rm"
 
 if [[ -x $HOME/bin/pecokill.sh ]]; then
     alias pk=pecokill.sh
