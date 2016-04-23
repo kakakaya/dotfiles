@@ -53,6 +53,8 @@ values."
                                       git-gutter
                                       desktop
                                       nginx-mode
+                                      dockerfile-mode
+                                      toml-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -378,6 +380,13 @@ in `dotspacemacs/user-config'."
     (setq skk-keep-record t)                ;統計を取る
     (setq skk-auto-save-timer
           (run-with-idle-timer 600 t 'skk-save-jisyo))
+
+    ;; skk post init
+    (if (file-exists-p "~/Dropbox/config/skk")
+        (progn
+          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
+          ))
     )
   )
 
@@ -500,13 +509,6 @@ layers configuration. You are free to put any user code."
   (global-git-gutter-mode)
   (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
   (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-
-  ;; skk post init
-  (if (file-exists-p "~/Dropbox/config/skk")
-      (progn
-        (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-        ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
-        ))
 
   ;; howm
   ;; http://howm.sourceforge.jp/uu/
