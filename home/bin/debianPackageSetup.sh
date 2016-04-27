@@ -9,7 +9,7 @@ sudo aptitude update
 sudo aptitude install\
      zsh ruby terminator rxvt-unicode-256color guake jed byobu most\
      chromium\
-     htop python-pip trash-cli wdiff tig\
+     htop python3-pip trash-cli wdiff tig\
      golang\
      colorgcc colortail colormake colordiff source-highlight\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
@@ -24,9 +24,10 @@ sudo aptitude install\
 sudo aptitude full-upgrade
 
 # Install with other package management systems.
-sudo easy_install -U pip
-sudo pip install --upgrade pip-tools elpy
+# sudo easy_install -U pip
+# sudo pip install --upgrade pip-tools elpy
 # sudo pip-review --auto          # no longer available
+
 sudo npm install marked
 
 # set directory names from japanese to C
