@@ -52,6 +52,9 @@ values."
                                       rainbow-mode
                                       git-gutter
                                       desktop
+                                      nginx-mode
+                                      dockerfile-mode
+                                      toml-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -335,13 +338,18 @@ in `dotspacemacs/user-config'."
   (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
   (setq js2-basic-offset 2)
 
+  ;; desktop-mode
+  (setq desktop-load-locked-desktop t)
+  (desktop-save-mode 1)
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
+
   ;; skk
   (when (require 'skk nil t)
-    (if (file-exists-p "~/Dropbox/config/skk")
-        (progn
-          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
-          ))
     ;; (require 'skk-decor nil t)
     (defun skk-j-mode-activate ()
       (interactive)
@@ -372,6 +380,13 @@ in `dotspacemacs/user-config'."
     (setq skk-keep-record t)                ;統計を取る
     (setq skk-auto-save-timer
           (run-with-idle-timer 600 t 'skk-save-jisyo))
+
+    ;; skk post init
+    (if (file-exists-p "~/Dropbox/config/skk")
+        (progn
+          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
+          ))
     )
   )
 
@@ -381,16 +396,6 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-
-  (setq desktop-load-locked-desktop t)
-  (desktop-save-mode 1)
-  (defun my-desktop-save ()
-    (interactive)
-    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
-    (if (eq (desktop-owner) (emacs-pid))
-        (desktop-save desktop-dirname)))
-  (add-hook 'auto-save-hook 'my-desktop-save)
-
 
   ;; =================
   ;; autoinsert
@@ -504,7 +509,6 @@ layers configuration. You are free to put any user code."
   (global-git-gutter-mode)
   (global-set-key (kbd "C-x p") 'git-gutter:previous-hunk)
   (global-set-key (kbd "C-x n") 'git-gutter:next-hunk)
-
 
   ;; howm
   ;; http://howm.sourceforge.jp/uu/
