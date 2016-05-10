@@ -39,6 +39,11 @@ chsh -s /bin/zsh $USER
 # Dropbox init
 # dropbox start -i
 
+cat << EOF > .zshenv.local
+# -*- Mode: shell-script;coding:utf-8 -*- #
+
+export EMAIL=''
+EOF
 exit 0
 
 # urxvt config

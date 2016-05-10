@@ -42,6 +42,11 @@ mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 # install peco
 GOPATH="$HOME/.local/go" go get github.com/peco/peco/cmd/peco
 
+cat << EOF > .zshenv.local
+# -*- Mode: shell-script;coding:utf-8 -*- #
+
+export EMAIL=''
+EOF
 chsh -s /bin/zsh $USER
 
 # Dropbox init
