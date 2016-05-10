@@ -2,8 +2,6 @@
     excludesfile = ~/.gitignore
     editor = $EDITOR
 [user]
-    name = $USER
-	  email = $EMAIL
   	signingkey = B7000393
 [color]
     ui = auto
