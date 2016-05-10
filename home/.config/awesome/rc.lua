@@ -41,7 +41,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/kakakaya/.config/awesome/themes/my-zenburn/theme.lua")
+beautiful.init(".config/awesome/themes/my-zenburn/theme.lua")
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- local wallpaper_path = os.getenv("HOME") .. "/Pictures/Wallpapers/429325.jpg"
