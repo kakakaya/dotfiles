@@ -403,7 +403,7 @@ layers configuration. You are free to put any user code."
   ;; =================
   (setq user-id-string (getenv "USER"))
   (setq user-name-string (getenv "USERNAME"))
-  (setq user-mail-address "kakakaya AT gmail.com")
+  (setq user-mail-address (getenv "EMAIL"))
   (setq auto-insert-directory "~/.emacs.d/private/local/templates")
   ;; (setq-default auto-insert-alist
   ;;               (nconc '(

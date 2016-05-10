@@ -177,3 +177,4 @@ case ${HOST} in
     # 	ibus-daemon &
 esac
 
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
