@@ -69,3 +69,6 @@ sudo service docker start
 # Verify docker is installed correctly.
 
 sudo docker run hello-world
+
+# add user to docker group.
+sudo usermod -aG docker `whoami`

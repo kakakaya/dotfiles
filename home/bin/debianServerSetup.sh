@@ -8,7 +8,7 @@ sudo sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 sudo aptitude update
 sudo aptitude install\
      zsh ruby jed byobu most\
-     htop python-pip trash-cli wdiff tig\
+     htop python3-pip trash-cli wdiff tig\
      golang\
      colorgcc colortail colormake colordiff source-highlight\
      pcmanfm nautilus-dropbox sshfs tree mupdf\
@@ -19,11 +19,11 @@ sudo aptitude install\
 sudo aptitude full-upgrade
 
 # Install with other package management systems.
-sudo easy_install -U pip
-sudo pip install --upgrade pip-tools elpy
+# sudo easy_install -U pip
+# sudo pip install --upgrade pip-tools elpy
 
 # set directory names from japanese to C
-# LC_ALL=C xdg-user-dirs-update --force
+LC_ALL=C xdg-user-dirs-update --force
 
 # create links
 sudo ln -s /usr/bin/nodejs /usr/local/bin/node
@@ -34,11 +34,16 @@ mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 # install peco
 GOPATH="$HOME/.local/go" go get github.com/peco/peco/cmd/peco
 
-chsh -s /bin/zsh kakakaya
+chsh -s /bin/zsh $USER
 
 # Dropbox init
 # dropbox start -i
 
+cat << EOF > .zshenv.local
+# -*- Mode: shell-script;coding:utf-8 -*- #
+
+export EMAIL=''
+EOF
 exit 0
 
 # urxvt config

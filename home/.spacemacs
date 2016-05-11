@@ -55,6 +55,7 @@ values."
                                       nginx-mode
                                       dockerfile-mode
                                       toml-mode
+                                      lua-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -338,6 +339,16 @@ in `dotspacemacs/user-config'."
   (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
   (setq js2-basic-offset 2)
 
+  ;; desktop-mode
+  (setq desktop-load-locked-desktop t)
+  (desktop-save-mode 1)
+  (defun my-desktop-save ()
+    (interactive)
+    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
+    (if (eq (desktop-owner) (emacs-pid))
+        (desktop-save desktop-dirname)))
+  (add-hook 'auto-save-hook 'my-desktop-save)
+
   ;; skk
   (when (require 'skk nil t)
     ;; (require 'skk-decor nil t)
@@ -387,22 +398,12 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
 
-  (setq desktop-load-locked-desktop t)
-  (desktop-save-mode 1)
-  (defun my-desktop-save ()
-    (interactive)
-    ;; Don't call desktop-save-in-desktop-dir, as it prints a message.
-    (if (eq (desktop-owner) (emacs-pid))
-        (desktop-save desktop-dirname)))
-  (add-hook 'auto-save-hook 'my-desktop-save)
-
-
   ;; =================
   ;; autoinsert
   ;; =================
   (setq user-id-string (getenv "USER"))
   (setq user-name-string (getenv "USERNAME"))
-  (setq user-mail-address "kakakaya AT gmail.com")
+  (setq user-mail-address (getenv "EMAIL"))
   (setq auto-insert-directory "~/.emacs.d/private/local/templates")
   ;; (setq-default auto-insert-alist
   ;;               (nconc '(
