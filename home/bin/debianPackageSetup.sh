@@ -17,9 +17,6 @@ sudo aptitude install\
      ipython ipython3 arp-scan autojump gnuplot-qt\
      nyancat sl tty-clock oneko figlet\
      emacs ddskk skkdic-extra howm\
-     # spacemacs is great
-     # magit yatex\
-     # silversearcher-ag-el auto-complete-el emacs-goodies-el migemo-el\
      node npm
 sudo aptitude full-upgrade
 
