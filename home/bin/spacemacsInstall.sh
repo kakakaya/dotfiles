@@ -9,16 +9,16 @@ if [ $emacs_dir == 'cannot' ]; then
     return 0
 else
     while true; do
-        read -p "$HOME/.emacs.d is "$emacs_dir". Move and install Spacemacs?[Yn]" yn
+        read -p "$HOME/.emacs.d is "$emacs_dir". Move and install Spacemacs?[yN]" yn
         case $yn in
             [Yy]* )
                 echo "install."
-                # mv $HOME/.emacs.d $HOME/.emacs.d.$(date +%Y-%m-%d_%H-%M-%S)
-                # git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+                mv $HOME/.emacs.d $HOME/.emacs.d.$(date +%Y-%m-%d_%H-%M-%S)
+                git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
                 exit 0;;
-                * )
-                   echo "exit."
-                   exit 1;;
+            * )
+                echo "exit."
+                exit 1;;
         esac
     done
 fi
