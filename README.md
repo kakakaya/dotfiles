@@ -1,57 +1,50 @@
 # What's this
-@kakakayaのdotfilesいわゆる設定集。
-再配布禁止なものが混じってそうな問題は修正済み。……たぶん。
+dotfiles by [kakakaya]<https://github.com/kakakaya>
 
-# Contents
+# Active Contents
 ## Emacs
-そのうちcask使う設定に変える、そのうち
-* home/.emacs.d/init.el
-起動時の画像表示用画像集
-* home/.emacs.d/splash-images
+Spacemacs移行中
+* home/.emacs.d
+* home/.emacs.d/private
 
 ## zsh
-癖は弱めのはず
 * home/.zshrc
 * home/.zshenv
 * home/.zlogout
 
 ## alias
-.zshrcが長いので分離した
+zsh/bashなど用
 * home/.alias
 
+# bin
+雑に色々インストールしたりしなかったりするためのスクリプト集
+* home/bin
+
 ## awesome
-適当に動く程度
+Emacs, Webbrowser, Terminal, Mikutter, PDF viewerを適当に表示するための環境
 * .config/awesome/rc.lua
-* .config/awesome/themes/my-zenburn/theme.lua
+* .config/awesome/themes/my-zenburn
 
 ## terminator
-適当に動く
 * .config/terminator/config
-
 
 ## flake8
 Elpy用
 * .config/flake8
 
-## .screenlayout
-叩くと調整される。自分用。
-* home/.screenlayout/Azurite_only.sh
-* home/.screenlayout/Azurite_with_DELL.sh
-
 ## xsession
-学内LAN向け設定など
+キーボード配列、学内LAN向け設定、壁紙、WM起動など
 * home/.xsession
 
 ## zshexec.sh
-起動後の表示をする、というかMOTD自分用というスタンス?
+ログイン後の表示をする
 home/bin/zshexec.sh
 
 ## Xmodmap
-普通のCaps化+自分の環境でtildaが消えた時の対策版。
+CapsLockのCtrl化+自分の環境でtildaが消えた時の対策版。
 * home/.Xmodmap
 
 ## /etc
-見ればわかる？motd
 * etc/motd
 Debianで上手く動きそうなdvorak的キーボード設定
 * etc/default/keyboard
@@ -64,16 +57,15 @@ xcape環境でSandSを可能にする。
 # TODO
 init.elのcask化など
 
-# old contents
-below files aren't configured moreover
+# Deprecated Contents
+
 
 ## URxvt関連
-標準的設定、コピペとかURLクリックが上手く動かなくて投げた
+上手く動かないので終了
 * home/.Xdefaults
 
 ## conky
-バッテリー表示のあるノート限定版。デスクトップ版の必要性を感じる前にawesomeに移行しつつあった。
-移行した
+バッテリー表示のあるノート限定版。放棄
 * home/.conkyrc
 
 ## fluxbox

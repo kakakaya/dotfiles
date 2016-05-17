@@ -3,3 +3,4 @@ bin
 Pictures/Wallpapers
 .emacs.d/private/snippets
 .emacs.d/private/local
+.emacs.d/private/skk
