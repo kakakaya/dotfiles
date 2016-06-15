@@ -572,6 +572,9 @@ layers configuration. You are free to put any user code."
       (progn
         (howm-create 2 nil)
         (set-visited-file-name (howm-nikki-file-name)))))
+
+  ;; markdown
+  (setq markdown-command "marked")
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
