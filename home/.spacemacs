@@ -260,7 +260,6 @@ in `dotspacemacs/user-config'."
 
   (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
   (global-set-key (kbd "C-h") 'delete-backward-char)
-  (global-set-key (kbd "C-z") 'undo)                ; undo
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
   ;; (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
   (global-set-key (kbd "C-c ;") 'comment-dwim)         ; コメントアウト
@@ -397,6 +396,9 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; not works well in user-init
+  (global-set-key (kbd "C-z") 'undo)                ; undo
 
   ;; =================
   ;; autoinsert
@@ -572,6 +574,9 @@ layers configuration. You are free to put any user code."
       (progn
         (howm-create 2 nil)
         (set-visited-file-name (howm-nikki-file-name)))))
+
+  ;; markdown
+  (setq markdown-command "marked")
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
