@@ -25,19 +25,22 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
-     emacs-lisp
      git
      markdown
-     go
-     javascript
      skk
+     ;; language
+     emacs-lisp
+     go
      html
+     javascript
+     python
+
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -260,7 +263,6 @@ in `dotspacemacs/user-config'."
 
   (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
   (global-set-key (kbd "C-h") 'delete-backward-char)
-  (global-set-key (kbd "C-z") 'undo)                ; undo
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
   ;; (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
   (global-set-key (kbd "C-c ;") 'comment-dwim)         ; コメントアウト
@@ -397,6 +399,9 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; not works well in user-init
+  (global-set-key (kbd "C-z") 'undo)                ; undo
 
   ;; =================
   ;; autoinsert
@@ -575,6 +580,9 @@ layers configuration. You are free to put any user code."
 
   ;; markdown
   (setq markdown-command "marked")
+
+  ;; flycheck
+  '(custom-set-variables '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))) ;jshint,jscsを使わないように
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

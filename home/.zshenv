@@ -76,7 +76,7 @@ else
 fi
 export VISUAL='emacsclient -c -nw -a $EDITOR' # Open Emacs Window by my hand!
 export SUDO_EDITOR='$VISUAL'
-export LESS='-giMRN -j10' # show last, ignore case, show % and lineno at prompt, raw-control-char, no return at end of screen, 10 blanks
+export LESS='-giMR -j10' # show last, ignore case, show % and lineno at prompt, raw-control-char, no return at end of screen, 10 blanks
 [[ -x /usr/share/source-highlight/src-hilite-lesspipe.sh ]] && export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 
 # Python works well with nohup
