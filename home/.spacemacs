@@ -25,19 +25,22 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
-     emacs-lisp
      git
      markdown
-     go
-     javascript
      skk
+     ;; language
+     emacs-lisp
+     go
      html
+     javascript
+     python
+
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -577,6 +580,9 @@ layers configuration. You are free to put any user code."
 
   ;; markdown
   (setq markdown-command "marked")
+
+  ;; flycheck
+  '(custom-set-variables '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))) ;jshint,jscsを使わないように
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

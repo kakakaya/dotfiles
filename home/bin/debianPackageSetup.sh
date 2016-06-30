@@ -43,6 +43,8 @@ cat << EOF > .zshenv.local
 # -*- Mode: shell-script;coding:utf-8 -*- #
 
 export EMAIL=''
+export GIT_AUTHOR_NAME=''
+export GIT_AUTHOR_EMAIL=''
 EOF
 chsh -s /bin/zsh $USER
 
