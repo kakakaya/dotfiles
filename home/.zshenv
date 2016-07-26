@@ -83,6 +83,9 @@ export LESS='-giMR -j10' # show last, ignore case, show % and lineno at prompt, 
 export PYTHONIOENCODING='UTF-8'
 # Golang is not GOD
 # export GOROOT="/usr/lib/go"
+if [[ -x /usr/local/go ]]; then
+    export PATH=/usr/local/go/bin:$PATH
+fi
 export GOPATH="$HOME/.local/go"
 export PATH=$PATH:"$GOPATH/bin"
 
