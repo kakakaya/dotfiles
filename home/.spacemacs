@@ -34,6 +34,7 @@ values."
      html
      javascript
      python
+     latex
 
      ;; org
      ;; (shell :variables
@@ -59,6 +60,7 @@ values."
                                       dockerfile-mode
                                       toml-mode
                                       lua-mode
+                                      magic-latex-buffer
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
