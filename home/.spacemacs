@@ -583,6 +583,32 @@ layers configuration. You are free to put any user code."
 
   ;; flycheck
   '(custom-set-variables '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))) ;jshint,jscsを使わないように
+
+  ;; modelineに色を
+  (set-face-attribute 'mode-line nil
+                      :foreground "#fff"
+                      :background "#009966"
+                      :box nil)
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground "#000"
+                      :background "#00B666"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground "#000"
+                      :background "#00FC66"
+                      :inherit 'mode-line)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground "#FFF"
+                      :background "#004444"
+                      :box nil)
+  (set-face-attribute 'powerline-inactive1 nil
+                      :foreground "#000"
+                      :background "#00AAAA"
+                      :inherit 'mode-line)
+  (set-face-attribute 'powerline-inactive2 nil
+                      :foreground "#000"
+                      :background "#00FFFF"
+                      :inherit 'mode-line)
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
