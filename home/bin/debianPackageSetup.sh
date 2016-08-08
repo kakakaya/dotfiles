@@ -25,13 +25,14 @@ sudo easy_install3 pip
 sudo pip install -U pip
 sudo pip install -U virtualenv
 
-sudo npm install marked
-
 # set directory names from japanese to C
 LC_ALL=C xdg-user-dirs-update   # --force
 
-# create links
-sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+# setup npm
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+sudo npm install -g marked tern html
 
 #making dir
 mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
