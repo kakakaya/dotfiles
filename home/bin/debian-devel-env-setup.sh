@@ -16,5 +16,6 @@ apt-get install\
         xinput xcape awesome-extra arandr\
         ipython ipython3 arp-scan autojump gnuplot-qt\
         nyancat sl tty-clock oneko figlet\
-        emacs ddskk skkdic-extra howm
+        emacs ddskk skkdic-extra howm\
+        jq
 apt-get upgrade

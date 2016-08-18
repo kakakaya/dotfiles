@@ -12,6 +12,7 @@ apt-get install\
      colorgcc colortail colormake colordiff source-highlight\
      sshfs tree\
      ipython3 arp-scan autojump\
-     nyancat sl tty-clock figlet
+     nyancat sl tty-clock figlet\
+     jq
 
 apt-get upgrade
