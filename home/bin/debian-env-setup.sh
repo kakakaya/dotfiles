@@ -6,7 +6,9 @@
 mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 
 # install peco
-GOPATH="$HOME/.local/go" go get github.com/peco/peco/cmd/peco
+GOPATH="$HOME" go get github.com/peco/peco/cmd/peco
+
+sh -c "curl https://raw.githubusercontent.com/mrowa44/emojify/master/emojify -o ~/bin/emojify && chmod +x ~/bin/emojify"
 
 echo "change shell"
 chsh -s /bin/zsh $USER

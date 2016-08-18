@@ -86,8 +86,7 @@ export PYTHONIOENCODING='UTF-8'
 if [[ -x /usr/local/go ]]; then
     export PATH=/usr/local/go/bin:$PATH
 fi
-export GOPATH="$HOME/.local/go"
-export PATH=$PATH:"$GOPATH/bin"
+export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"
 
@@ -168,16 +167,16 @@ case ${HOST} in
 
         ;;
     # purple*)
-    # 	#JED
-    # 	export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin
-    # 	export LD_LIBRARY_PATH=/home/staff/jed/avrdev/supports/lib
-    # 	setxkbmap dvorak
-    # 	LANG=ja_JP.utf-8
-    # 	export GTK_IM_MODULE=ibus
-    # 	export XMODIFIERS=@im=ibus
-    # 	export QT_IM_MODULE=ibus
-    # 	export PYTHONPATH=~/lib/python/
-    # 	ibus-daemon &
+    #   #JED
+    #   export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin
+    #   export LD_LIBRARY_PATH=/home/staff/jed/avrdev/supports/lib
+    #   setxkbmap dvorak
+    #   LANG=ja_JP.utf-8
+    #   export GTK_IM_MODULE=ibus
+    #   export XMODIFIERS=@im=ibus
+    #   export QT_IM_MODULE=ibus
+    #   export PYTHONPATH=~/lib/python/
+    #   ibus-daemon &
 esac
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
