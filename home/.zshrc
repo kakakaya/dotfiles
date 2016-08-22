@@ -145,8 +145,8 @@ if [[ -d $HOME/.local/google-cloud-sdk ]]; then
 fi
 
 for file in ~/.zsh/*
-            source $file
+    source $file
 
-    # Display Zsh version and display number
-printf "\n$fg_bold[cyan]This is ZSH $fg_bold[red]${ZSH_VERSION}"
-printf "$fg_bold[cyan] - DISPLAY on $fg_bold[red]$DISPLAY$reset_color\n\n"
+# Display Zsh version and display number
+# printf "\n$fg_bold[cyan]This is ZSH $fg_bold[red]${ZSH_VERSION}"
+# printf "$fg_bold[cyan] - DISPLAY on $fg_bold[red]$DISPLAY$reset_color\n\n"
