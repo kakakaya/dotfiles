@@ -35,6 +35,7 @@ values."
      javascript
      python
      latex
+     sql
 
      ;; org
      ;; (shell :variables
