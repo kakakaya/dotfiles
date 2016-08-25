@@ -36,5 +36,8 @@
 [credential]
   helper = cache
 
+[ghq]
+	root = ~/src
+
 [url "ssh://git@github.com/"]
   insteadOf = https://github.com/
