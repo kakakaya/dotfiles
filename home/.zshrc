@@ -11,7 +11,7 @@ zstyle :compinstall filename '/home/kakakaya/.zshrc'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**' #'m:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
 zstyle ':completion:*:processes' menu yes select=2
 
-if [[ ! -f ~/.zplug/zplug ]]; then
+if [[ ! -d ~/.zplug ]]; then
     curl -sL zplug.sh/installer | zsh
 fi
 source ~/.zplug/init.zsh
