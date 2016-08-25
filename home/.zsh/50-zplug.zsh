@@ -5,6 +5,7 @@ zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 
 # enhancd
 zplug "b4b4r07/enhancd", use:init.sh
+# export ENHANCD_COMMAND="c"
 
 # emoji-cli provides input completion for emoji on the command line with an interactive filter.
 zplug "b4b4r07/emoji-cli"
