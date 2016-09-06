@@ -62,6 +62,7 @@ values."
                                       toml-mode
                                       lua-mode
                                       magic-latex-buffer
+                                      twittering-mode
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -612,6 +613,13 @@ layers configuration. You are free to put any user code."
                       :foreground "#000"
                       :background "#00FFFF"
                       :inherit 'mode-line)
+
+  (setq twittering-icon-mode nil)
+  (setq twittering-use-master-password t)
+  (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
+
+  ;; ================================
+  ;; THE END of dotspacemacs/user-config
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
