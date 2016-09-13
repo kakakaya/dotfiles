@@ -12,7 +12,8 @@ go get "github.com/k0kubun/pp"
 go get "github.com/motemen/ghq"
 go get "github.com/github/hub"
 
-# sh -c "curl https://raw.githubusercontent.com/mrowa44/emojify/master/emojify -o ~/bin/emojify && chmod +x ~/bin/emojify"
+# install powerline
+ghq get "powerline/powerline"
 
 echo "change shell"
 chsh -s /bin/zsh $USER

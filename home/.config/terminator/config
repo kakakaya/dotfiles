@@ -12,7 +12,7 @@
     background_type = transparent
     background_image = None
     foreground_color = "#ffffff"
-    font = Ricty 10
+    font = Ricty Diminished for Powerline 10
   [[View15]]
     use_system_font = False
     visible_bell = True
