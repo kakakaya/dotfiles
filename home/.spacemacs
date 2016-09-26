@@ -74,6 +74,10 @@ values."
                                       lua-mode
                                       magic-latex-buffer
                                       twittering-mode
+                                      yaml-mode
+                                      slack
+                                      alert
+                                      emojify
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -406,6 +410,9 @@ in `dotspacemacs/user-config'."
           ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
           ))
     )
+  ;; slack
+  (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
+  (setq slack-prefer-current-team t)
   )
 
 
@@ -625,9 +632,17 @@ layers configuration. You are free to put any user code."
                       :background "#00FFFF"
                       :inherit 'mode-line)
 
+  ;; twitter
   (setq twittering-icon-mode nil)
   (setq twittering-use-master-password t)
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
+
+  ;; slack
+  (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
+         (load "~/Dropbox/config/emacs-slack.el")))
+
+  ;; alert
+  (setq alert-default-style 'notifications)
 
   ;; ================================
   ;; THE END of dotspacemacs/user-config
