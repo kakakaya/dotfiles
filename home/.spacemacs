@@ -23,11 +23,18 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+
+     ;; local packages
+     skk
+     slack
+
+     ;; non-progn packages
      better-defaults
      git
      github
      markdown
-     skk
+
+
      ;; language
 
 
@@ -48,6 +55,7 @@ values."
      ;; fun
      games
      xkcd
+     speed-reading
 
      ;; org
      ;; (shell :variables
@@ -75,7 +83,7 @@ values."
                                       magic-latex-buffer
                                       twittering-mode
                                       yaml-mode
-                                      slack
+                                      ;; slack
                                       alert
                                       emojify
                                       )
