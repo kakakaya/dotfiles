@@ -23,26 +23,43 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+
+     ;; local packages
+     skk
+     slack
+
+     ;; non-progn packages
      better-defaults
      git
+     github
      markdown
-     skk                                ;for skk-aquamarine
      ;; language
+
+
+     ;; programming language
      emacs-lisp
      go
      html
      javascript
      python
+     django
+     c-c++
      latex
      sql
+
+     auto-completion                    ;; should be lower
+     syntax-checking
+
+     ;; fun
+     games
+     xkcd
+     speed-reading
 
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -64,6 +81,11 @@ values."
                                       magic-latex-buffer
                                       twittering-mode
                                       graphviz-dot-mode
+
+                                      yaml-mode
+                                      ;; slack
+                                      alert
+                                      emojify
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -358,6 +380,9 @@ in `dotspacemacs/user-config'."
 
   ;; skk-aquamarine が後に読み込まれるようにする
   (require 'skk nil t)
+  ;; slack
+  (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
+  (setq slack-prefer-current-team t)
   )
 
 
@@ -577,6 +602,7 @@ layers configuration. You are free to put any user code."
                       :background "#00FFFF"
                       :inherit 'mode-line)
 
+  ;; twitter
   (setq twittering-icon-mode nil)
   (setq twittering-use-master-password t)
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
@@ -621,6 +647,13 @@ layers configuration. You are free to put any user code."
   (setq skk-keep-record t)                ;統計を取る
   (setq skk-auto-save-timer
         (run-with-idle-timer 600 t 'skk-save-jisyo))
+
+  ;; slack
+  (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
+         (load "~/Dropbox/config/emacs-slack.el")))
+
+  ;; alert
+  (setq alert-default-style 'notifications)
 
   ;; ================================
   ;; THE END of dotspacemacs/user-config
