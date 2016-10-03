@@ -23,25 +23,43 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+
+     ;; local packages
+     skk
+     slack
+
+     ;; non-progn packages
      better-defaults
      git
+     github
      markdown
-     skk
      ;; language
+
+
+     ;; programming language
      emacs-lisp
      go
      html
      javascript
      python
+     django
+     c-c++
      latex
+     sql
+
+     auto-completion                    ;; should be lower
+     syntax-checking
+
+     ;; fun
+     games
+     xkcd
+     speed-reading
 
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -61,6 +79,13 @@ values."
                                       toml-mode
                                       lua-mode
                                       magic-latex-buffer
+                                      twittering-mode
+                                      graphviz-dot-mode
+
+                                      yaml-mode
+                                      ;; slack
+                                      alert
+                                      emojify
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -353,46 +378,11 @@ in `dotspacemacs/user-config'."
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save)
 
-  ;; skk
-  (when (require 'skk nil t)
-    ;; (require 'skk-decor nil t)
-    (defun skk-j-mode-activate ()
-      (interactive)
-      (cond (skk-j-mode
-             (skk-toggle-kana nil))
-            (t
-             (skk-activate))))
-    ;; Google IME SKK変換 (Buggyなので使わないことにする)
-    ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
-    ;;     (progn
-    ;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
-    ;;       (setq skk-server-host "0.0.0.0")
-    ;;       (setq skk-server-portnum 55100)
-    ;;       ))
-    (global-set-key (kbd "C-.") 'skk-j-mode-activate)
-    (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
-    (global-set-key (kbd "C-,") 'skk-latin-mode)
-    (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
-
-    (setq skk-cursor-hiragana-color "PaleGreen")
-    (setq skk-cursor-katakana-color "HotPink1")
-    (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
-    (setq skk-status-indicator 'minor-mode)
-    (setq skk-status-indicator 'left)
-    (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
-    (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
-    (setq skk-use-color-cursor t)
-    (setq skk-keep-record t)                ;統計を取る
-    (setq skk-auto-save-timer
-          (run-with-idle-timer 600 t 'skk-save-jisyo))
-
-    ;; skk post init
-    (if (file-exists-p "~/Dropbox/config/skk")
-        (progn
-          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
-          ))
-    )
+  ;; skk-aquamarine が後に読み込まれるようにする
+  (require 'skk nil t)
+  ;; slack
+  (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
+  (setq slack-prefer-current-team t)
   )
 
 
@@ -611,6 +601,62 @@ layers configuration. You are free to put any user code."
                       :foreground "#000"
                       :background "#00FFFF"
                       :inherit 'mode-line)
+
+  ;; twitter
+  (setq twittering-icon-mode nil)
+  (setq twittering-use-master-password t)
+  (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
+
+  ;; skk
+  (if (file-exists-p "~/Dropbox/config/skk")
+      ;; awful!
+      (progn
+      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+      (setq skk-jisyo "~/Dropbox/config/skk/jisyo")    ;が、読まれないが、こう設定するとjiysoは動く
+      (setq skk-record "~/Dropbox/config/skk/record")  ;しかし、recordとstudyは反映されない
+      (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
+      )
+    )
+  ;; (require 'skk-decor nil t)
+  (defun skk-j-mode-activate ()
+    (interactive)
+    (cond (skk-j-mode
+           (skk-toggle-kana nil))
+          (t
+           (skk-activate))))
+  ;; Google IME SKK変換 (Buggyなので使わないことにする)
+  ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
+  ;;     (progn
+  ;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
+  ;;       (setq skk-server-host "0.0.0.0")
+  ;;       (setq skk-server-portnum 55100)
+  ;;       ))
+  (global-set-key (kbd "C-.") 'skk-j-mode-activate)
+  (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
+  (global-set-key (kbd "C-,") 'skk-latin-mode)
+  (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
+
+  (setq skk-cursor-hiragana-color "PaleGreen")
+  (setq skk-cursor-katakana-color "HotPink1")
+  (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
+  (setq skk-status-indicator 'minor-mode)
+  (setq skk-status-indicator 'left)
+  (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
+  (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
+  (setq skk-use-color-cursor t)
+  (setq skk-keep-record t)                ;統計を取る
+  (setq skk-auto-save-timer
+        (run-with-idle-timer 600 t 'skk-save-jisyo))
+
+  ;; slack
+  (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
+         (load "~/Dropbox/config/emacs-slack.el")))
+
+  ;; alert
+  (setq alert-default-style 'notifications)
+
+  ;; ================================
+  ;; THE END of dotspacemacs/user-config
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

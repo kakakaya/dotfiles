@@ -11,7 +11,7 @@ zstyle :compinstall filename '/home/kakakaya/.zshrc'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**' #'m:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
 zstyle ':completion:*:processes' menu yes select=2
 
-if [[ ! -f ~/.zplug/zplug ]]; then
+if [[ ! -d ~/.zplug ]]; then
     curl -sL zplug.sh/installer | zsh
 fi
 source ~/.zplug/init.zsh
@@ -124,7 +124,7 @@ PROMPT2="%_%%>"
 #SPROMPT="%R? maybe %r.[nyae]"
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
-#EXEC
+# EXEC
 # autojump
 # if [[ -e /usr/share/autojump/autojump.sh ]];then . /usr/share/autojump/autojump.sh ;fi
 # local zsh files
@@ -133,6 +133,7 @@ PROMPT2="%_%%>"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # [ -d ~/.zsh-autosuggestions ] && zsh-autocmp
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -d $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/ ] && . $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/powerline.zsh
 
 if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     # The next line updates PATH for the Google Cloud SDK.
@@ -145,8 +146,8 @@ if [[ -d $HOME/.local/google-cloud-sdk ]]; then
 fi
 
 for file in ~/.zsh/*
-            source $file
+    source $file
 
-    # Display Zsh version and display number
-printf "\n$fg_bold[cyan]This is ZSH $fg_bold[red]${ZSH_VERSION}"
-printf "$fg_bold[cyan] - DISPLAY on $fg_bold[red]$DISPLAY$reset_color\n\n"
+# Display Zsh version and display number
+# printf "\n$fg_bold[cyan]This is ZSH $fg_bold[red]${ZSH_VERSION}"
+# printf "$fg_bold[cyan] - DISPLAY on $fg_bold[red]$DISPLAY$reset_color\n\n"
