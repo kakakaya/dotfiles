@@ -4,6 +4,7 @@ userpath=(
     # 配列に候補を入れる
     $HOME/bin \
         $HOME/usr/bin \
+        $HOME/local/bin \
         $HOME/.local/bin \
         $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
