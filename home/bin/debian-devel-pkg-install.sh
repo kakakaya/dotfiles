@@ -1,5 +1,4 @@
 #!/bin/sh
-# DO NOT RUN AS ROOT!
 
 # Enable contrib/non-free
 sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
@@ -7,7 +6,8 @@ sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 # Install Required? packages
 apt-get update
 apt-get install\
-        zsh ruby terminato guake jed byobu most\
+        zsh ruby terminator guake jed byobu most\
+        automake autoconf\
         chromium\
         htop python3-setuptools trash-cli wdiff tig\
         golang\

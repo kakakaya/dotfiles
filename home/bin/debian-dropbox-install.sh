@@ -4,7 +4,7 @@
 
 if [ ! $(dropbox status) = 最新の状態 ]; then
     echo "Run this script after Dropbox's sync end!"
-    exit 1;
+    return 1;
 fi
 
 # Make symbolic link

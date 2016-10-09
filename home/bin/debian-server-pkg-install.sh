@@ -7,6 +7,7 @@ sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 apt-get update
 apt-get install\
      zsh ruby jed byobu most\
+     automake autoconf\
      htop python3-pip trash-cli wdiff tig\
      golang\
      colorgcc colortail colormake colordiff source-highlight\
