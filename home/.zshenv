@@ -92,6 +92,10 @@ export PYTHONIOENCODING='UTF-8'
 if [[ -x /usr/local/go ]]; then
     export PATH=/usr/local/go/bin:$PATH
 fi
+
+# pythonz
+[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+
 export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"
