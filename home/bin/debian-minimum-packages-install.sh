@@ -1,19 +1,33 @@
-#!/bin/sh
-# Install Required? packages
+#!/bin/bash
+# Install minimum required packages
 
-# Enable contrib/non-free
-sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
+if [[ "$EUID" -ne 0 ]] then
+   echo "Run as root!"
+   exit
+fi
 
+# apt
 apt-get update
 apt-get install\
-     zsh ruby jed byobu most\
-     automake autoconf\
-     htop python3-pip trash-cli wdiff tig\
-     golang\
-     colorgcc colortail colormake colordiff source-highlight\
-     sshfs tree\
-     ipython3 arp-scan autojump\
-     nyancat sl tty-clock figlet\
-     jq
+        git tig\
+        zsh jed byobu most\
+        automake autoconf\
+        curl\
+        htop python3-setuptools python3-pip trash-cli wdiff\
+        golang ruby\
+        colorgcc colortail colormake colordiff source-highlight\
+        sshfs tree\
+        figlet\
+        jq
 
 apt-get upgrade
+
+# Python
+# pip
+easy_install3 pip
+pip install -U pip virtualenv
+
+# npm
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get install -y nodejs
+npm install -g marked tern html
