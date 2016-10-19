@@ -27,6 +27,11 @@ path=( $path $addpath )
 
 unset userpath addpath i chksame # 後始末
 
+# zsh-completionがインストールされていたら読み込む
+if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
+    export fpath="($HOME/src/github.com/zsh-users/zsh-completions/src $fpath)"
+fi
+
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
     PATH=$PATH:"$HOME/Dropbox/bin"
