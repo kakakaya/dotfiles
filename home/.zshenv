@@ -27,6 +27,11 @@ path=( $path $addpath )
 
 unset userpath addpath i chksame # 後始末
 
+# zsh-completionがインストールされていたら読み込む
+if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
+    export fpath="($HOME/src/github.com/zsh-users/zsh-completions/src $fpath)"
+fi
+
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
     PATH=$PATH:"$HOME/Dropbox/bin"
@@ -87,6 +92,10 @@ export PYTHONIOENCODING='UTF-8'
 if [[ -x /usr/local/go ]]; then
     export PATH=/usr/local/go/bin:$PATH
 fi
+
+# pythonz
+[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+
 export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"

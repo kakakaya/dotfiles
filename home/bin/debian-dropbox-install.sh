@@ -14,11 +14,9 @@ ln -s $HOME/Dropbox/Study $HOME
 ln -s $HOME/Dropbox/Work $HOME
 
 # Install fonts
-if [ -d $HOME/.fonts ] ; then
-    cp $HOME/Dropbox/config/Inconsolata.otf $HOME/.fonts/
-    cp $HOME/Dropbox/config/Ricty-Regular.ttf $HOME/.fonts/
-    cp $HOME/Dropbox/config/Ricty-Bold.ttf $HOME/.fonts/
-fi
+mkdir -p $HOME/.fonts
+cp $HOME/Dropbox/config/*.otf $HOME/Dropbox/config/*.ttf $HOME/.fonts/
+fc-cache ~/.fonts
 
 # Install jlisting.sty
 sudo cp ~/Dropbox/config/jlisting.sty /usr/share/texlive/texmf-dist/tex/latex/listings/
