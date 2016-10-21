@@ -4,7 +4,7 @@
 
 mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 
-# install go packages
+# go packages
 export GOPATH="$HOME"
 go get "github.com/peco/peco/cmd/peco"
 go get "github.com/nsf/gocode"
@@ -14,6 +14,9 @@ go get "github.com/github/hub"
 
 # install powerline
 ghq get "powerline/powerline"
+
+# install pythonz
+curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 
 echo "change shell"
 chsh -s /bin/zsh $USER
