@@ -6,14 +6,14 @@ mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 
 # go packages
 export GOPATH="$HOME"
-go get "github.com/peco/peco/cmd/peco"
-go get "github.com/nsf/gocode"
-go get "github.com/k0kubun/pp"
-go get "github.com/motemen/ghq"
-go get "github.com/github/hub"
+go get -v "github.com/peco/peco/cmd/peco"
+go get -v "github.com/nsf/gocode"
+go get -v "github.com/k0kubun/pp"
+go get -v "github.com/motemen/ghq"
+go get -v "github.com/github/hub"
 
 # install powerline
-ghq get "powerline/powerline"
+ghq get -v "powerline/powerline"
 
 # install pythonz
 curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash

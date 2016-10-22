@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [[ "$EUID" -ne 0 ]] then
-   echo "Run as root!"
+if [[ $(id -u) -ne 0 ]]; then
+   echo "Run as root"
    exit
 fi
 
