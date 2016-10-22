@@ -68,7 +68,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       autoinsert
-                                      tabbar
+                                      ;; tabbar
                                       ddskk
                                       nginx-mode
                                       rainbow-mode
@@ -456,52 +456,52 @@ layers configuration. You are free to put any user code."
     (message "Generated."))
   (add-hook 'find-file-not-found-hooks 'auto-insert)
 
-  (if (null tabbar-mode)
-      (tabbar-mode))
-  (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
-  (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
-  (tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
-  (setq tabbar-buffer-groups-function nil) ; グループを使わない
-  ;; 左側のボタンを消す
-  (dolist (btn '(tabbar-buffer-home-button
-                 tabbar-scroll-left-button
-                 tabbar-scroll-right-button))
-    (set btn (cons (cons "" nil)
-                   (cons "" nil))))
-  (defvar tabbar-displayed-buffers
-    '(
-      "*scratch*"
-      ;; "*Messages*"
-      "*Backtrace*"
-      "*Colors*"
-      "*Faces*"
-      "*Apropos*"
-      "*Customize*"
-      "*shell*"
-      ;; "*Help*"
-      "*minimap/**scratch*"
-      "GNU Emacs"
-      )
-    "*Regexps matches buffer names always included tabs.")
-  ;; 作業バッファの一部を非表示
-  (setq tabbar-buffer-list-function
-        (lambda ()
-          (let* ((hides (list ?\ ?\*))
-                 (re (regexp-opt tabbar-displayed-buffers))
-                 (cur-buf (current-buffer))
-                 (tabs (delq
-                        nil
-                        (mapcar
-                         (lambda (buf)
-                           (let ((name (buffer-name buf)))
-                             (when (or (string-match re name)
-                                       (not (memq (aref name 0) hides)))
-                               buf)))
-                         (buffer-list)))))
-            (if (memq cur-buf tabs)
-                tabs
-              (cons cur-buf tabs)))))
-  (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
+  ;; (if (null tabbar-mode)
+  ;;     (tabbar-mode))
+  ;; (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
+  ;; (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
+  ;; (tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
+  ;; (setq tabbar-buffer-groups-function nil) ; グループを使わない
+  ;; ;; 左側のボタンを消す
+  ;; (dolist (btn '(tabbar-buffer-home-button
+  ;;                tabbar-scroll-left-button
+  ;;                tabbar-scroll-right-button))
+  ;;   (set btn (cons (cons "" nil)
+  ;;                  (cons "" nil))))
+  ;; (defvar tabbar-displayed-buffers
+  ;;   '(
+  ;;     "*scratch*"
+  ;;     ;; "*Messages*"
+  ;;     "*Backtrace*"
+  ;;     "*Colors*"
+  ;;     "*Faces*"
+  ;;     "*Apropos*"
+  ;;     "*Customize*"
+  ;;     "*shell*"
+  ;;     ;; "*Help*"
+  ;;     "*minimap/**scratch*"
+  ;;     "GNU Emacs"
+  ;;     )
+  ;;   "*Regexps matches buffer names always included tabs.")
+  ;; ;; 作業バッファの一部を非表示
+  ;; (setq tabbar-buffer-list-function
+  ;;       (lambda ()
+  ;;         (let* ((hides (list ?\ ?\*))
+  ;;                (re (regexp-opt tabbar-displayed-buffers))
+  ;;                (cur-buf (current-buffer))
+  ;;                (tabs (delq
+  ;;                       nil
+  ;;                       (mapcar
+  ;;                        (lambda (buf)
+  ;;                          (let ((name (buffer-name buf)))
+  ;;                            (when (or (string-match re name)
+  ;;                                      (not (memq (aref name 0) hides)))
+  ;;                              buf)))
+  ;;                        (buffer-list)))))
+  ;;           (if (memq cur-buf tabs)
+  ;;               tabs
+  ;;             (cons cur-buf tabs)))))
+  ;; (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
 
   ;; git-gutter
   (global-git-gutter-mode)
