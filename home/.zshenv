@@ -4,6 +4,7 @@ userpath=(
     # 配列に候補を入れる
     $HOME/bin \
         $HOME/usr/bin \
+        $HOME/local/bin \
         $HOME/.local/bin \
         $path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 )
@@ -26,9 +27,14 @@ path=( $path $addpath )
 
 unset userpath addpath i chksame # 後始末
 
+# zsh-completionがインストールされていたら読み込む
+if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
+    export FPATH="$HOME/src/github.com/zsh-users/zsh-completions/src:$FPATH"
+fi
+
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
-    PATH=$PATH:"$HOME/Dropbox/bin"
+    export PATH=$PATH:"$HOME/Dropbox/bin"
 fi
 
 if [[ -d /opt/gurobi ]]; then
@@ -40,11 +46,11 @@ fi
 
 if [[ -d $HOME/.local/google_appengine ]]; then
     # Google App Engine SDK がインストールされていたらPATHを通す
-    PATH=$PATH:$HOME/.local/google_appengine/
+    export PATH="$PATH:$HOME/.local/google_appengine"
 fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
-    case "`uname -sr`" in
+    case "$(uname -sr)" in
         FreeBSD*); export ARCHI="freebsd" ;;
         Linux*);   export ARCHI="linux"   ;;
         CYGWIN*);  export ARCHI="cygwin"  ;;
@@ -86,6 +92,10 @@ export PYTHONIOENCODING='UTF-8'
 if [[ -x /usr/local/go ]]; then
     export PATH=/usr/local/go/bin:$PATH
 fi
+
+# pythonz
+[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+
 export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"
@@ -138,13 +148,14 @@ if [[ `tty | cut -d / -f 3` = pts ]]; then
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
             ;;
-        akari)
-            synclient TapButton1=1
-            synclient TapButton2=2
-            synclient TapButton3=3
-            synclient CircularScrolling=1
-            synclient CircScrollTrigger=0
-            ;;
+
+        # akari)
+        #     synclient TapButton1=1
+        #     synclient TapButton2=2
+        #     synclient TapButton3=3
+        #     synclient CircularScrolling=1
+        #     synclient CircScrollTrigger=0
+        #     ;;
     esac
 else
     # This is in console

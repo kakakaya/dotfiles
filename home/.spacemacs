@@ -33,8 +33,6 @@ values."
      git
      github
      markdown
-
-
      ;; language
 
 
@@ -70,7 +68,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       autoinsert
-                                      tabbar
+                                      ;; tabbar
                                       ddskk
                                       nginx-mode
                                       rainbow-mode
@@ -82,6 +80,8 @@ values."
                                       lua-mode
                                       magic-latex-buffer
                                       twittering-mode
+                                      graphviz-dot-mode
+
                                       yaml-mode
                                       ;; slack
                                       alert
@@ -378,46 +378,8 @@ in `dotspacemacs/user-config'."
         (desktop-save desktop-dirname)))
   (add-hook 'auto-save-hook 'my-desktop-save)
 
-  ;; skk
-  (when (require 'skk nil t)
-    ;; (require 'skk-decor nil t)
-    (defun skk-j-mode-activate ()
-      (interactive)
-      (cond (skk-j-mode
-             (skk-toggle-kana nil))
-            (t
-             (skk-activate))))
-    ;; Google IME SKK変換 (Buggyなので使わないことにする)
-    ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
-    ;;     (progn
-    ;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
-    ;;       (setq skk-server-host "0.0.0.0")
-    ;;       (setq skk-server-portnum 55100)
-    ;;       ))
-    (global-set-key (kbd "C-.") 'skk-j-mode-activate)
-    (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
-    (global-set-key (kbd "C-,") 'skk-latin-mode)
-    (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
-
-    (setq skk-cursor-hiragana-color "PaleGreen")
-    (setq skk-cursor-katakana-color "HotPink1")
-    (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
-    (setq skk-status-indicator 'minor-mode)
-    (setq skk-status-indicator 'left)
-    (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
-    (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
-    (setq skk-use-color-cursor t)
-    (setq skk-keep-record t)                ;統計を取る
-    (setq skk-auto-save-timer
-          (run-with-idle-timer 600 t 'skk-save-jisyo))
-
-    ;; skk post init
-    (if (file-exists-p "~/Dropbox/config/skk")
-        (progn
-          (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-          ;; (setq skk-jisyo "~/Dropbox/config/skk/.skk-jisyo")
-          ))
-    )
+  ;; skk-aquamarine が後に読み込まれるようにする
+  (require 'skk nil t)
   ;; slack
   (setq slack-buffer-emojify t) ;; if you want to enable emoji, default nil
   (setq slack-prefer-current-team t)
@@ -494,52 +456,52 @@ layers configuration. You are free to put any user code."
     (message "Generated."))
   (add-hook 'find-file-not-found-hooks 'auto-insert)
 
-  (if (null tabbar-mode)
-      (tabbar-mode))
-  (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
-  (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
-  (tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
-  (setq tabbar-buffer-groups-function nil) ; グループを使わない
-  ;; 左側のボタンを消す
-  (dolist (btn '(tabbar-buffer-home-button
-                 tabbar-scroll-left-button
-                 tabbar-scroll-right-button))
-    (set btn (cons (cons "" nil)
-                   (cons "" nil))))
-  (defvar tabbar-displayed-buffers
-    '(
-      "*scratch*"
-      ;; "*Messages*"
-      "*Backtrace*"
-      "*Colors*"
-      "*Faces*"
-      "*Apropos*"
-      "*Customize*"
-      "*shell*"
-      ;; "*Help*"
-      "*minimap/**scratch*"
-      "GNU Emacs"
-      )
-    "*Regexps matches buffer names always included tabs.")
-  ;; 作業バッファの一部を非表示
-  (setq tabbar-buffer-list-function
-        (lambda ()
-          (let* ((hides (list ?\ ?\*))
-                 (re (regexp-opt tabbar-displayed-buffers))
-                 (cur-buf (current-buffer))
-                 (tabs (delq
-                        nil
-                        (mapcar
-                         (lambda (buf)
-                           (let ((name (buffer-name buf)))
-                             (when (or (string-match re name)
-                                       (not (memq (aref name 0) hides)))
-                               buf)))
-                         (buffer-list)))))
-            (if (memq cur-buf tabs)
-                tabs
-              (cons cur-buf tabs)))))
-  (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
+  ;; (if (null tabbar-mode)
+  ;;     (tabbar-mode))
+  ;; (global-set-key (kbd "<C-tab>") 'tabbar-forward-tab)  ; 次のタブ
+  ;; (global-set-key (kbd "<C-S-iso-lefttab>") 'tabbar-backward-tab) ; 前のタブ
+  ;; (tabbar-mwheel-mode nil)               ;タブ上でマウスホイールを使わない
+  ;; (setq tabbar-buffer-groups-function nil) ; グループを使わない
+  ;; ;; 左側のボタンを消す
+  ;; (dolist (btn '(tabbar-buffer-home-button
+  ;;                tabbar-scroll-left-button
+  ;;                tabbar-scroll-right-button))
+  ;;   (set btn (cons (cons "" nil)
+  ;;                  (cons "" nil))))
+  ;; (defvar tabbar-displayed-buffers
+  ;;   '(
+  ;;     "*scratch*"
+  ;;     ;; "*Messages*"
+  ;;     "*Backtrace*"
+  ;;     "*Colors*"
+  ;;     "*Faces*"
+  ;;     "*Apropos*"
+  ;;     "*Customize*"
+  ;;     "*shell*"
+  ;;     ;; "*Help*"
+  ;;     "*minimap/**scratch*"
+  ;;     "GNU Emacs"
+  ;;     )
+  ;;   "*Regexps matches buffer names always included tabs.")
+  ;; ;; 作業バッファの一部を非表示
+  ;; (setq tabbar-buffer-list-function
+  ;;       (lambda ()
+  ;;         (let* ((hides (list ?\ ?\*))
+  ;;                (re (regexp-opt tabbar-displayed-buffers))
+  ;;                (cur-buf (current-buffer))
+  ;;                (tabs (delq
+  ;;                       nil
+  ;;                       (mapcar
+  ;;                        (lambda (buf)
+  ;;                          (let ((name (buffer-name buf)))
+  ;;                            (when (or (string-match re name)
+  ;;                                      (not (memq (aref name 0) hides)))
+  ;;                              buf)))
+  ;;                        (buffer-list)))))
+  ;;           (if (memq cur-buf tabs)
+  ;;               tabs
+  ;;             (cons cur-buf tabs)))))
+  ;; (setq tabbar-separator '(0.2))      ;; タブ同士の間隔
 
   ;; git-gutter
   (global-git-gutter-mode)
@@ -644,6 +606,47 @@ layers configuration. You are free to put any user code."
   (setq twittering-icon-mode nil)
   (setq twittering-use-master-password t)
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
+
+  ;; skk
+  (if (file-exists-p "~/Dropbox/config/skk")
+      ;; awful!
+      (progn
+      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+      (setq skk-jisyo "~/Dropbox/config/skk/jisyo")    ;が、読まれないが、こう設定するとjiysoは動く
+      (setq skk-record "~/Dropbox/config/skk/record")  ;しかし、recordとstudyは反映されない
+      (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
+      )
+    )
+  ;; (require 'skk-decor nil t)
+  (defun skk-j-mode-activate ()
+    (interactive)
+    (cond (skk-j-mode
+           (skk-toggle-kana nil))
+          (t
+           (skk-activate))))
+  ;; Google IME SKK変換 (Buggyなので使わないことにする)
+  ;; (if (file-executable-p "/usr/local/bin/google-ime-skk")
+  ;;     (progn
+  ;;       (setq skk-server-prog "/usr/local/bin/google-ime-skk")
+  ;;       (setq skk-server-host "0.0.0.0")
+  ;;       (setq skk-server-portnum 55100)
+  ;;       ))
+  (global-set-key (kbd "C-.") 'skk-j-mode-activate)
+  (global-set-key (kbd "C-<henkan>") 'skk-j-mode-activate)
+  (global-set-key (kbd "C-,") 'skk-latin-mode)
+  (global-set-key (kbd "C-<muhenkan>") 'skk-latin-mode)
+
+  (setq skk-cursor-hiragana-color "PaleGreen")
+  (setq skk-cursor-katakana-color "HotPink1")
+  (setq skk-egg-like-newline t)         ; ▼モードでEnterを押しても改行しない
+  (setq skk-status-indicator 'minor-mode)
+  (setq skk-status-indicator 'left)
+  (setq skk-japanese-message-and-error t) ;日本語によるメッセージ、エラー表示
+  (setq skk-version-codename-ja t)      ; 日本語によるバージョン表示
+  (setq skk-use-color-cursor t)
+  (setq skk-keep-record t)                ;統計を取る
+  (setq skk-auto-save-timer
+        (run-with-idle-timer 600 t 'skk-save-jisyo))
 
   ;; slack
   (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
