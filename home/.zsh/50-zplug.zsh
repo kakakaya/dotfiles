@@ -19,4 +19,6 @@ zplug "mollifier/cd-gitroot"
 # 色が醜い
 # zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
+zplug "zsh-users/zsh-completions", depth:1
+
 zplug load
