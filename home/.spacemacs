@@ -46,6 +46,7 @@ values."
      c-c++
      latex
      sql
+     typescript
 
      auto-completion                    ;; should be lower
      syntax-checking
@@ -86,6 +87,7 @@ values."
                                       ;; slack
                                       alert
                                       emojify
+                                      ag
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
