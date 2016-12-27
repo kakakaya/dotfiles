@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "node": {}
+  },
+  "libs": [
+    "browser",
+    "jquery"
+  ]
+}
