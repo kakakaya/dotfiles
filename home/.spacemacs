@@ -294,16 +294,16 @@ in `dotspacemacs/user-config'."
   ;; I appear to be setting environment variables ("PATH") in your .bashrc or .zshrc
   (setq exec-path-from-shell-check-startup-files nil)
 
-  (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
+  (define-key global-map (kbd "M-?") 'help-for-help) ; ヘルプ
   (global-set-key (kbd "C-h") 'delete-backward-char)
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
   ;; (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
-  (global-set-key (kbd "C-c ;") 'comment-dwim)         ; コメントアウト
-  (global-set-key (kbd "M-C-g") 'grep)            ; grep
+  (global-set-key (kbd "C-c ;") 'comment-dwim) ; コメントアウト
+  (global-set-key (kbd "M-C-g") 'grep)         ; grep
   ;; (global-set-key (kbd "C-[ M-C-g") 'goto-line)         ; 指定行へ移動
-  (global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)   ; yank list
-  (global-set-key (kbd "C-x f") 'helm-find-files)     ;
+  (global-set-key (kbd "C-c #") 'hs-toggle-hiding)  ; 折りたたみトグル
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring) ; yank list
+  (global-set-key (kbd "C-x f") 'helm-find-files)   ;
   ;; (global-set-key (kbd "C-x C-r") 'helm-recentf)       ;
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
@@ -620,11 +620,11 @@ layers configuration. You are free to put any user code."
   (if (file-exists-p "~/Dropbox/config/skk")
       ;; awful!
       (progn
-      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-      (setq skk-jisyo "~/Dropbox/config/skk/jisyo")    ;が、読まれないが、こう設定するとjiysoは動く
-      (setq skk-record "~/Dropbox/config/skk/record")  ;しかし、recordとstudyは反映されない
-      (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
-      )
+        (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+        (setq skk-jisyo "~/Dropbox/config/skk/jisyo") ; が、読まれないが、こう設定するとjiysoは動く
+        (setq skk-record "~/Dropbox/config/skk/record") ;しかし、recordとstudyは反映されない
+        (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
+        )
     )
   ;; (require 'skk-decor nil t)
   (defun skk-j-mode-activate ()
