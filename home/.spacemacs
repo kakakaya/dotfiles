@@ -290,6 +290,9 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
+  ;; I appear to be setting environment variables ("PATH") in your .bashrc or .zshrc
+  (setq exec-path-from-shell-check-startup-files nil)
+
   (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
   (global-set-key (kbd "C-h") 'delete-backward-char)
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
