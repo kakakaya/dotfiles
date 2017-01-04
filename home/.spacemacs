@@ -157,8 +157,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 9
+   dotspacemacs-default-font '("Ricty"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -364,12 +364,6 @@ in `dotspacemacs/user-config'."
                          (move-overlay overlay (point-max) (point-max))))))))
   (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
-  (when window-system
-    (set-face-attribute 'default nil
-                        :family "Inconsolata"
-                        :height 100)
-    (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
-
   (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
   (setq js2-basic-offset 2)
 
@@ -396,6 +390,14 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; (when window-system
+  ;;   ;; (set-face-attribute 'default nil
+  ;;   ;;                     :family "Inconsolata"
+  ;;   ;;                     :height 100)
+  ;;   )
+  ;; 〜～
+  ;; (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 
   ;; not works well in user-init
   (global-set-key (kbd "C-z") 'undo)                ; undo
