@@ -429,6 +429,7 @@ layers configuration. You are free to put any user code."
         '(
           ;; ファイル名で決定されるもの
           ("setup\\.py\\'" . ["template.setup.py" my-template])
+          ("_test\\.py\\'" . ["_test.py" my-template])
           ("urls\\.py\\'" . ["template.urls.py" my-template])
           ("README\\.md\\'" . ["template.README.md" my-template])
           ;; 拡張子で決定されるもの
