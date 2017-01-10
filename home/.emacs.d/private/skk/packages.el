@@ -63,7 +63,7 @@ Each entry is either:
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
 
-(defun skk/init-skk-aquamarine ()
+(defun skk/post-init-skk ()
   (use-package skk-aquamarine)
     :defer t
     :init
