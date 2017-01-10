@@ -157,8 +157,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 9
+   dotspacemacs-default-font '("Ricty"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -290,16 +290,19 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
-  (define-key global-map (kbd "M-?") 'help-for-help)        ; ヘルプ
+  ;; I appear to be setting environment variables ("PATH") in your .bashrc or .zshrc
+  (setq exec-path-from-shell-check-startup-files nil)
+
+  (define-key global-map (kbd "M-?") 'help-for-help) ; ヘルプ
   (global-set-key (kbd "C-h") 'delete-backward-char)
   ;; (global-set-key (kbd "C-c i") 'indent-region)             ; インデント ;M-m j =
   ;; (global-set-key (kbd "C-c C-i") 'hippie-expand)          ; 補完
-  (global-set-key (kbd "C-c ;") 'comment-dwim)         ; コメントアウト
-  (global-set-key (kbd "M-C-g") 'grep)            ; grep
+  (global-set-key (kbd "C-c ;") 'comment-dwim) ; コメントアウト
+  (global-set-key (kbd "M-C-g") 'grep)         ; grep
   ;; (global-set-key (kbd "C-[ M-C-g") 'goto-line)         ; 指定行へ移動
-  (global-set-key (kbd "C-c #") 'hs-toggle-hiding)    ; 折りたたみトグル
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring)   ; yank list
-  (global-set-key (kbd "C-x f") 'helm-find-files)     ;
+  (global-set-key (kbd "C-c #") 'hs-toggle-hiding)  ; 折りたたみトグル
+  (global-set-key (kbd "M-y") 'helm-show-kill-ring) ; yank list
+  (global-set-key (kbd "C-x f") 'helm-find-files)   ;
   ;; (global-set-key (kbd "C-x C-r") 'helm-recentf)       ;
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "C-M-x") 'execute-extended-command) ;
@@ -361,12 +364,6 @@ in `dotspacemacs/user-config'."
                          (move-overlay overlay (point-max) (point-max))))))))
   (add-hook 'find-file-hooks 'set-buffer-end-mark)
 
-  (when window-system
-    (set-face-attribute 'default nil
-                        :family "Inconsolata"
-                        :height 100)
-    (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty")))
-
   (add-to-list 'auto-mode-alist '("\.gas\\'" . js2-mode))
   (setq js2-basic-offset 2)
 
@@ -393,6 +390,14 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  ;; (when window-system
+  ;;   ;; (set-face-attribute 'default nil
+  ;;   ;;                     :family "Inconsolata"
+  ;;   ;;                     :height 100)
+  ;;   )
+  ;; 〜～
+  ;; (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 
   ;; not works well in user-init
   (global-set-key (kbd "C-z") 'undo)                ; undo
@@ -424,6 +429,7 @@ layers configuration. You are free to put any user code."
         '(
           ;; ファイル名で決定されるもの
           ("setup\\.py\\'" . ["template.setup.py" my-template])
+          ("_test\\.py\\'" . ["_test.py" my-template])
           ("urls\\.py\\'" . ["template.urls.py" my-template])
           ("README\\.md\\'" . ["template.README.md" my-template])
           ;; 拡張子で決定されるもの
@@ -613,11 +619,11 @@ layers configuration. You are free to put any user code."
   (if (file-exists-p "~/Dropbox/config/skk")
       ;; awful!
       (progn
-      (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
-      (setq skk-jisyo "~/Dropbox/config/skk/jisyo")    ;が、読まれないが、こう設定するとjiysoは動く
-      (setq skk-record "~/Dropbox/config/skk/record")  ;しかし、recordとstudyは反映されない
-      (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
-      )
+        (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
+        (setq skk-jisyo "~/Dropbox/config/skk/jisyo") ; が、読まれないが、こう設定するとjiysoは動く
+        (setq skk-record "~/Dropbox/config/skk/record") ;しかし、recordとstudyは反映されない
+        (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
+        )
     )
   ;; (require 'skk-decor nil t)
   (defun skk-j-mode-activate ()

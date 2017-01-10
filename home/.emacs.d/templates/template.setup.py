@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 # Author: %id%, Date: %date%
 from setuptools import setup, find_packages
