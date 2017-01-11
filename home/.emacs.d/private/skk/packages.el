@@ -65,15 +65,15 @@ Each entry is either:
 
 (defun skk/init-skk-aquamarine ()
   (use-package skk-aquamarine)
-    :defer t
-    :init
-    (progn
-      (cond
-       (skk-mode-invoked
-        (message "invoked yet")
-        (t
-         (message "not invoked")))
-       )
-      (setq skk-aquamarine-use-normal-y nil)
-      ))
+  :defer t
+  :init
+  (progn
+    (cond
+     (skk-mode-invoked
+      (message "invoked yet"))
+     (t
+      (message "not invoked"))
+     )
+    (setq skk-aquamarine-use-normal-y nil)
+    ))
 ;;; packages.el ends here

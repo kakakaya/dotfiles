@@ -2,9 +2,9 @@
 # -*- mode:shell-script; coding:utf-8 -*-
 # Author: kakakaya, Date: Tue Oct 20 17:08:36 2015
 
-if [ ! $(dropbox status) = 最新の状態 ]; then
-    echo "Run this script after Dropbox's sync end!"
-    return 1;
+if [ ! $(dropbox status) = "最新の状態" ]; then
+    echo "Run this script after Dropbox's sync end."
+    exit
 fi
 
 # Make symbolic link
