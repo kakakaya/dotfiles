@@ -113,3 +113,6 @@ GSYMS
 GTAGS
 *.db
 *.class
+
+# npm
+node_modules
