@@ -17,7 +17,7 @@ apt-get install\
         xinput xcape awesome-extra arandr\
         ipython ipython3 arp-scan autojump\
         nyancat sl tty-clock oneko\
-        fortune fontunes-debian-hints\
+        fortunes fontunes-debian-hints\
         emacs ddskk skkdic-extra howm\
         jq
 
