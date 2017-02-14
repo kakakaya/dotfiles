@@ -32,6 +32,11 @@ if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
     export FPATH="$HOME/src/github.com/zsh-users/zsh-completions/src:$FPATH"
 fi
 
+# .zsh/completionsディレクトリがあれば読み込む
+if [[ -d $HOME/.zsh/completions ]]; then
+    export FPATH="$HOME/.zsh/completions:$FPATH"
+fi
+
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
     export PATH=$PATH:"$HOME/Dropbox/bin"
