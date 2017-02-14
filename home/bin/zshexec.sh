@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 # -*- coding:utf-8 -*-
-PROCCOUNT=`expr \`ps -Afl | wc -l\` - 5`
+# This shows startup screen for zsh
+# PROCCOUNT=`expr \`ps -Afl | wc -l\` - 5`
 if [ "$SHLVL" -le 2 ]; then
     [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
     if [[ -x /usr/bin/figlet ]]; then
