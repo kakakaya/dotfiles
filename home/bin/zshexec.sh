@@ -6,9 +6,9 @@ if [ "$SHLVL" -le 2 ]; then
     [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
     if hash fortune >& /dev/null; then
         if [ -e /usr/share/figlet/colossal.flf ]; then
-            figlet -f colossal $host 2>/dev/null
+            figlet -f colossal "$host" 2>/dev/null
         else
-            figlet $host 2>/dev/null
+            figlet "$host" 2>/dev/null
         fi
     fi
     if hash fortune >& /dev/null; then
@@ -16,5 +16,4 @@ if [ "$SHLVL" -le 2 ]; then
         fortune -a
     fi
     w
-    if 
 fi
