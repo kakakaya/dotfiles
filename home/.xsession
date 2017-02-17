@@ -49,6 +49,10 @@ if [ -f $HOME/.emacs.desktop.lock ]; then
 fi
 emacs &
 
+if [[ -x "$HOME/Enpass/runenpass.sh" ]]; then
+    $HOME/Enpass/runenpass.sh &
+fi
+
 if [[ -x /usr/bin/dropbox ]]; then
     dropbox start
 fi
