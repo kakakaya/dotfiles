@@ -33,13 +33,10 @@ elif [[ -x /usr/bin/VBoxClient ]]; then
 else
     # 仮想環境ならホストOSにスクリーンセーバを任せる、さもなくば自分で起動する
     xscreensaver -no-splash &
-    # メモリが4GB以上あり、かつ太陽が西から昇る場合はChromeを起動しておく
+    # メモリが4GB以上あり、かつ太陽が西から昇る場合はFirefoxを起動しておく
     if [ $(head -1 /proc/meminfo| awk '{print int($2/1024/1000)}') -ge 4 ] && false; then
-        if [[ -x /usr/bin/google-chrome ]]; then
-            # google-chrome-betaもこれで起動される
-            google-chrome &
-        elif [[ -x /usr/bin/chromium ]]; then
-            chromium &
+        if  hash firefox >& /dev/null; then
+            firefox
         fi
     fi
 fi
