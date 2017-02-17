@@ -417,9 +417,6 @@ awful.rules.rules = {
      properties = { floating = true } },
    { rule = { class = "Uim-pref-gtk3" },
      properties = { floating = true } },
-   -- Set Firefox to always map on tags number 2 of screen 1.
-   -- { rule = { class = "Firefox" },
-   --   properties = { tag = tags[1][2] } },
    -- xprop to check class
 
    -- Emacs is Window 1
@@ -436,6 +433,10 @@ awful.rules.rules = {
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
+   -- Enpass should be also Window 2.
+   { rule = { class = "Enpass-Desktop" },
+     properties = { floating = true,
+                    tag  = tags[1][2]}}
    -- Terminal is Window 3
    { rule = { class = "URxvt" },
      properties = { tag = tags[1][3]}},
