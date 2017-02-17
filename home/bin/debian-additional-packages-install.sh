@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [[ "$EUID" -ne 0 ]] then
-   echo "Run as root!"
+if [ $(id -u) -ne 0 ]; then
+   echo "Run as root"
    exit
 fi
 
@@ -17,6 +17,7 @@ apt-get install\
         xinput xcape awesome-extra arandr\
         ipython ipython3 arp-scan autojump\
         nyancat sl tty-clock oneko\
+        fortunes fontunes-debian-hints\
         emacs ddskk skkdic-extra howm\
         jq
 

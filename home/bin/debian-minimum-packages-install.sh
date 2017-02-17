@@ -1,9 +1,9 @@
 #!/bin/bash
 # Install minimum required packages
 
-if [[ "$EUID" -ne 0 ]] then
-   echo "Run as root!"
-   exit
+if [[ $(id -u) -ne 0 ]]; then
+    echo "Run as root"
+    exit
 fi
 
 # apt

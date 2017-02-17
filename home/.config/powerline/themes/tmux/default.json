@@ -28,10 +28,6 @@
                 }
             },
             {
-                "function": "powerline.segments.common.wthr.weather",
-                "interval": 3600
-            },
-            {
                 "function": "powerline.segments.common.net.hostname"
             }
         ]

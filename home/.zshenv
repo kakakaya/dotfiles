@@ -29,12 +29,12 @@ unset userpath addpath i chksame # 後始末
 
 # zsh-completionがインストールされていたら読み込む
 if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
-    export fpath="($HOME/src/github.com/zsh-users/zsh-completions/src $fpath)"
+    export FPATH="$HOME/src/github.com/zsh-users/zsh-completions/src:$FPATH"
 fi
 
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
-    PATH=$PATH:"$HOME/Dropbox/bin"
+    export PATH=$PATH:"$HOME/Dropbox/bin"
 fi
 
 if [[ -d /opt/gurobi ]]; then
@@ -46,11 +46,11 @@ fi
 
 if [[ -d $HOME/.local/google_appengine ]]; then
     # Google App Engine SDK がインストールされていたらPATHを通す
-    PATH=$PATH:$HOME/.local/google_appengine/
+    export PATH="$PATH:$HOME/.local/google_appengine"
 fi
 
 if [[ -x /usr/bin/uname || -x /bin/uname ]]; then
-    case "`uname -sr`" in
+    case "$(uname -sr)" in
         FreeBSD*); export ARCHI="freebsd" ;;
         Linux*);   export ARCHI="linux"   ;;
         CYGWIN*);  export ARCHI="cygwin"  ;;
