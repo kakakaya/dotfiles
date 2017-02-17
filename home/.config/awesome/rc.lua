@@ -426,6 +426,8 @@ awful.rules.rules = {
    { rule = { class = "Emacs" },
      properties = { tag = tags[1][1]}},
    -- Browser is Window 2
+   { rule = { class = "Firefox" },
+     properties = { tag = tags[1][2]} },
    { rule = { class = "Google-chrome" },
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium" },
