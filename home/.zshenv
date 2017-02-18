@@ -139,23 +139,26 @@ fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
-    case ${HOST} in
-        Azurite*)
-            #ThinkpadX200 setting
+    local PRODUCT="UNKNOWN"
+    if [[ -f '/sys/devices/virtual/dmi/id/product_name' ]]; then
+        PRODUCT="$(cat /sys/devices/virtual/dmi/id/product_name)"
+    fi
+    case "$PRODUCT" in
+        74574PJ*)               # Azurite, megumin, etc
+            #ThinkpadX200
             xset m 4 2
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
             ;;
-
-        # akari)
-        #     synclient TapButton1=1
-        #     synclient TapButton2=2
-        #     synclient TapButton3=3
-        #     synclient CircularScrolling=1
-        #     synclient CircScrollTrigger=0
-        #     ;;
+        akari)                  # old PC from mountain, in MMA
+            synclient TapButton1=1
+            synclient TapButton2=2
+            synclient TapButton3=3
+            synclient CircularScrolling=1
+            synclient CircScrollTrigger=0
+            ;;
     esac
 else
     # This is in console
