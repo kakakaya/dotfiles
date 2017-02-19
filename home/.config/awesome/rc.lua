@@ -436,7 +436,7 @@ awful.rules.rules = {
    -- Enpass should be also Window 2.
    { rule = { class = "Enpass-Desktop" },
      properties = { floating = true,
-                    tag  = tags[1][2]}}
+                    tag  = tags[1][2] } },
    -- Terminal is Window 3
    { rule = { class = "URxvt" },
      properties = { tag = tags[1][3]}},
