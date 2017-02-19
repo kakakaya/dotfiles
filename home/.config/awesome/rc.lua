@@ -81,7 +81,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", 6, 7, "8.PDF", 9 },
+   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", "6.Lock", 7, "8.PDF", 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
               layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -436,7 +436,7 @@ awful.rules.rules = {
    -- Enpass should be also Window 2.
    { rule = { class = "Enpass-Desktop" },
      properties = { floating = true,
-                    tag  = tags[1][2] } },
+                    tag  = tags[1][6] } },
    -- Terminal is Window 3
    { rule = { class = "URxvt" },
      properties = { tag = tags[1][3]}},
