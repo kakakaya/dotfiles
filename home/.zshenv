@@ -101,6 +101,9 @@ fi
 # pythonz
 [[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
 
+# nodenv
+[[ -d $HOME/.nodenv ]] && export PATH="$HOME/.nodenv/bin:$PATH"
+
 export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"
