@@ -102,7 +102,7 @@ fi
 [[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
 
 # nodenv
-[[ -d $HOME/.nodenv ]] && export PATH="$HOME/.nodenv/bin:$PATH"
+[[ -d $HOME/.nodenv ]] && export PATH="$HOME/.nodenv/bin:$PATH" && eval "$(nodenv init -)"
 
 export GOPATH="$HOME"
 
