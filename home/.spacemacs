@@ -88,6 +88,7 @@ values."
                                       alert
                                       emojify
                                       ag
+                                      navi2ch
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -662,6 +663,16 @@ layers configuration. You are free to put any user code."
 
   ;; alert
   (setq alert-default-style 'notifications)
+
+  ;; navi2ch
+  (add-hook 'navi2ch-hook
+            '(lambda ()
+               (message "Hello")
+               (start-process "2ch-proxy"
+                              "2chproxy log"
+                              (concat (getenv "HOME") "/src/github.com/yama-natuki/2chproxy.pl/2chproxy.pl"))
+               (process-kill-without-query (get-process "2ch-proxy"))
+               ))
 
   ;; ================================
   ;; THE END of dotspacemacs/user-config
