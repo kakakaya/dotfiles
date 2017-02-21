@@ -1,3 +1,5 @@
+(setq navi2ch-net-http-proxy "127.0.0.1:8080")
+(setq navi2ch-net-send-message-use-http-proxy nil)
 (setq navi2ch-mona-face-variable 'navi2ch-mona16-face)
 (setq navi2ch-article-auto-range nil)
 (setq navi2ch-list-bbstable-url
