@@ -83,6 +83,7 @@ values."
                                       lua-mode
                                       magic-latex-buffer
                                       graphviz-dot-mode
+                                      terraform-mode
 
                                       yaml-mode
                                       ;; slack
