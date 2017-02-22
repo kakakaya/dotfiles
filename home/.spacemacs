@@ -71,16 +71,17 @@ values."
                                       autoinsert
                                       ;; tabbar
                                       ddskk
-                                      nginx-mode
                                       rainbow-mode
                                       git-gutter
                                       desktop
+                                      twittering-mode
+
+                                      ;; file editing modes
                                       nginx-mode
                                       dockerfile-mode
                                       toml-mode
                                       lua-mode
                                       magic-latex-buffer
-                                      twittering-mode
                                       graphviz-dot-mode
 
                                       yaml-mode
