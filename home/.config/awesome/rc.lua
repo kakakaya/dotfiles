@@ -343,7 +343,7 @@ clientkeys = awful.util.table.join(
          c.maximized_horizontal = not c.maximized_horizontal
          c.maximized_vertical   = not c.maximized_vertical
    end),
-   awful.key({ modkey,           }, "F12",    function () awful.util.spawn("xlock") end)
+   awful.key({ modkey,           }, "F12",    function () awful.util.spawn_with_shell("xscreensaver-command -lock") end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
