@@ -81,7 +81,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", 6, 7, "8.PDF", 9 },
+   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", "6.Lock", "7.Slack", "8.PDF", 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
               layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -343,7 +343,7 @@ clientkeys = awful.util.table.join(
          c.maximized_horizontal = not c.maximized_horizontal
          c.maximized_vertical   = not c.maximized_vertical
    end),
-   awful.key({ modkey,           }, "F12",    function () awful.util.spawn("xlock") end)
+   awful.key({ modkey,           }, "F12",    function () awful.util.spawn_with_shell("xscreensaver-command -lock") end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -433,10 +433,6 @@ awful.rules.rules = {
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium-browser" },
      properties = { tag = tags[1][2]} },
-   -- Enpass should be also Window 2.
-   { rule = { class = "Enpass-Desktop" },
-     properties = { floating = true,
-                    tag  = tags[1][2] } },
    -- Terminal is Window 3
    { rule = { class = "URxvt" },
      properties = { tag = tags[1][3]}},
@@ -449,6 +445,14 @@ awful.rules.rules = {
    -- Filer is Window 5
    { rule = { class = "Pcmanfm" },
      properties = { tag = tags[1][5]}},
+   -- Enpass should be in Window 6.
+   { rule = { class = "Enpass-Desktop" },
+     properties = { floating = true,
+                    tag  = tags[1][6] } },
+   -- Slack is Window 7.
+   { rule = { class = "Slack" },
+     properties = { floating = true,
+                    tag  = tags[1][7] } },
    -- PDF is Window 8
    { rule = { class = "MuPDF" },
      properties = { tag = tags[1][8]}},

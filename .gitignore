@@ -33,6 +33,8 @@ home/.emacs.d/request/
 
 !home/.emacs.d/private/**/*
 
+home/.zsh/completions/*
+
 # .config/awesome/rc.lua
 # .config/awesome/themes/my-zenburn/theme.lua
 # .config/awesome/themes/my-zenburn/awesome-icon.png
