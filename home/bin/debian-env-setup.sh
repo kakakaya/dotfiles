@@ -6,11 +6,16 @@ mkdir -p ~/.fonts ~/tmp ~/mnt ~/git ~/.ssh ~/.local/go
 
 # go packages
 export GOPATH="$HOME"
-go get -v "github.com/peco/peco/cmd/peco"
-go get -v "github.com/nsf/gocode"
-go get -v "github.com/k0kubun/pp"
-go get -v "github.com/motemen/ghq"
-go get -v "github.com/github/hub"
+go get -u -v "github.com/peco/peco/cmd/peco" \
+   "github.com/nsf/gocode" \
+   "github.com/k0kubun/pp" \
+   "github.com/motemen/ghq" \
+   "github.com/github/hub" \
+   "github.com/nsf/gocode" \
+   "github.com/rogpeppe/godef" \
+   "golang.org/x/tools/cmd/guru" \
+   "golang.org/x/tools/cmd/gorename" \
+   "golang.org/x/tools/cmd/goimports"
 
 # install powerline
 ghq get -v "powerline/powerline"
