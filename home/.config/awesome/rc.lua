@@ -81,7 +81,7 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 
 tags = {
-   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", 6, 7, "8.PDF", 9 },
+   names = { "1.Emacs", "2.Web", "3.Term", "4.Miku", "5.File", "6.Lock", "7.Slack", "8.PDF", 9 },
    layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2],
               layouts[2], layouts[2], layouts[2], layouts[2] }}
 
@@ -343,7 +343,7 @@ clientkeys = awful.util.table.join(
          c.maximized_horizontal = not c.maximized_horizontal
          c.maximized_vertical   = not c.maximized_vertical
    end),
-   awful.key({ modkey,           }, "F12",    function () awful.util.spawn("xlock") end)
+   awful.key({ modkey,           }, "F12",    function () awful.util.spawn_with_shell("xscreensaver-command -lock") end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -417,15 +417,14 @@ awful.rules.rules = {
      properties = { floating = true } },
    { rule = { class = "Uim-pref-gtk3" },
      properties = { floating = true } },
-   -- Set Firefox to always map on tags number 2 of screen 1.
-   -- { rule = { class = "Firefox" },
-   --   properties = { tag = tags[1][2] } },
    -- xprop to check class
 
    -- Emacs is Window 1
    { rule = { class = "Emacs" },
      properties = { tag = tags[1][1]}},
    -- Browser is Window 2
+   { rule = { class = "Firefox" },
+     properties = { tag = tags[1][2]} },
    { rule = { class = "Google-chrome" },
      properties = { tag = tags[1][2]} },
    { rule = { class = "chromium" },
@@ -446,6 +445,14 @@ awful.rules.rules = {
    -- Filer is Window 5
    { rule = { class = "Pcmanfm" },
      properties = { tag = tags[1][5]}},
+   -- Enpass should be in Window 6.
+   { rule = { class = "Enpass-Desktop" },
+     properties = { floating = true,
+                    tag  = tags[1][6] } },
+   -- Slack is Window 7.
+   { rule = { class = "Slack" },
+     properties = { floating = true,
+                    tag  = tags[1][7] } },
    -- PDF is Window 8
    { rule = { class = "MuPDF" },
      properties = { tag = tags[1][8]}},

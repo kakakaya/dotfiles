@@ -32,6 +32,11 @@ if [[ -d $HOME/src/github.com/zsh-users/zsh-completions ]]; then
     export FPATH="$HOME/src/github.com/zsh-users/zsh-completions/src:$FPATH"
 fi
 
+# .zsh/completionsディレクトリがあれば読み込む
+if [[ -d $HOME/.zsh/completions ]]; then
+    export FPATH="$HOME/.zsh/completions:$FPATH"
+fi
+
 # ディレクトリの存在に応じたパスなどの設定
 if [[ -d $HOME/Dropbox/bin ]]; then
     export PATH=$PATH:"$HOME/Dropbox/bin"
@@ -96,6 +101,9 @@ fi
 # pythonz
 [[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
 
+# nodenv
+[[ -d $HOME/.nodenv ]] && export PATH="$HOME/.nodenv/bin:$PATH" && eval "$(nodenv init -)"
+
 export GOPATH="$HOME"
 
 # export LC_ALL="ja_JP.UTF-8"
@@ -139,23 +147,26 @@ fi
 
 if [[ `tty | cut -d / -f 3` = pts ]]; then
     # This is in X
-    case ${HOST} in
-        Azurite*)
-            #ThinkpadX200 setting
+    local PRODUCT="UNKNOWN"
+    if [[ -f '/sys/devices/virtual/dmi/id/product_name' ]]; then
+        PRODUCT="$(cat /sys/devices/virtual/dmi/id/product_name)"
+    fi
+    case "$PRODUCT" in
+        74574PJ*)               # Azurite, megumin, etc
+            #ThinkpadX200
             xset m 4 2
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
             xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
             ;;
-
-        # akari)
-        #     synclient TapButton1=1
-        #     synclient TapButton2=2
-        #     synclient TapButton3=3
-        #     synclient CircularScrolling=1
-        #     synclient CircScrollTrigger=0
-        #     ;;
+        akari)                  # old PC from mountain, in MMA
+            synclient TapButton1=1
+            synclient TapButton2=2
+            synclient TapButton3=3
+            synclient CircularScrolling=1
+            synclient CircScrollTrigger=0
+            ;;
     esac
 else
     # This is in console

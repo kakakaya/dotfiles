@@ -133,7 +133,8 @@ PROMPT2="%_%%>"
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # [ -d ~/.zsh-autosuggestions ] && zsh-autocmp
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -d $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/ ] && . $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/powerline.zsh
+# [ -d $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/ ] && . $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/powerline.zsh # no more powerline
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" # gvm configure
 
 if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     # The next line updates PATH for the Google Cloud SDK.
