@@ -131,10 +131,9 @@ PROMPT2="%_%%>"
 [ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
 [ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-# [ -d ~/.zsh-autosuggestions ] && zsh-autocmp
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# [ -d $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/ ] && . $HOME/src/github.com/powerline/powerline/powerline/bindings/zsh/powerline.zsh # no more powerline
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" # gvm configure
+[ -f /home/kakakaya/.travis/travis.sh ] && source /home/kakakaya/.travis/travis.sh
 
 if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     # The next line updates PATH for the Google Cloud SDK.
