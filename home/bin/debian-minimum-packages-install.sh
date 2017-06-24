@@ -7,20 +7,20 @@ if [[ $(id -u) -ne 0 ]]; then
 fi
 
 # apt
-apt-get update
-apt-get install\
-        git tig\
-        zsh jed byobu most\
-        automake autoconf\
-        curl\
-        htop python3-setuptools python3-pip trash-cli wdiff\
-        golang ruby\
-        colorgcc colortail colormake colordiff source-highlight\
-        sshfs tree\
-        figlet\
-        jq
+apt update
+apt install\
+    git tig\
+    zsh jed byobu most\
+    automake autoconf\
+    curl\
+    htop python3-setuptools python3-pip trash-cli wdiff\
+    golang ruby\
+    colorgcc colortail colormake colordiff source-highlight\
+    sshfs tree\
+    figlet\
+    jq
 
-apt-get upgrade
+apt full-upgrade
 
 # Python
 # pip
