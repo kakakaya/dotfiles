@@ -13,6 +13,11 @@ ln -s $HOME/Dropbox/Workspace $HOME
 ln -s $HOME/Dropbox/Study $HOME
 ln -s $HOME/Dropbox/Work $HOME
 
+# ssh config
+ln -s ~/Dropbox/config/ssh/config ~/.ssh/config
+cp ~/Dropbox/config/ssh/id_ed25519* ~/.ssh/
+chmod 600 ~/.ssh/*
+
 # Install fonts
 mkdir -p $HOME/.fonts
 cp $HOME/Dropbox/config/fonts/*.otf $HOME/Dropbox/config/fonts/*.ttf $HOME/.fonts/
