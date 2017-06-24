@@ -19,5 +19,5 @@ cp $HOME/Dropbox/config/fonts/*.otf $HOME/Dropbox/config/fonts/*.ttf $HOME/.font
 fc-cache ~/.fonts
 
 # Install jlisting.sty
-sudo cp ~/Dropbox/config/jlisting.sty /usr/share/texlive/texmf-dist/tex/latex/listings/
+sudo cp ~/Dropbox/config/latex/jlisting.sty /usr/share/texlive/texmf-dist/tex/latex/listings/
 sudo mktexlsr
