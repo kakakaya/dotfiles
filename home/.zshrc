@@ -12,7 +12,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*:processes' menu yes select=2
 
 if [[ ! -d ~/.zplug ]]; then
-    curl -sL zplug.sh/installer | zsh
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 source ~/.zplug/init.zsh
 
