@@ -22,7 +22,3 @@ apt-get install\
         jq
 
 apt-get upgrade
-
-# Python
-# pip
-pip install -U powerline-status
