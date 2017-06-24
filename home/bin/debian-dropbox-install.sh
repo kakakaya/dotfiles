@@ -15,7 +15,7 @@ ln -s $HOME/Dropbox/Work $HOME
 
 # Install fonts
 mkdir -p $HOME/.fonts
-cp $HOME/Dropbox/config/*.otf $HOME/Dropbox/config/*.ttf $HOME/.fonts/
+cp $HOME/Dropbox/config/fonts/*.otf $HOME/Dropbox/config/fonts/*.ttf $HOME/.fonts/
 fc-cache ~/.fonts
 
 # Install jlisting.sty
