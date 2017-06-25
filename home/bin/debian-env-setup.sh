@@ -24,6 +24,6 @@ echo "change shell"
 chsh -s /bin/zsh $USER
 
 # Dropbox initialize
-# dropbox start -i
+echo 'run `dropbox start -i`'
 
 exit 0
