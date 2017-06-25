@@ -14,7 +14,7 @@ apt install\
     terminator\
     chromium\
     pcmanfm nautilus-dropbox mupdf\
-    xinput xcape awesome-extra arandr\
+    xdg-user-dirs-gtk xinput xcape awesome-extra arandr\
     ipython ipython3 arp-scan autojump\
     nyancat sl tty-clock oneko\
     fortunes fortunes-debian-hints\
