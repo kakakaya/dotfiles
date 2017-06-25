@@ -15,7 +15,7 @@ apt install\
     curl\
     htop python3-setuptools python3-pip trash-cli wdiff\
     golang ruby\
-    colorgcc colortail colormake colordiff source-highlight\
+    colortail colormake colordiff source-highlight\
     sshfs tree\
     figlet\
     jq
