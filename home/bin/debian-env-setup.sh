@@ -23,6 +23,8 @@ curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 echo "change shell"
 chsh -s /bin/zsh $USER
 
+LC_ALL=C xdg-user-dirs-gtk-update
+
 # Dropbox initialize
 echo 'run `dropbox start -i`'
 
