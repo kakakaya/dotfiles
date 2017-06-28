@@ -17,16 +17,15 @@ go get -u -v "github.com/peco/peco/cmd/peco" \
    "golang.org/x/tools/cmd/gorename" \
    "golang.org/x/tools/cmd/goimports"
 
-# install powerline
-ghq get -v "powerline/powerline"
-
 # install pythonz
 curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 
 echo "change shell"
 chsh -s /bin/zsh $USER
 
+LC_ALL=C xdg-user-dirs-gtk-update
+
 # Dropbox initialize
-# dropbox start -i
+echo 'run `dropbox start -i`'
 
 exit 0
