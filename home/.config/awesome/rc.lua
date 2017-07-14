@@ -10,9 +10,15 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+-- For dynamic widgets
+local vicious = require("vicious")
+
 
 -- Load Debian menu entries
 require("debian.menu")
+
+-- Set language to Japanese
+os.setlocale("ja_JP.UTF-8")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -111,8 +117,10 @@ mymainmenu = awful.menu(
    }
 })
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
+mylauncher = awful.widget.launcher({
+      image = beautiful.awesome_icon,
+      menu = mymainmenu
+})
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -123,7 +131,29 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock("%y/%m/%d %H:%M （%a）")
+
+-- cpuwidget
+cputext = wibox.widget({ type = "textbox" })
+cputext.text = ' cpu '
+cpuwidget = wibox.widget.graph()
+cpuwidget:set_width(60)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color({ type = "linear", from = { 0, 17 }, to = { 0, 0 },
+                      stops = { { 0, "#FFC837" }, { 1, "#FF3008" }}})
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1", refreshdelay)
+
+-- memwidget
+memtext = wibox.widget({ type = "textbox" })
+memtext.text = ' mem '
+memwidget = wibox.widget.graph()
+memwidget:set_width(60)
+memwidget:set_height(17)
+memwidget:set_background_color("#494B4F")
+memwidget:set_border_color(nil)
+memwidget:set_color({ type = "linear", from = { 0, 17 }, to = { 0, 0 },
+                      stops = { { 0, "#3CD3AD" }, { 1, "#93F9B9" }}})
+vicious.register(memwidget, vicious.widgets.mem, "$1", refreshdelay)
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -221,8 +251,12 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
             wibox.widget.systray(),
+            cputext,
+            cpuwidget,
+            memtext,
+            memwidget,
+            mykeyboardlayout,
             mytextclock,
             s.mylayoutbox,
         },
