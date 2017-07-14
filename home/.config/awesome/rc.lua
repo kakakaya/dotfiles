@@ -101,11 +101,15 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end}
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+mymainmenu = awful.menu(
+   { items = {
+        { "awesome", myawesomemenu, beautiful.awesome_icon },
+        { "Debian", debian.menu.Debian_menu.Debian },
+        { "open terminal", terminal },
+        { "Lock screen", function ()
+             awful.util.spawn_with_shell("xscreensaver-command -lock") end  }
+   }
+})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
