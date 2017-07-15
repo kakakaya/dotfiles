@@ -134,18 +134,23 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock("%y/%m/%d %H:%M （%a）")
 
 -- cpuwidget
-cputext = wibox.widget({ type = "textbox" })
-cputext.text = ' cpu '
+cputext = wibox.widget({
+      markup = " cpu ",
+      widget = wibox.widget.textbox
+})
 cpuwidget = wibox.widget.graph()
 cpuwidget:set_width(60)
 cpuwidget:set_background_color("#494B4F")
 cpuwidget:set_color({ type = "linear", from = { 0, 17 }, to = { 0, 0 },
                       stops = { { 0, "#FFC837" }, { 1, "#FF3008" }}})
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1", refreshdelay)
+cpucontainer = wibox.container.mirror(cpuwidget, {horizontal = true})
 
 -- memwidget
-memtext = wibox.widget({ type = "textbox" })
-memtext.text = ' mem '
+memtext = wibox.widget({
+      markup = " mem ",
+      widget = wibox.widget.textbox
+})
 memwidget = wibox.widget.graph()
 memwidget:set_width(60)
 memwidget:set_height(17)
@@ -154,6 +159,7 @@ memwidget:set_border_color(nil)
 memwidget:set_color({ type = "linear", from = { 0, 17 }, to = { 0, 0 },
                       stops = { { 0, "#3CD3AD" }, { 1, "#93F9B9" }}})
 vicious.register(memwidget, vicious.widgets.mem, "$1", refreshdelay)
+memcontainer = wibox.container.mirror(memwidget, {horizontal = true})
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -253,9 +259,9 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             cputext,
-            cpuwidget,
+            cpucontainer,
             memtext,
-            memwidget,
+            memcontainer,
             mykeyboardlayout,
             mytextclock,
             s.mylayoutbox,
