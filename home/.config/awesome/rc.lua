@@ -47,7 +47,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init("~/.config/awesome/themes/my-zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
@@ -219,12 +219,25 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+tag_1 = "1.Emacs"
+tag_2 = "2.Web"
+tag_3 = "3.Term"
+tag_4 = "4"
+tag_5 = "5.File"
+tag_6 = "6.Lock"
+tag_7 = "7.Slack"
+tag_8 = "8.PDF"
+tag_9 = "9.tmp"
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1.Emacs", "2.Web", "3.Term", "4", "5.File", "6.Lock", "7.Slack", "8.PDF", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ tag_1, tag_2, tag_3,
+                tag_4, tag_5, tag_6,
+                tag_7, tag_8, tag_9
+              }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -522,24 +535,24 @@ awful.rules.rules = {
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
+    { rule = { class = "Firefox" },
+      properties = { screen = 1, tag = tag_2 } },
     { rule = { class = "Emacs" },
-      properties = { tag = "1"}},
+      properties = { screen = 1, tag = tag_1 } },
     { rule = { class = "Google-chrome" },
-      properties = { tag = "2"}},
+      properties = { screen = 1, tag = tag_2 } },
     { rule = { class = "chromium" },
-      properties = { tag = "2"}},
+      properties = { screen = 1, tag = tag_2 } },
     { rule = { class = "Terminator" },
-      properties = { tag = "3"}},
+      properties = { screen = 1, tag = tag_3 } },
     { rule = { class = "Pcmanfm" },
-      properties = { tag = "5"}},
+      properties = { screen = 1, tag = tag_5 } },
     { rule = { class = "Enpass-Desktop" },
-      properties = { tag = "6"}},
+      properties = { screen = 1, tag = tag_6 } },
     { rule = { class = "Slack" },
-      properties = { tag = "7"}},
+      properties = { screen = 1, tag = tag_7 } },
     { rule = { class = "MuPDF" },
-      properties = { tag = "8"}},
+      properties = { screen = 1, tag = tag_8 } }
 }
 -- }}}
 
