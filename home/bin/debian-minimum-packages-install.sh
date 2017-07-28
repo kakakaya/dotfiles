@@ -8,7 +8,7 @@ fi
 
 # apt
 apt update
-apt install\
+apt install -y\
     git tig\
     zsh jed byobu most\
     automake autoconf\
@@ -18,9 +18,9 @@ apt install\
     colortail colormake colordiff source-highlight\
     sshfs tree\
     figlet\
-    jq fzf
+    jq
 
-apt full-upgrade
+apt full-upgrade -y
 
 # Python
 # pip
@@ -29,5 +29,5 @@ pip install -U pip virtualenv
 
 # npm
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
-apt-get install -y nodejs
+apt install -y nodejs
 npm install -g marked tern html
