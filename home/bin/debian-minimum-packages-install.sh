@@ -18,7 +18,7 @@ apt install\
     colortail colormake colordiff source-highlight\
     sshfs tree\
     figlet\
-    jq
+    jq fzf
 
 apt full-upgrade
 
