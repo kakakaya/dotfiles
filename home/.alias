@@ -53,6 +53,7 @@ alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias mynameis='getent passwd $(whoami) | cut -d ":" -f 5 | cut -d "," -f 1'
+alias zf='z | cut -c 12- | fzf | cd'
 
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 
