@@ -1,5 +1,18 @@
 # -*- Mode: shell-script;coding:utf-8 -*- #
 
+# Vanilla shell
+zplug "yous/vanilli.sh"
+
+# Additional completion definitions for Zsh
+zplug "zsh-users/zsh-completions"
+
+# Syntax highlighting bundle. zsh-syntax-highlighting must be loaded after
+# excuting compinit command and sourcing other plugins.
+zplug "zsh-users/zsh-syntax-highlighting"
+
+# ZSH port of Fish shell's history search feature
+zplug "zsh-users/zsh-history-substring-search"
+
 # fzf
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 
@@ -20,5 +33,7 @@ zplug "mollifier/cd-gitroot"
 # zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
 zplug "zsh-users/zsh-completions", depth:1
+
+zplug "rupa/z", use:z.sh
 
 zplug load

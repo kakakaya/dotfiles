@@ -121,7 +121,8 @@ else
 fi
 PROMPT2="%_%%>"
 
-#SPROMPT="%R? maybe %r.[nyae]"
+SPROMPT="( 'ω')ノ '%R' を '%r' に直す？ [nyae]"
+
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
 # EXEC
