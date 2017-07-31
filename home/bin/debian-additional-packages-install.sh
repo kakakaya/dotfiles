@@ -10,7 +10,7 @@ sed -i -e "s/main$/main contrib non-free/g" /etc/apt/sources.list
 
 # apt
 apt update
-apt install\
+apt install -y\
     terminator\
     chromium\
     pcmanfm nautilus-dropbox mupdf\
@@ -21,4 +21,4 @@ apt install\
     emacs ddskk skkdic-extra howm\
     jq
 
-apt full-upgrade
+apt full-upgrade -y

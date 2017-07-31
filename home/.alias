@@ -53,6 +53,7 @@ alias boundclock='tty-clock -str' # It moves!
 alias killmebaby='pkill -9 sshd'
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias mynameis='getent passwd $(whoami) | cut -d ":" -f 5 | cut -d "," -f 1'
+alias zf='z | cut -c 12- | fzf | cd'
 
 # alias uecchrome='chromium --proxy-server=proxy.uec.ac.jp:8080 1>/dev/null 2>/dev/null &'
 
@@ -104,6 +105,7 @@ case $(ps --no-headers -p $$) in
         alias -g C='| cut'
         alias -g P='| $PAGER'
         alias -g N='| nkf'
+        alias -g F='| fzf'
 
         alias -g LE='|& less'
         # alias -g LER='|& less -R'
@@ -117,6 +119,7 @@ case $(ps --no-headers -p $$) in
         alias -g CE='|& cut'
         alias -g PE='|& $PAGER'
         alias -g NE='|& nkf'
+        alias -g FE='|& fzf'
 
         # Suffix alias
         alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}=extract
