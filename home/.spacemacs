@@ -39,7 +39,6 @@ values."
 
      ;; local packages
      skk
-     slack
 
      ;; non-progn packages
      better-defaults
@@ -83,7 +82,7 @@ values."
    dotspacemacs-additional-packages '(
                                       autoinsert
                                       ;; tabbar
-                                      ddskk
+                                      ;; ddskk
                                       rainbow-mode
                                       git-gutter
                                       desktop
