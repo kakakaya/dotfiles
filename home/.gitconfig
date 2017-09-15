@@ -1,43 +1,48 @@
 [core]
-  excludesfile = ~/.gitignore
-  editor = $EDITOR
+	excludesfile = ~/.gitignore
+	editor = $EDITOR
 [user]
-  signingkey = B7000393
-  name = kakakaya
-  email = kakakaya+git@gmail.com
+	signingkey = B7000393
+	name = kakakaya
+	email = kakakaya+git@gmail.com
 [color]
-  ui = auto
-  status = auto
-  branch = auto
-  interactive = auto
-  diff = auto
+	ui = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	diff = auto
 [push]
-  default = simple
+	default = simple
 [alias]
-  cm = commit -v
-  cma = commit -v -a
-  cmm = commit -v -m
-  cmam = commit -v -a -m
-  cmma = commit -v -a -m
+	cm = commit -v
+	cma = commit -v -a
+	cmm = commit -v -m
+	cmam = commit -v -a -m
+	cmma = commit -v -a -m
 
-  co = checkout
-  com = checkout master
-  cod = checkout develop
+	co = checkout
+	com = checkout master
+	cod = checkout develop
 
-  st = status
-  s = status -sb
-  sb = show-branch
-  d = diff
+	st = status
+	s = status -sb
+	sb = show-branch
+	d = diff
 
-  ps = push
-  pl = pull
+	ps = push
+	pl = pull
+
 [merge]
-  ff = false
+	ff = false
+
+[pull]
+	ff = only
+
 [credential]
-  helper = cache
+	helper = cache
 
 [ghq]
 	root = ~/src
 
 [url "ssh://git@github.com/"]
-  insteadOf = https://github.com/
+	insteadOf = https://github.com/
