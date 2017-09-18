@@ -92,6 +92,7 @@ values."
                                       twittering-mode
 
                                       ;; file editing modes
+                                      editorconfig
                                       nginx-mode
                                       dockerfile-mode
                                       toml-mode
