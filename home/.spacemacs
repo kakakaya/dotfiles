@@ -45,15 +45,18 @@ values."
      git
      github
      markdown
-     ;; language
-
+     csv
 
      ;; programming language
      emacs-lisp
      go
      html
      javascript
-     python
+     (python
+      :variables
+      python-test-runner 'pytest
+      python-enable-yapf-format-on-save t
+      )
      django
      c-c++
      latex
@@ -89,6 +92,7 @@ values."
                                       twittering-mode
 
                                       ;; file editing modes
+                                      editorconfig
                                       nginx-mode
                                       dockerfile-mode
                                       toml-mode
