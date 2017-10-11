@@ -12,7 +12,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z} r:|[-_.]=**'
 zstyle ':completion:*:processes' menu yes select=2
 
 if [[ ! -d ~/.zplug ]]; then
-    curl -sL zplug.sh/installer | zsh
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
 source ~/.zplug/init.zsh
 
@@ -121,7 +121,8 @@ else
 fi
 PROMPT2="%_%%>"
 
-#SPROMPT="%R? maybe %r.[nyae]"
+SPROMPT="( 'ω')ノ '%R' を '%r' に直す？ [nyae]"
+
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
 # EXEC
