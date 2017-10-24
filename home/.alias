@@ -82,6 +82,7 @@ if hash colormake 2>/dev/null; then alias make='colormake'; fi
 if hash trash-put 2>/dev/null; then alias rm='trash-put'; fi
 if hash htop 2>/dev/null; then alias top='htop'; fi
 if hash hub 2>/dev/null; then eval "$(hub alias -s)" ; fi
+if hash virtualenv 2>/dev/null; then alias mkvenv='mkdir venv && virtualenv venv/$(basename $(pwd))'; fi
 
 if hash ghq 2>/dev/null; then
     alias gcd='cd $(ghq root)/$(ghq list | peco)'
