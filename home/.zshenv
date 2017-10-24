@@ -156,13 +156,14 @@ if [[ `tty | cut -d / -f 3` = pts ]]; then
     fi
     case "$PRODUCT" in
         74574PJ*)               # Azurite, megumin, etc
-            #ThinkpadX200
-            xset m 4 2
-            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
-            xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
-            ;;
+        # ThinkpadX200
+        #
+        # xset m 4 2
+        # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
+        # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
+        # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Timeout" 200
+        # xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+        ;;
         akari)                  # old PC from mountain, in MMA
             synclient TapButton1=1
             synclient TapButton2=2
