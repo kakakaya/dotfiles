@@ -110,13 +110,13 @@ myawesomemenu = {
 mymainmenu = awful.menu(
    { items = {
         { "awesome", myawesomemenu, beautiful.awesome_icon },
-        { "Debian", debian.menu.Debian_menu.Debian },
+        { "debian", debian.menu.Debian_menu.Debian },
         { "open terminal", terminal },
-        { "Lock screen", function ()
+        { "lock screen", function ()
              awful.util.spawn_with_shell("xscreensaver-command -lock") end  }
-   }
+   },
+     -- width = 200 -- seems not work
 })
-
 mylauncher = awful.widget.launcher({
       image = beautiful.awesome_icon,
       menu = mymainmenu
@@ -131,7 +131,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock("%y/%m/%d %H:%M （%a）")
+mytextclock = wibox.widget.textclock(" 20%y/%m/%d %H:%M (%a)")
 
 -- cpuwidget
 cputext = wibox.widget({
@@ -153,9 +153,7 @@ memtext = wibox.widget({
 })
 memwidget = wibox.widget.graph()
 memwidget:set_width(60)
-memwidget:set_height(17)
 memwidget:set_background_color("#494B4F")
-memwidget:set_border_color(nil)
 memwidget:set_color({ type = "linear", from = { 0, 17 }, to = { 0, 0 },
                       stops = { { 0, "#3CD3AD" }, { 1, "#93F9B9" }}})
 vicious.register(memwidget, vicious.widgets.mem, "$1", refreshdelay)
@@ -222,7 +220,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 tag_1 = "1.Emacs"
 tag_2 = "2.Web"
 tag_3 = "3.Term"
-tag_4 = "4"
+tag_4 = "4."
 tag_5 = "5.File"
 tag_6 = "6.Lock"
 tag_7 = "7.Slack"
