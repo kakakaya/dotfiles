@@ -192,6 +192,9 @@ case ${HOST} in
         export https_proxy='http://proxy.uec.ac.jp:8080'
 
         ;;
+    kukuri*)
+        unsetopt BG_NICE
+        ;;
     # purple*)
     #   #JED
     #   export PATH=$PATH:/home/staff/jed/avrdev/bin/:$HOME/local/bin
