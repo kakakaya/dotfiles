@@ -131,7 +131,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" 20%y/%m/%d %H:%M (%a)")
+mytextclock = wibox.widget.textclock(" date %Y/%m/%d %H:%M (%a)")
 
 -- cpuwidget
 cputext = wibox.widget({
