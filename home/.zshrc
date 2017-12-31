@@ -146,8 +146,9 @@ if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     # bashcompinit raises parse error
 fi
 
-for file in ~/.zsh/*
+for file in ~/.zsh/*; do
     source $file
+done
 
 # Display Zsh version and display number
 # printf "\n$fg_bold[cyan]This is ZSH $fg_bold[red]${ZSH_VERSION}"
