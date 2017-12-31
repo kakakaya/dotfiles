@@ -687,6 +687,8 @@ layers configuration. You are free to put any user code."
       (progn
         (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
         (setq skk-jisyo "~/Dropbox/config/skk/jisyo") ; が、読まれないが、こう設定するとjiysoは動く
+        (setq skk-large-jisyo "~/Dropbox/config/skk/SKK-JISYO.HUGE")
+        (setq skk-jisyo-code 'utf-8)
         (setq skk-record "~/Dropbox/config/skk/record") ;しかし、recordとstudyは反映されない
         (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
         )
