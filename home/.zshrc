@@ -1,8 +1,8 @@
 # -*- Mode: shell-script;coding:utf-8 -*- #
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=500000
-SAVEHIST=500000
+export HISTFILE=~/.histfile
+export HISTSIZE=500000
+export SAVEHIST=500000
 setopt autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
@@ -14,9 +14,10 @@ zstyle ':completion:*:processes' menu yes select=2
 if [[ ! -d ~/.zplug ]]; then
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
-source ~/.zplug/init.zsh
+source "$HOME/.zplug/init.zsh"
 
 autoload -Uz compinit
+fpath=("$HOME/.zsh/completions" $fpath)
 compinit
 # End of lines added by compinstall
 
@@ -76,11 +77,11 @@ if type complete &>/dev/null; then
 elif type compdef &>/dev/null; then
     _npm_completion() {
         si=$IFS
-        compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+        compadd -- "$(COMP_CWORD=$((CURRENT-1)) \
                                COMP_LINE=$BUFFER \
                                COMP_POINT=0 \
                                npm completion -- "${words[@]}" \
-                               2>/dev/null)
+                               2>/dev/null)"
         IFS=$si
     }
     compdef _npm_completion npm
@@ -106,22 +107,22 @@ compctl -K _npm_completion npm
 
 # Alias config
 if [ -f ~/.alias ]; then
-    source ~/.alias
+    source "$HOME/.alias"
 else
-    echo "~/.alias not found."
+    echo "$HOME/.alias not found."
 fi
 #================ PROMPT ================ #
-PROMPT='
+export PROMPT='
 [%n@%m$(current-battery)]<${LINENO}/%!>:%F{cyan}%~%f
 %#'
-if [ $COLORTERM -eq 1 ]; then
-    RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
+if [ "$COLORTERM" -eq 1 ]; then
+    export RPROMPT="%(?.%F{green}٩('ω')و%f.%F{red}（˘⊖˘）oO[%?]%f)%*";
 else
-    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
+    export RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*";
 fi
-PROMPT2="%_%%>"
+export PROMPT2="%_%%>"
 
-SPROMPT="( 'ω')ノ '%R' を '%r' に直す？ [nyae]"
+export SPROMPT="( 'ω')ノ '%R' を '%r' に直す？ [nyae]"
 
 [ $(echo "$ZSH_VERSION" | cut -c1) -ge 5 ] && zle_highlight=(default:bold,fg=yellow, isearch:fg=red)
 
@@ -129,8 +130,8 @@ SPROMPT="( 'ω')ノ '%R' を '%r' に直す？ [nyae]"
 # autojump
 # if [[ -e /usr/share/autojump/autojump.sh ]];then . /usr/share/autojump/autojump.sh ;fi
 # local zsh files
-[ -f $HOME/bin/zshexec.sh ] && $HOME/bin/zshexec.sh
-[ ! -f ~/.zshrc.zwc -o ~/.zshrc -nt ~/.zshrc.zwc ] && zcompile ~/.zshrc
+[ -f "$HOME/bin/zshexec.sh" ] && "$HOME/bin/zshexec.sh"
+([ ! -f ~/.zshrc.zwc ] || [ ~/.zshrc -nt ~/.zshrc.zwc ]) && zcompile ~/.zshrc
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" # gvm configure
@@ -146,8 +147,8 @@ if [[ -d $HOME/.local/google-cloud-sdk ]]; then
     # bashcompinit raises parse error
 fi
 
-for file in ~/.zsh/*; do
-    source $file
+for file in ~/.zsh/*.zsh; do
+    source "$file"
 done
 
 # Display Zsh version and display number

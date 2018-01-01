@@ -1,41 +1,43 @@
-# -*- Mode: shell-script;coding:utf-8 -*- #
+#!/bin/bash
+# coding:utf-8
 function extract() {
-    case $1 in
-        *.tar.gz|*.tgz) tar xzvf $1;;
-        *.tar.xz) tar Jxvf $1;;
-        *.zip) unzip $1;;
-        *.lzh) lha e $1;;
-        *.tar.bz2|*.tbz) tar xjvf $1;;
-        *.tar.Z) tar zxvf $1;;
-        *.gz) gzip -dc $1;;
-        *.bz2) bzip2 -dc $1;;
-        *.Z) uncompress $1;;
-        *.tar) tar xvf $1;;
-        *.arj) unarj $1;;
-        *.7z) 7z x $1;;
+    case "$1" in
+        *.tar.gz|*.tgz) tar xzvf "$1";;
+        *.tar.xz) tar Jxvf "$1";;
+        *.zip) unzip "$1";;
+        *.lzh) lha e "$1";;
+        *.tar.bz2|*.tbz) tar xjvf "$1";;
+        *.tar.Z) tar zxvf "$1";;
+        *.gz) gzip -dc "$1";;
+        *.bz2) bzip2 -dc "$1";;
+        *.Z) uncompress "$1";;
+        *.tar) tar xvf "$1";;
+        *.arj) unarj "$1";;
+        *.7z) 7z x "$1";;
     esac
 }
 
-function runcpp () { g++ -O2 $1; ./a.out }
-function runjavac() {javac $1}
-function runjavaclass() {java $1}
-function runjar() {java -jar $1}
-function rungo() {go run $1}
+function runcpp () { g++ -O2 "$1"; ./a.out; }
+function runjavac() { javac "$1";}
+function runjavaclass() { java "$1";}
+function runjar() { java -jar "$1";}
+function rungo() { go run "$1";}
 
 function notify-tw() {
-    if [ ! hash tw 2>/dev/null ]; then
+    if [ ! command -v tw ];
+    then
         echo "tw not found"
         exit
     fi
 
     if [ $? = 0 ]; then
-        tw -yes "@kakakaya Successfully completed! at `strdatetime`"
+        tw -yes "@kakakaya Successfully completed! at $(strdatetime)"
     else
-        tw -yes "@kakakaya Failed with Error code ${?} at `strdatetime`"
+        tw -yes "@kakakaya Failed with Error code ${?} at $(strdatetime)"
     fi
 }
 # function exist () {
-#     if type $1 >/dev/null 2>&1;
+#     if type "$1" >/dev/null 2>&1;
 #     then
 #         return 0
 #     else
@@ -63,12 +65,13 @@ function notify-tw() {
 #     fi
 #     echo "($color$name$action%f%b) "
 # }
+
 function current-battery {
     if [ -d /sys/class/power_supply/BAT0 ] ; then
         local per
         if [ ! -x /usr/bin/acpi ]; then return; fi
         per=$(acpi -b | cut -d ' ' -f 4 | cut -d ',' -f 1)
-        if [ $(acpi -a | grep on | wc -l) -eq 0 ]; then
+        if [ "$(acpi -a | grep -c on)" -eq 0 ]; then
             echo "%F{red}$per%%f"
         else
             echo "%F{green}$per%%f"
@@ -76,27 +79,29 @@ function current-battery {
     fi
 }
 
-function zsh-autocmp {
-    # Setup zsh-autosuggestions
-    source ~/.zsh-autosuggestions/autosuggestions.zsh
-    # Enable autosuggestions automatically
-    zle-line-init() {
-        zle autosuggest-start
-    }
-    zle -N zle-line-init
-}
+# function zsh-autocmp {
+#     # Setup zsh-autosuggestions
+#     source ~/.zsh-autosuggestions/autosuggestions.zsh
+#     # Enable autosuggestions automatically
+#     zle-line-init() {
+#         zle autosuggest-start
+#     }
+#     zle -N zle-line-init
+# }
+
 function simple-term {
-    RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
+    export RPROMPT="%(?.%F{green}('_'%)%f.%F{red}(;_;%)[%?]%f)%*"
 }
 
 function howm-cd {
-    cd `date "+$HOME/howm/%Y/%m"`
+    dst_dir="$(date "+$HOME/howm/%Y/%m")"
+    cd "$dst_dir" || echo "No such directory: " "$(date "+$HOME/howm/%Y/%m")"
 }
 
 function howm-check {
-    tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
+    tree -f "$1" | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -I % sh -c "echo -n %; tail -2 %" | grep "*" | cut -d " " -f 1,3
 }
 
 function howm-count {
-    awk '{s+=$1} END {print s}' <(tree -f $1 | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-")
+    awk '{s+=$1} END {print s}' <(tree -f "$1" | grep -E "diary-.*md$" | xargs -n 1 | grep diary | xargs -n 1 tail -2 | grep -e "+" -e " -" | xargs -n 1 echo | grep -e "+" -e "-")
 }
