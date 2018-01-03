@@ -92,6 +92,7 @@ values."
                                       git-gutter
                                       desktop
                                       twittering-mode
+                                      wakatime-mode
 
                                       ;; file editing modes
                                       editorconfig
@@ -728,6 +729,11 @@ layers configuration. You are free to put any user code."
   ;; slack
   (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
          (load "~/Dropbox/config/emacs-slack.el")))
+
+  ;; wakatime
+  (cond ((file-readable-p "~/Dropbox/config/emacs-wakatime.el")
+         (global-wakatime-mode)))
+
 
   ;; alert
   (setq alert-default-style 'notifications)
