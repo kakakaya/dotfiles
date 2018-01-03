@@ -52,6 +52,7 @@ values."
      go
      html
      javascript
+     ruby
      (python
       :variables
       python-test-runner 'pytest
