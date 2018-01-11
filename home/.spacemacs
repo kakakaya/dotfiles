@@ -731,7 +731,8 @@ layers configuration. You are free to put any user code."
          (load "~/Dropbox/config/emacs-slack.el")))
 
   ;; wakatime
-  (cond ((file-readable-p "~/Dropbox/config/emacs-wakatime.el")
+  ;; need to make symlink at Dropbox install
+  (cond ((file-readable-p "~/.wakatime.cfg")
          (global-wakatime-mode)))
 
 
