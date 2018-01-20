@@ -749,6 +749,11 @@ layers configuration. You are free to put any user code."
                (process-kill-without-query (get-process "2ch-proxy"))
                ))
 
+  ;; google-translate
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "ja")
+  (setq google-translate-translation-directions-alist
+        '(("en" . "ja") ("ja" . "en")))
   ;; ================================
   ;; THE END of dotspacemacs/user-config
   )
