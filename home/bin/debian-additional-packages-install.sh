@@ -22,3 +22,6 @@ apt install -y\
     jq
 
 apt full-upgrade -y
+
+# wakatime work time logger
+pip install -U wakatime
