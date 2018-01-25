@@ -684,12 +684,15 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
 
   ;; skk
+  (if (file-readable-p "/usr/share/skk/SKK-JISYO.L.cdb")
+      (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
+      )
   (if (file-exists-p "~/Dropbox/config/skk")
       ;; awful!
       (progn
         (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
         (setq skk-jisyo "~/Dropbox/config/skk/jisyo") ; が、読まれないが、こう設定するとjiysoは動く
-        (setq skk-large-jisyo "~/Dropbox/config/skk/SKK-JISYO.HUGE")
+        ;; (setq skk-large-jisyo "~/Dropbox/config/skk/SKK-JISYO.HUGE") ; causes freeze!
         (setq skk-jisyo-code 'utf-8)
         (setq skk-record "~/Dropbox/config/skk/record") ;しかし、recordとstudyは反映されない
         (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
