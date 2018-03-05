@@ -8,7 +8,7 @@
 
 -- {{{ Main
 local theme = {}
-theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
+-- theme.wallpaper = "/usr/share/awesome/themes/zenburn/zenburn-background.png"
 -- }}}
 
 -- {{{ Styles

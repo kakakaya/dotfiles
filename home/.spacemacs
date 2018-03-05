@@ -52,6 +52,7 @@ values."
      go
      html
      javascript
+     ruby
      (python
       :variables
       python-test-runner 'pytest
@@ -83,6 +84,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      howm
                                       autoinsert
                                       ;; tabbar
                                       ;; ddskk
@@ -90,6 +92,7 @@ values."
                                       git-gutter
                                       desktop
                                       twittering-mode
+                                      wakatime-mode
 
                                       ;; file editing modes
                                       editorconfig
@@ -681,11 +684,16 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-c t") 'twittering-update-status-interactive)
 
   ;; skk
+  (if (file-readable-p "/usr/share/skk/SKK-JISYO.L.cdb")
+      (setq skk-cdb-large-jisyo "/usr/share/skk/SKK-JISYO.L.cdb")
+      )
   (if (file-exists-p "~/Dropbox/config/skk")
       ;; awful!
       (progn
         (setq skk-user-directory "~/Dropbox/config/skk") ;SKKの設定ファイル
         (setq skk-jisyo "~/Dropbox/config/skk/jisyo") ; が、読まれないが、こう設定するとjiysoは動く
+        ;; (setq skk-large-jisyo "~/Dropbox/config/skk/SKK-JISYO.HUGE") ; causes freeze!
+        (setq skk-jisyo-code 'utf-8)
         (setq skk-record "~/Dropbox/config/skk/record") ;しかし、recordとstudyは反映されない
         (setq skk-study "~/Dropbox/config/skk/study")    ;とりあえず追記しておく
         )
@@ -725,6 +733,12 @@ layers configuration. You are free to put any user code."
   (cond ((file-readable-p "~/Dropbox/config/emacs-slack.el")
          (load "~/Dropbox/config/emacs-slack.el")))
 
+  ;; wakatime
+  ;; need to make symlink at Dropbox install
+  (cond ((file-readable-p "~/.wakatime.cfg")
+         (global-wakatime-mode)))
+
+
   ;; alert
   (setq alert-default-style 'notifications)
 
@@ -738,6 +752,11 @@ layers configuration. You are free to put any user code."
                (process-kill-without-query (get-process "2ch-proxy"))
                ))
 
+  ;; google-translate
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "ja")
+  (setq google-translate-translation-directions-alist
+        '(("en" . "ja") ("ja" . "en")))
   ;; ================================
   ;; THE END of dotspacemacs/user-config
   )

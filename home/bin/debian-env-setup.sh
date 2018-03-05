@@ -13,6 +13,7 @@ go get -u -v "github.com/peco/peco/cmd/peco" \
    "github.com/github/hub" \
    "github.com/nsf/gocode" \
    "github.com/rogpeppe/godef" \
+   "golang.org/x/tools/cmd/godoc" \
    "golang.org/x/tools/cmd/guru" \
    "golang.org/x/tools/cmd/gorename" \
    "golang.org/x/tools/cmd/goimports"
