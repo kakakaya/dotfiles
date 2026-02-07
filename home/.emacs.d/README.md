@@ -1,4 +1,0 @@
-init.el
-=======
-
-Emacs configure

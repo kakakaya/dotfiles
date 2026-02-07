@@ -1,7 +1,0 @@
-bin
-.config
-Pictures/Wallpapers
-.emacs.d/private/snippets
-.emacs.d/private/local
-.emacs.d/private/skk
-.emacs.d/private/slack
