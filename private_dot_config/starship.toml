@@ -1,0 +1,196 @@
+# Global fg color: #DCDCCC, bg: #3F3F3F
+
+format = "[ $username$hostname$container ](bg:#289C58)[ ](fg:#289C58 bg:#3F3F3F)[$all](bg:#3F3F3F)"
+add_newline = true
+
+[directory]
+style = "bg:#3F3F3F"
+format = "[$path ]($style)"
+
+truncation_symbol = "…/"
+truncation_length = 100
+truncate_to_repo = true
+
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+[directory.substitutions]
+"Documents" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"src" = " "
+
+[username]
+format = '[$user]($style)'
+
+style_user = "bold fg:#DCDCCC bg:#289C58"
+style_root = "bold fg:#DCDCCC bg:#9A348E"
+disabled = false
+show_always = true
+
+[hostname]
+format = '[@$hostname$ssh_symbol]($style)'
+
+style = "bold fg:#DCDCCC bg:#289C58"                      # change by hostname, later
+ssh_only = false
+
+[container]
+style = 'bold fg:DCDCCC bg:#9A348E'
+symbol = ''
+
+[cmd_duration]
+format = '\[[⏱ $duration]($style)\]'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute
+# style = "bg:#33658A"
+format = '[[ $time ](bg:#33658A)]($style)'
+
+# ================
+# Languages
+# ================
+
+[aws]
+format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+
+
+[cobol]
+format = '\[[$symbol($version)]($style)\]'
+
+[conda]
+format = '\[[$symbol$environment]($style)\]'
+
+[crystal]
+format = '\[[$symbol($version)]($style)\]'
+
+[daml]
+format = '\[[$symbol($version)]($style)\]'
+
+[dart]
+format = '\[[$symbol($version)]($style)\]'
+
+[deno]
+format = '\[[$symbol($version)]($style)\]'
+
+[docker_context]
+format = '\[[$symbol$context]($style)\]'
+symbol = '🐳 '
+
+[dotnet]
+format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+
+[elixir]
+format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+
+[elm]
+format = '\[[$symbol($version)]($style)\]'
+
+[erlang]
+format = '\[[$symbol($version)]($style)\]'
+
+[gcloud]
+format = ' $symbol [$project(\($region\))]($style)'
+symbol = ""
+style = "fg:#9F7E00 bg:#3F3F3F"
+
+
+[git_branch]
+format = '[ ](fg:#316DCA bg:#3F3F3F)[$symbol$branch]($style)'
+# format = '[@$ssh_symbol$hostname]($style)[ ](bold fg:#289C58 bg:#DA627D)'
+style = "fg:#DCDCCC bg:#316DCA"
+
+[git_status]
+format = '[󰇘\[$all_status$ahead_behind\]]($style)[](fg:#316DCA bg:#3F3F3F)'
+style = "fg:#DCDCCC bg:#316DCA"
+
+[git_state]
+style = "fg:#DCDCCC bg:#316DCA"
+format = '[:$state( $progress_current/$progress_total)]($style)'
+cherry_pick = "🍒"
+rebase = "🔀"
+merge = "🐟"
+
+[git_metrics]
+# disabled = false
+
+[golang]
+format = '\[[$symbol($version)]($style)\]'
+
+[haskell]
+format = '\[[$symbol($version)]($style)\]'
+
+[helm]
+format = '\[[$symbol($version)]($style)\]'
+
+[hg_branch]
+format = '\[[$symbol$branch]($style)\]'
+
+[java]
+format = '\[[$symbol($version)]($style)\]'
+
+[julia]
+format = '\[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = '\[[$symbol($version)]($style)\]'
+
+[kubernetes]
+format = '\[[$symbol$context( \($namespace\))]($style)\]'
+
+[lua]
+format = '\[[$symbol($version)]($style)\]'
+
+[memory_usage]
+format = '\[$symbol[$ram( | $swap)]($style)\]'
+
+[nim]
+format = '\[[$symbol($version)]($style)\]'
+
+[nix_shell]
+format = '\[[$symbol$state( \($name\))]($style)\]'
+
+[nodejs]
+format = '\[[$symbol($version)]($style)\]'
+
+[ocaml]
+format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+
+[openstack]
+format = '\[[$symbol$cloud(\($project\))]($style)\]'
+
+[package]
+format = '\[[$symbol$version]($style)\]'
+disabled = true
+
+[perl]
+format = '\[[$symbol($version)]($style)\]'
+
+[php]
+format = '\[[$symbol($version)]($style)\]'
+
+[pulumi]
+format = '\[[$symbol$stack]($style)\]'
+
+[purescript]
+format = '\[[$symbol($version)]($style)\]'
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)'
+
+pyenv_prefix = ""
+style = "bold fg:#9F7E00 bg:#3F3F3F"
+pyenv_version_name = true
+
+[sudo]
+format = '\[[as $symbol]\]'
+
+[terraform]
+format = '\[[$symbol$workspace]($style)\]'
+
+[vagrant]
+format = '\[[$symbol($version)]($style)\]'
+
+[status]
+disabled = false

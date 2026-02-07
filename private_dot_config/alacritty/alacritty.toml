@@ -1,0 +1,18 @@
+[font]
+size = 14.0
+
+[font.bold]
+family = "NotoMono Nerd Font"
+
+[font.bold_italic]
+family = "NotoMono Nerd Font"
+
+[font.italic]
+family = "NotoMono Nerd Font"
+
+[font.normal]
+family = "NotoMono Nerd Font"
+
+[window]
+decorations = "full"
+opacity = 0.8
