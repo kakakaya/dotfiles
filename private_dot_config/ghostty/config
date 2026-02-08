@@ -43,5 +43,8 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
+cursor-style = block
+cursor-style-blink = false
+
 # Ctrl+Enterの全画面トグルを無効化し、ターミナルに送信する
 keybind = ctrl+enter=unbind
