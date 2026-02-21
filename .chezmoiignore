@@ -1,0 +1,18 @@
+{{ if ne .chezmoi.username "kakakaya" }}
+# Installing packages only work in kakakaya machine
+run_once_install-packages-arch.sh
+run_once_install-packages-debian.sh
+{{ end }}
+
+{{ if not (or (eq .chezmoi.osRelease.id "arch") (contains "arch" .chezmoi.osRelease.idLike)) }}
+# Arch
+run_once_install-packages-arch.sh
+.config/packages/pkglist.txt
+.config/packages/pkglist-aur.txt
+{{ end }}
+
+{{ if not (or (eq .chezmoi.osRelease.id "debian") (contains "debian" .chezmoi.osRelease.idLike)) }}
+# Debian
+run_once_install-packages-debian.sh
+.config/packages/pkglist-debian.txt
+{{ end }}

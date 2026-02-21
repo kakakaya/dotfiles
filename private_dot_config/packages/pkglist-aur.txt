@@ -1,0 +1,8 @@
+enpass-bin
+fcitx5-hazkey-bin
+hazkey-zenzai-vulkan
+hgrep-bin
+mazesoba-continent-bin
+neofetch
+ttf-hackgen
+tty-clock
